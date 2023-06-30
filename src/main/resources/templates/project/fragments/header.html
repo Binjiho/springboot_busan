@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+    <div th:fragment="HeaderFragment" id="header" class="mob">
+      <div class="header_inner">
+        <h1>
+          <a href="/" class="font_jalnan" title="아몬드키즈풀빌라">almond kids poolvilla</a>
+        </h1>
+
+        <!-- gnb -->
+        <nav>
+          <ul class="gnb">
+            <li><a href="/about/introduce" class="about">About</a>
+              <ul>
+                <li><a href="/about/introduce" class="about_sub01">소개, 전경</a></li>
+                <li><a href="/about/introduce" class="about_sub02">이용안내</a></li>
+              </ul>
+            </li>
+            <li><a href="/contents/02_room/sub01.html" class="room">Rooms</a>
+              <ul>
+                <li><a href="/contents/02_room/sub01.html" class="room_sub01">키즈핑크</a></li>
+                <li><a href="/contents/02_room/sub02.html" class="room_sub02">키즈옐로우</a></li>
+                <li><a href="/contents/02_room/sub03.html" class="room_sub03">시티풀화이트</a></li>
+                <li><a href="/contents/02_room/sub04.html" class="room_sub04">뮤직핑크</a></li>
+                <li><a href="/contents/02_room/sub05.html" class="room_sub05">뮤직옐로우</a></li>
+              </ul>
+            </li>
+            <li><a href="/contents/03_offers/notice.html?board_id=board_notice" class="offers">Offers</a>
+              <ul>
+                <li><a href="/contents/03_offers/notice.html?board_id=board_notice" class="board_notice">공지사항</a></li>
+                <li><a href="/contents/03_offers/event.html?board_id=board_event" class="board_event">이벤트</a></li>
+              </ul>
+            </li>
+            <li><a href="/contents/04_travel/travel.html?board_id=board_gallery" class="travel">Travel</a>
+              <ul>
+                <li><a href="/contents/04_travel/travel.html?board_id=board_gallery" class="board_gallery">주변 여행지</a></li>
+                <li><a href="/contents/04_travel/food.html?board_id=board_food" class="board_food">이용후기</a></li>
+              </ul>
+            </li>
+            <li><a href="/contents/05_reservation/reservation.html" class="reservation">Reservation</a>
+              <ul>
+                <li><a href="/contents/05_reservation/reservation.html" class="reservation_list">실시간 예약</a></li>
+                <li><a href="/contents/05_reservation/sub02.html" class="reservation_sub02">예약 안내</a></li>
+                <li><a href="/contents/05_reservation/reservation.html?mode=user_list" class="reservation_check">예약 조회</a></li>
+              </ul>
+            </li>
+
+            <li><a href="/contents/06_location/sub01.html" class="location">Location</a></li>
+          </ul>
+        </nav>
+        <!-- //gnb -->
+
+        <div class="area_until">
+          <ul>
+            <li><a href="/contents/03_offers/notice.html?board_id=board_notice">공지사항</a></li>
+            <li><a href="/contents/05_reservation/sub02.html">예약안내</a></li>
+          </ul>
+          <a href="#" class="btn_menu_pc" data-util="menu">
+            <p>Menu</p>
+          </a>
+          <a href="#" class="btn_menu" data-util="menu"></a>
+        </div>
+      </div>
+      <div class="submenu_Bg"></div>
+      <div class="full_menu">
+        <div class="img"></div>
+        <div class="full_gnb"></div>
+      </div>
+    </div>
+</html>

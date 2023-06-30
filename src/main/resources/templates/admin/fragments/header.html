@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+<div th:fragment="HeaderAdmin" id="header" class="mob">
+  <div class="header_inner">
+    <h1>
+      <a href="/admin/index" title="">Admin</a>
+    </h1>
+
+    <!-- gnb -->
+    <nav>
+      <ul class="gnb">
+        <li><a href="/admin/board/list.do" class="board">게시판</a></li>
+        <li><a href="/contents/02_room/sub01.html" class="room">Rooms</a></li>
+        <li><a href="/contents/03_offers/notice.html?board_id=board_notice" class="offers">Offers</a></li>
+        <li><a href="/contents/04_travel/travel.html?board_id=board_gallery" class="travel">Travel</a></li>
+        <li><a href="/contents/05_reservation/reservation.html" class="reservation">Reservation</a></li>
+        <li><a href="/contents/06_location/sub01.html" class="location">Location</a></li>
+      </ul>
+    </nav>
+    <!-- //gnb -->
+
+    <div class="area_until">
+      <ul>
+        <li><a href="/contents/03_offers/notice.html?board_id=board_notice">로그인</a></li>
+        <li><a href="/contents/05_reservation/sub02.html">로그아웃</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="submenu_Bg"></div>
+  <div class="full_menu">
+    <div class="img"></div>
+    <div class="full_gnb"></div>
+  </div>
+</div>
+</html>
