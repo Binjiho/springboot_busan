@@ -9,10 +9,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class BoardRequest {
+public class BoardDetailRequest {
     private Long id;
+    private Long board_id;
     private String title;
-    private String content;
     private String writer;
     private List<MultipartFile> files = new ArrayList<>();// 첨부파일 List
+    private String originalName;
+    private String saveName;
+    private String uploadPath;
 }

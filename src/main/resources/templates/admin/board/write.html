@@ -22,7 +22,10 @@
                 <input type="hidden" id="noticeYn" name="noticeYn" />
                 <table class="tb tb_row">
                     <colgroup>
-                        <col style="width:15%;" /><col style="width:35%;" /><col style="width:15%;" /><col style="width:35%;" />
+                        <col style="width:15%;" />
+                        <col style="width:35%;" />
+                        <col style="width:15%;" />
+                        <col style="width:35%;" />
                     </colgroup>
                     <tbody>
                     <tr>
@@ -35,24 +38,25 @@
 
                     <tr>
                         <th>제목 <span class="es">필수 입력</span></th>
-                        <td colspan="3"><input type="text" id="title" name="title" maxlength="50" placeholder="제목을 입력해 주세요." /></td>
+                        <td colspan="3"><input type="text" id="title" name="title" maxlength="50" placeholder="제목을 입력해 주세요." th:value="${item != null ? item.title : ''}"/></td>
                     </tr>
 
                     <tr>
                         <th>이름 <span class="es">필수 입력</span></th>
-                        <td colspan="3"><input type="text" id="writer" name="writer" maxlength="10" placeholder="이름을 입력해 주세요." /></td>
+                        <td colspan="3"><input type="text" id="writer" name="writer" maxlength="10" placeholder="이름을 입력해 주세요." th:value="${item != null ? item.writer : ''}" /></td>
                     </tr>
 
                     <tr>
                         <th>내용 <span class="es">필수 입력</span></th>
-                        <td colspan="3"><textarea id="content" name="content" cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
+                        <td colspan="3"><textarea id="content" name="content" cols="50" rows="10" placeholder="내용을 입력해 주세요." th:text="${item != null ? item.content : ''}"
+                        ></textarea></td>
                     </tr>
                     </tbody>
                 </table>
             </form>
             <p class="btn_set">
                 <button type="button" id="saveBtn" onclick="savePost();" class="btns btn_st3 btn_mid">저장</button>
-                <a th:href="@{/admin/board/list.do}" class="btns btn_bdr3 btn_mid">뒤로</a>
+                <a th:href="@{/admin/board/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
             </p>
     </div>
         <!--/* .content */-->
@@ -106,7 +110,7 @@
 
                 document.getElementById('saveBtn').disabled = true;
                 form.noticeYn.value = form.isNotice.checked;
-                form.action = [[ ${item == null} ]] ? '/board/save.do' : '/board/update.do';
+                form.action = [[ ${item == null} ]] ? '/admin/board/save' : '/admin/board/update';
                 form.submit();
             }
 

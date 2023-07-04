@@ -1,11 +1,11 @@
-package com.example.demo.admin.board.service;
+package com.example.demo.admin.product.service;
 
-import com.example.demo.admin.board.BoardRequest;
+import com.example.demo.admin.product.ProductMapper;
+import com.example.demo.admin.product.ProductRequest;
+import com.example.demo.admin.product.ProductResponse;
 import com.example.demo.base.paging.Pagination;
 import com.example.demo.base.paging.PagingResponse;
 import com.example.demo.base.paging.SearchDto;
-import com.example.demo.admin.board.BoardMapper;
-import com.example.demo.admin.board.BoardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BoardService {
-    private final BoardMapper boardMapper;
+public class ProductService {
+    private final ProductMapper productMapper;
 
     /**
      * 게시글 저장
@@ -24,8 +24,8 @@ public class BoardService {
      * @return Generated PK
      */
     @Transactional
-    public Long savePost(final BoardRequest params) {
-        boardMapper.save(params);
+    public Long savePost(final ProductRequest params) {
+        productMapper.save(params);
         return params.getId();
     }
 
@@ -34,9 +34,9 @@ public class BoardService {
      * @param id - PK
      * @return 게시글 상세정보
      */
-    public BoardResponse findPostById(final Long id) {
+    public ProductResponse findPostById(final Long id) {
 
-        return boardMapper.findById(id);
+        return productMapper.findById(id);
     }
 
     /**
@@ -45,8 +45,8 @@ public class BoardService {
      * @return PK
      */
     @Transactional
-    public Long updatePost(final BoardRequest params) {
-        boardMapper.update(params);
+    public Long updatePost(final ProductRequest params) {
+        productMapper.update(params);
         return params.getId();
     }
 
@@ -56,19 +56,29 @@ public class BoardService {
      * @return PK
      */
     public Long deletePost(final Long id) {
-        boardMapper.deleteById(id);
+        productMapper.deleteById(id);
         return id;
     }
+
+    /**
+     * 게시글 리스트 조회
+     *
+     * @return 게시글 리스트
+
+    public List<BoardResponse> findAllPost(SearchDto params) {
+        return boardMapper.findAll(params);
+    }
+     */
 
     /**
      * 게시글 리스트 조회
      * @param params - search conditions
      * @return list & pagination information
      */
-    public PagingResponse<BoardResponse> findAllPost(final SearchDto params) {
+    public PagingResponse<ProductResponse> findAllPost(final SearchDto params) {
 
         // 조건에 해당하는 데이터가 없는 경우, 응답 데이터에 비어있는 리스트와 null을 담아 반환
-        int count = boardMapper.count(params);
+        int count = productMapper.count(params);
         if (count < 1) {
             return new PagingResponse<>(Collections.emptyList(), null);
         }
@@ -78,7 +88,7 @@ public class BoardService {
         params.setPagination(pagination);
 
         // 계산된 페이지 정보의 일부(limitStart, recordSize)를 기준으로 리스트 데이터 조회 후 응답 데이터 반환
-        List<BoardResponse> list = boardMapper.findAll(params);
+        List<ProductResponse> list = productMapper.findAll(params);
         return new PagingResponse<>(list, pagination);
     }
 }
