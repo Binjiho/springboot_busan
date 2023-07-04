@@ -20,9 +20,17 @@
     <div class="area_visual">
         <div class="swiper-container main_slider">
             <ul class="swiper-wrapper">
-                <li class="swiper-slide" style="background-image: url(/images/main/main_visual01.jpg);"></li>
-                <li class="swiper-slide" style="background-image: url(/images/main/main_visual02.jpg);"></li>
+                <th:block th:each="items : ${bannerTop}">
+                    <li class="swiper-slide">
+<!--                        <img src="http://localhost:8083/files/a6d46ef5f71b4508bafe248ec5b5932e.jpg">-->
+                        <img th:src="@{/files/} + ${items.saveName}" alt="">
+                    </li>
+                </th:block>
             </ul>
+<!--            <ul class="swiper-wrapper">-->
+<!--                <li class="swiper-slide" style="background-image: url(/images/main/main_visual01.jpg);"></li>-->
+<!--                <li class="swiper-slide" style="background-image: url(/images/main/main_visual02.jpg);"></li>-->
+<!--            </ul>-->
         </div>
 
         <div class="vs_text">

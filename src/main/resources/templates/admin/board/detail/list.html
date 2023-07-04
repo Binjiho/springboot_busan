@@ -76,7 +76,7 @@
                             <td class="tl td-hover"><a th:href="@{/admin/board/detail/view(id=${items.id})}" th:text="${items.title}"></a></td>
                             <td th:text="${items.writer}"></td>
                             <td th:text="${#temporals.format(items.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
-                            <td><a th:href="@{/admin/board/view(id=${items.id})}" class="btns btn_st6 btn_mid">수정</a></td>
+                            <td><a th:href="@{/admin/board/detail/view(id=${items.id})}" class="btns btn_st6 btn_mid">수정</a></td>
                         </tr>
                     </th:block>
                 </tbody>

@@ -16,7 +16,8 @@ import java.util.UUID;
 @Component
 public class FileUtils {
 
-    private final String uploadPath = Paths.get("C:", "Users","Administrator","Desktop","dev","boot_sources", "upload-files").toString();
+//    private final String uploadPath = Paths.get("C:", "Users","Administrator","Desktop","dev","boot_sources", "upload-files").toString();
+    private final String uploadPath = Paths.get("C:", "dev","tools","local","images","upload-files").toString();
 
     /**
      * 다중 파일 업로드
@@ -46,8 +47,9 @@ public class FileUtils {
         }
 
         String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
-        String uploadPath = getUploadPath(today) + File.separator + saveName;
+//        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
+//        String uploadPath = getUploadPath(today) + File.separator + saveName;
+        String uploadPath = getUploadPath() + File.separator + saveName;
         File uploadFile = new File(uploadPath);
 
         try {

@@ -4,6 +4,7 @@ import com.example.demo.admin.board.BoardDetailRequest;
 import com.example.demo.admin.board.BoardDetailResponse;
 import com.example.demo.admin.board.BoardRequest;
 import com.example.demo.admin.board.service.BoardDetailService;
+import com.example.demo.base.controller.BaseController;
 import com.example.demo.base.file.FileRequest;
 import com.example.demo.base.file.FileService;
 import com.example.demo.base.file.FileUtils;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class BoardController {
+public class BoardController extends BaseController {
 
     private final BoardService boardService;
     private final BoardDetailService boardDetailService;
@@ -115,7 +116,7 @@ public class BoardController {
 
     @GetMapping("/admin/board/detail/view")
     public String openDetailBoardView(@RequestParam final Long id, Model model){
-        BoardResponse item = boardService.findPostById(id);
+        BoardDetailResponse item = boardDetailService.findPostById(id);
         model.addAttribute("item", item);
         return "admin/board/detail/view";
     }

@@ -1,12 +1,18 @@
 package com.example.demo.base.controller;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Controller
-public class BaseController {
-//    @GetMapping("/")
-//    public String mainPage(){
-//        return "project/main/index";
-//    }
+@Configuration
+public class BaseController implements WebMvcConfigurer {
+    private String connectPath = "/files/**"; // http://localhost:8080/files/1 경로가
+    private String resourcePath = "file:///C:/dev/tools/local/images/upload-files/230704/"; // file:///C:/dev/tools/local/images/upload-files/230704/1 로 매핑된다.
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(connectPath)
+                .addResourceLocations(resourcePath);
+    }
 }

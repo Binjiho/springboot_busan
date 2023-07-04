@@ -28,25 +28,34 @@
             <th scope="row">등록일</th>
             <td th:text="${#temporals.format( item.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
           </tr>
+
           <tr>
             <th scope="row">제목</th>
             <td>[[ ${item.title} ]]</td>
-
           </tr>
+
           <tr>
             <th scope="row">이름</th>
             <td colspan="3">[[ ${item.writer} ]]</td>
           </tr>
+
           <tr>
-            <th scope="row">내용</th>
-            <td colspan="3">[[ ${item.content} ]]</td>
+            <th scope="row">파일저장된이름</th>
+            <td colspan="3">[[ ${item.saveName} ]]</td>
+          </tr>
+
+          <tr>
+            <th scope="row">파일 미리보기</th>
+            <td colspan="3">
+                <img th:src="@{/files/} + ${item.saveName}" style="width:300px;" alt="">
+            </td>
           </tr>
         </tbody>
       </table>
 
       <p class="btn_set">
         <a th:href="@{/admin/board/write( id=${item.id} )}" class="btns btn_bdr4 btn_mid">수정</a>
-        <a th:onclick="deletePost();" class="btns btn_bdr1 btn_mid">삭제</a>
+        <a th:onclick="deletePost()" class="btns btn_bdr1 btn_mid">삭제</a>
         <a th:href="@{/admin/board/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
       </p>
     </div> <!--/* .content */-->
