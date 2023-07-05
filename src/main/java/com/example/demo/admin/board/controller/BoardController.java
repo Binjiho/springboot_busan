@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin/board")
 @RequiredArgsConstructor
 public class BoardController extends BaseController {
 
@@ -31,7 +32,7 @@ public class BoardController extends BaseController {
     private final FileUtils fileUtils;
 
     //게시판 리스트 페이지
-    @GetMapping("/admin/board/list")
+    @GetMapping("/list")
     public String openBoardList(@ModelAttribute("params") final SearchDto params, Model model){
         PagingResponse<BoardResponse> boardList = boardService.findAllPost(params);
         model.addAttribute("boardList", boardList);
@@ -39,7 +40,7 @@ public class BoardController extends BaseController {
     }
 
     //게시판 작성 페이지
-    @GetMapping("/admin/board/write")
+    @GetMapping("/write")
     public String openboardWrite(@RequestParam(value = "id", required = false) final Long id, Model model) {
         if (id != null) {
             BoardResponse item = boardService.findPostById(id);
@@ -49,7 +50,7 @@ public class BoardController extends BaseController {
     }
 
     //게시판 생성
-    @PostMapping("/admin/board/save")
+    @PostMapping("/save")
     public String saveBoard(final BoardRequest params, Model model) {
         boardService.savePost(params);
         MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/admin/board/list", RequestMethod.GET, null);
@@ -57,7 +58,7 @@ public class BoardController extends BaseController {
     }
 
     //게시판 뷰 페이지
-    @GetMapping("/admin/board/view")
+    @GetMapping("/view")
     public String openBoardView(@RequestParam final Long id, Model model){
         BoardResponse item = boardService.findPostById(id);
         model.addAttribute("item", item);
@@ -65,14 +66,14 @@ public class BoardController extends BaseController {
     }
 
     //게시판 수정
-    @PostMapping("/admin/board/update")
+    @PostMapping("/update")
     public String updateBoard(final BoardRequest params){
         boardService.updatePost(params);
         return "redirect:/admin/board/list";
     }
 
     //게시판 삭제
-    @PostMapping("/admin/board/delete")
+    @PostMapping("/delete")
     public String deleteBoard(@RequestParam final Long id){
         boardService.deletePost(id);
         return "redirect:/admin/board/list";
@@ -80,7 +81,7 @@ public class BoardController extends BaseController {
 
     //게시판 상세 뷰 페이지
 
-    @GetMapping("/admin/board/detail/list")
+    @GetMapping("/detail/list")
     public String openDetailBoardList(@RequestParam final Long boardId, Model model){
 
         BoardResponse item = boardService.findPostById(boardId);
@@ -92,7 +93,7 @@ public class BoardController extends BaseController {
     }
 
     //게시판 작성 페이지
-    @GetMapping("/admin/board/detail/write")
+    @GetMapping("/detail/write")
     public String openDetailBoardWrite(@RequestParam(value = "id", required = false) final Long id, final Long boardId, Model model) {
         if (id != null) {
             BoardDetailResponse item = boardDetailService.findPostById(id);
@@ -101,7 +102,7 @@ public class BoardController extends BaseController {
         model.addAttribute("boardId", boardId);
         return "admin/board/detail/write";
     }
-    @PostMapping("/admin/board/detail/save")
+    @PostMapping("/detail/save")
     public String saveDetailBoard(final BoardDetailRequest params, RedirectAttributes redirectAttributes) {
 
         List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
@@ -114,7 +115,7 @@ public class BoardController extends BaseController {
 //        return showAlertAndRedirect(message, model);
     }
 
-    @GetMapping("/admin/board/detail/view")
+    @GetMapping("/detail/view")
     public String openDetailBoardView(@RequestParam final Long id, Model model){
         BoardDetailResponse item = boardDetailService.findPostById(id);
         model.addAttribute("item", item);

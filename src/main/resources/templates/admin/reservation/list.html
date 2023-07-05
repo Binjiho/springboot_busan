@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="admin/layout/basic">
+<th:block layout:fragment="title">
+    <title>실시간 예약 리스트 페이지</title>
+</th:block>
+
+
+<th:block layout:fragment="content">
+
+    <section id="container">
+
+        <div class="page_tits">
+            <h3>실시간 예약 관리</h3>
+            <p class="path"><strong>현재 위치 :</strong> <span>실시간 예약 관리</span> <span>리스트형</span> <span>리스트</span></p>
+        </div>
+
+        <div class="content">
+        </div>
+
+        <section id="FullCalendar">
+            <div id="calendar">
+            </div>
+        </section>
+        <!--/* .content */-->
+</section>
+</th:block>
+
+<th:block layout:fragment="css">
+    <style>
+        .fc .fc-toolbar-title {
+            color: black;
+            font-size: 20px;
+            height: 48px;
+            line-height: 48px;
+            padding: 0 20px 0 48px;
+            background: url(../images/module/img_calendar.svg) no-repeat 20px 50%;
+        }
+        .fc .fc-today-button {
+            display:none;
+        }
+        .fc .fc-button {
+            background-color: #111010;
+        }
+        .fc-theme-standard th {
+            padding: 5px;
+            background: #111010;
+            border: 1px solid #111010;
+            font-weight: 300;
+        }
+        .fc .fc-col-header-cell-cushion {
+            display: inline-block;
+            padding: 2px 2px;
+            color: #fff;
+            font-size: 15px;
+        }
+        .fc-theme-standard td {
+            position: relative;
+            box-sizing: border-box;
+            padding: 8px 10px;
+            transition: all 0.4s ease-out 0s;
+        }
+        .fc .fc-daygrid-day-number {
+            font-weight: 800;
+        }
+
+        .fc .fc-daygrid-day.fc-day-today {
+            background-color : white;
+            /*background : #f2f5ff;*/
+        }
+        .fc .fc-daygrid-day.fc-day-today:after {
+            content: 'TODAY';
+            display: inline-block;
+            position: absolute;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            line-height: 15px;
+            color: #48a7bf;
+            font-size: 15px;
+        }
+
+        /* 날짜 색상 */
+        /*
+        .fc-day-sun a {
+          color: red;
+          text-decoration: none;
+        }
+        .fc-day-sat a {
+          color: blue;
+          text-decoration: none;
+        }
+        */
+
+        /* event innerHTML */
+        .fc-h-event {
+            border:none;
+        }
+        .fc-h-event .fc-event-main {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+        }
+        .fc-h-event .fc-event-title-container {
+            color: black;
+            font-weight: bold;
+        }
+        .value01 {
+            background: #f55f5f;
+            width: 30%;
+            height: inherit;
+            text-align: center;
+            border-radius: 6px;
+        }
+        .value02 {
+            background: #5eb917;
+            width: 30%;
+            height: inherit;
+            text-align: center;
+            border-radius: 6px;
+        }
+        .value03 {
+            background: #646464;
+            width: 30%;
+            height: inherit;
+            text-align: center;
+            border-radius: 6px;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="script">
+
+    <script src='../js/dist/index.global.js'></script>
+    <script th:inline="javascript">
+
+        $(function(){
+
+            var request = $.ajax({
+                url: "/api/reservation/list",
+                method: "GET",
+                dataType: "json"
+            });
+
+            request.done(function( data ) {
+                console.log(data);
+
+                var calendarEl = document.getElementById('calendar');
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    timeZone: 'local',
+                    locale: 'ko',
+                    titleFormat: function (date) {
+                        year = date.date.year;
+                        month = date.date.month + 1;
+
+                        return year + "년 " + month + "월";
+                    },
+                    // events: data
+
+                    events: [
+                        {
+                            id: 1,
+                            title: 'Test1',
+                            start: '2023-07-05',
+                            end: '2023-07-05',
+                            content:'tmp1',
+                            pValue: 'public',
+                            status: 'yet',
+                        },
+                        {
+                            id: 2,
+                            title: '키즈옐로우',
+                            start: '2023-07-05',
+                            end: '2023-07-05',
+                            content:'tmp1',
+                            pValue: 'public',
+                            status: 'yet',
+                        },
+                        {
+                            id: 3,
+                            title: '시티풀화이트',
+                            start: '2023-07-05',
+                            end: '2023-07-05',
+                            content:'tmp1',
+                            pValue: 'public',
+                            status: 'yet',
+                        },
+                        {
+                            id: 4,
+                            title: '뮤직핑크',
+                            start: '2023-07-05',
+                            end: '2023-07-05',
+                            content:'tmp1',
+                            pValue: 'public',
+                            status: 'yet',
+                        },
+                        {
+                            id: 5,
+                            title: '뮤직옐로우',
+                            start: '2023-07-05',
+                            end: '2023-07-05',
+                            content:'tmp1',
+                            pValue: 'public',
+                            status: 'yet',
+                        },
+                        {
+                            id: 6,
+                            title: 'Test2',
+                            start: '2023-07-11',
+                            end: '2023-07-12',
+                            content:'tmp2',
+                            pValue: 'private',
+                            status: 'done',
+                        },
+                        {
+                            id: 7,
+                            title: 'Test3',
+                            start: '2023-07-18',
+                            end: '2023-07-20',
+                            content:'tmp3',
+                            pValue: 'public',
+                            status: '',
+                        }
+                    ],
+                    eventDidMount: function(info) {
+                        var gColor = 'lightGreen';
+                        var bColor = 'lightBlue';
+                        if (info.event.extendedProps.status == 'done') {
+                            info.el.style.backgroundColor = gColor;
+                            info.el.childNodes[0].innerHTML+="<span class='value01'>완료</span>";
+                        } else if(info.event.extendedProps.status == '') {
+                            info.el.style.backgroundColor = bColor;
+                            info.el.childNodes[0].innerHTML+="<span class='value02'>가능</span>";
+                        }
+                    }
+                });
+                calendar.render();
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        });
+
+        // var request = $.ajax({
+        //     url: "/calendar/event",
+        //     method: "GET",
+        // });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var calendarEl = document.getElementById('calendar');
+        //     var calendar = new FullCalendar.Calendar(calendarEl, {
+        //         initialView: 'dayGridMonth',
+        //         timeZone: 'local',
+        //         locale: 'ko',
+        //         titleFormat: function (date) {
+        //             year = date.date.year;
+        //             month = date.date.month + 1;
+        //
+        //             return year + "년 " + month + "월";
+        //         },
+        //         events: [
+        //             {
+        //                 id: 1,
+        //                 title: 'Test1',
+        //                 start: '2023-07-05',
+        //                 end: '2023-07-05',
+        //                 content:'tmp1',
+        //                 pValue: 'public',
+        //                 status: 'yet',
+        //             },
+        //             {
+        //                 id: 2,
+        //                 title: '키즈옐로우',
+        //                 start: '2023-07-05',
+        //                 end: '2023-07-05',
+        //                 content:'tmp1',
+        //                 pValue: 'public',
+        //                 status: 'yet',
+        //             },
+        //             {
+        //                 id: 3,
+        //                 title: '시티풀화이트',
+        //                 start: '2023-07-05',
+        //                 end: '2023-07-05',
+        //                 content:'tmp1',
+        //                 pValue: 'public',
+        //                 status: 'yet',
+        //             },
+        //             {
+        //                 id: 4,
+        //                 title: '뮤직핑크',
+        //                 start: '2023-07-05',
+        //                 end: '2023-07-05',
+        //                 content:'tmp1',
+        //                 pValue: 'public',
+        //                 status: 'yet',
+        //             },
+        //             {
+        //                 id: 5,
+        //                 title: '뮤직옐로우',
+        //                 start: '2023-07-05',
+        //                 end: '2023-07-05',
+        //                 content:'tmp1',
+        //                 pValue: 'public',
+        //                 status: 'yet',
+        //             },
+        //             {
+        //                 id: 6,
+        //                 title: 'Test2',
+        //                 start: '2023-07-11',
+        //                 end: '2023-07-12',
+        //                 content:'tmp2',
+        //                 pValue: 'private',
+        //                 status: 'done',
+        //             },
+        //             {
+        //                 id: 7,
+        //                 title: 'Test3',
+        //                 start: '2023-07-18',
+        //                 end: '2023-07-20',
+        //                 content:'tmp3',
+        //                 pValue: 'public',
+        //                 status: '',
+        //             }
+        //         ],
+        //         eventDidMount: function(info) {
+        //             var gColor = 'lightGreen';
+        //             var bColor = 'lightBlue';
+        //             if (info.event.extendedProps.status == 'done') {
+        //                 info.el.style.backgroundColor = gColor;
+        //                 info.el.childNodes[0].innerHTML+="<span class='value01'>완료</span>";
+        //             } else if(info.event.extendedProps.status == '') {
+        //                 info.el.style.backgroundColor = bColor;
+        //                 info.el.childNodes[0].innerHTML+="<span class='value02'>가능</span>";
+        //             }
+        //         }
+        //     });
+        //     calendar.render();
+        // });
+    </script>
+
+</th:block>
+</html>

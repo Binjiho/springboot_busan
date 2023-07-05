@@ -7,10 +7,14 @@
 </head>
 
 <body>
+<div class="admin-wrap" style="min-height: calc(100% - 30px);">
+
 <th:block th:replace="admin/fragments/header :: HeaderAdmin"></th:block>
 
 <th:block layout:fragment="content"></th:block>
+</div>
 
+<th:block th:replace="admin/fragments/footer :: FooterAdmin"></th:block>
 </body>
 
 </html>

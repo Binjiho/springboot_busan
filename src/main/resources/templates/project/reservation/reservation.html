@@ -15,13 +15,13 @@
         <h3>quick menu</h3>
         <ul>
           <li class="active">
-            <a href="/contents/05_reservation/reservation.html#lnb" class="reservation_list on">실시간 예약</a>
+            <a href="/reservation" class="reservation_list on">실시간 예약</a>
           </li>
           <li>
-            <a href="/contents/05_reservation/sub02.html#lnb" class="reservation_sub02">예약 안내</a>
+            <a href="/reservation" class="reservation_sub02">예약 안내</a>
           </li>
           <li>
-            <a href="/contents/05_reservation/reservation.html?mode=user_list#lnb" class="reservation_check">예약 조회</a>
+            <a href="/reservation" class="reservation_check">예약 조회</a>
           </li>
         </ul>
       </div>
@@ -1688,6 +1688,12 @@
       padding: 0 20px 0 48px;
       background: url(../images/module/img_calendar.svg) no-repeat 20px 50%;
     }
+    .fc .fc-today-button {
+      display:none;
+    }
+    .fc .fc-button {
+      background-color: #111010;
+    }
     .fc-theme-standard th {
       padding: 5px;
       background: #111010;
@@ -1709,8 +1715,10 @@
     .fc .fc-daygrid-day-number {
       font-weight: 800;
     }
+
     .fc .fc-daygrid-day.fc-day-today {
-        background : #f2f5ff;
+        background-color : white;
+        /*background : #f2f5ff;*/
     }
     .fc .fc-daygrid-day.fc-day-today:after {
         content: 'TODAY';
@@ -1737,23 +1745,38 @@
     */
 
     /* event innerHTML */
+    .fc-h-event {
+      border:none;
+    }
     .fc-h-event .fc-event-main {
         display: flex;
         justify-content: space-between;
+        background-color: white;
     }
     .fc-h-event .fc-event-title-container {
         color: black;
         font-weight: bold;
     }
     .value01 {
-      background: #a59f90;
-      width: 25%;
+      background: #f55f5f;
+      width: 30%;
+      height: inherit;
       text-align: center;
+      border-radius: 6px;
     }
-    .value03 {
-      background: #549e4b;
-      width: 25%;
+    .value02 {
+      background: #5eb917;
+      width: 30%;
+      height: inherit;
       text-align: center;
+      border-radius: 6px;
+     }
+    .value03 {
+      background: #646464;
+      width: 30%;
+      height: inherit;
+      text-align: center;
+      border-radius: 6px;
      }
   </style>
 </th:block>
@@ -1762,6 +1785,10 @@
 
   <script src='../js/dist/index.global.js'></script>
   <script th:inline="javascript">
+    var request = $.ajax({
+      url: "/calendar/event",
+      method: "GET",
+    });
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -1847,7 +1874,7 @@
             info.el.childNodes[0].innerHTML+="<span class='value01'>완료</span>";
         } else if(info.event.extendedProps.status == '') {
             info.el.style.backgroundColor = bColor;
-            info.el.childNodes[0].innerHTML+="<span class='value03'>가능</span>";
+            info.el.childNodes[0].innerHTML+="<span class='value02'>가능</span>";
         }
       }
     });

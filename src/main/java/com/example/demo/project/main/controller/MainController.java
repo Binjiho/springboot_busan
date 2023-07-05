@@ -19,7 +19,7 @@ public class MainController extends BaseController {
     public String mainPage(Model model){
 
         //load Banner
-        Long boardId = 1001L; // HOME: 1L , OUT: 1001L
+        Long boardId = 1L; // HOME: 1L , OUT: 1001L
         List<BoardDetailResponse> bannerTop = boardDetailService.findAllPostById(boardId);
         model.addAttribute("bannerTop", bannerTop);
         return "project/main/index";

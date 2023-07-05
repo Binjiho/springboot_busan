@@ -1,24 +1,40 @@
-package com.example.demo.project.reservation.controller;
+package com.example.demo.admin.reservation.controller;
 
+import com.example.demo.admin.reservation.service.ReservationService;
 import com.example.demo.base.controller.BaseController;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
-@RequestMapping("/reservation")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
-public class ReservationController extends BaseController {
+public class AdminReservationController extends BaseController {
+
+    private ReservationService reservationService;
 
     @GetMapping("/reservation")
-    public String openReservationList(Model model){
-        return "project/reservation/reservation";
+    public String openAdminReservationList(Model model){
+        return "admin/reservation/list";
     }
 
 
+
+    //    @GetMapping("/admin/board/list")
+//    public String openBoardList(@ModelAttribute("params") final SearchDto params, Model model){
+//        PagingResponse<BoardResponse> boardList = boardService.findAllPost(params);
+//        model.addAttribute("boardList", boardList);
+//        return "admin/board/list";
+//    }
 //
 //    //게시판 작성 페이지
 //    @GetMapping("/admin/board/write")
