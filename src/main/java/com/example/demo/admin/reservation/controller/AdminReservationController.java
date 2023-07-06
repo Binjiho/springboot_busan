@@ -29,10 +29,14 @@ public class AdminReservationController extends BaseController {
     }
 
 
-    //스케쥴 생성
+    /**
+     * 스케쥴 생성
+     * TODO : spring batch로 일자 간격으로 생성
+     * @param params
+     * @return
+     */
     @PostMapping("/reservation/save")
-    public String saveReservation(final ReservationRequest params, Model model) {
-//        return params.toString();
+    public String saveReservation(final ReservationRequest params) {
         List<ReservationDto> reservationDtoList = new ArrayList<>();
         List<String> roomsList = params.getRooms();
         for(int i=0; i<roomsList.size(); i++){
@@ -53,25 +57,6 @@ public class AdminReservationController extends BaseController {
 //        List<String> listTitleStatusOrd = roomsList.stream()
 //                .filter(item -> item.contains("kp"))
 //                .collect(Collectors.toList());
-//
-//        ReservationService.savePost(params);
-//        MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/admin/board/list", RequestMethod.GET, null);
-//        return showAlertAndRedirect(message, model);
     }
-
-
-//    //게시판 수정
-//    @PostMapping("/admin/board/update")
-//    public String updateBoard(final BoardRequest params){
-//        boardService.updatePost(params);
-//        return "redirect:/admin/board/list";
-//    }
-//
-//    //게시판 삭제
-//    @PostMapping("/admin/board/delete")
-//    public String deleteBoard(@RequestParam final Long id){
-//        boardService.deletePost(id);
-//        return "redirect:/admin/board/list";
-//    }
 
 }

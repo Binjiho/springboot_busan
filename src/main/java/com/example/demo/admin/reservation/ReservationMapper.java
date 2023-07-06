@@ -2,6 +2,7 @@ package com.example.demo.admin.reservation;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -15,16 +16,22 @@ public interface ReservationMapper {
     List<ReservationResponse> findAll();
 
     /**
-     * 게시글 저장
+     * 특정 스케쥴 리스트 조회
+     * @return 스케쥴 리스트
+     */
+    List<ReservationResponse> find(ReservationRequest param);
+
+    /**
+     * 스케쥴 저장
      * @param params - 게시글 정보
      */
     void save(ReservationDto params);
 
     /**
-     * 게시글 삭제
-     * @param id - PK
+     * 스케쥴 갱신
+     * @param params
      */
-//    void deleteById(Long id);
+    void update(ReservationRequest params);
 
 
 }

@@ -19,17 +19,11 @@ import java.util.List;
 public class ReservationRequest {
     private Long id;                       // PK
     private String title;                  // 제목
-//    private int kp;                        // 키즈핑크 상태값
-//    private int ky;                        // 키즈옐로우 상태값
-//    private int cw;                        // 시티풀화이트 상태값
-//    private int mp;                        // 뮤직핑크 상태값
-//    private int my;                        // 뮤직옐로우 상태값
-    private Boolean deleteYn;              // 삭제 여부
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private int status;                    // 상태값
+    private Boolean payedYn;               // 결제 여부
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;           // 시작일자
-    private LocalDate endDate;             // 마감일자
     private int ord;                       // 순번
     private List<String> rooms = new ArrayList<>();  // rooms 상태값
 }

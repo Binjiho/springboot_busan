@@ -1,14 +1,14 @@
 package com.example.demo.base.controller;
 
 import com.example.demo.admin.board.service.BoardService;
+import com.example.demo.admin.reservation.ReservationRequest;
 import com.example.demo.admin.reservation.ReservationResponse;
 import com.example.demo.admin.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +22,7 @@ public class RestApiController {
 
     /**
      * json data
-     *
+     * reservation
      * @return
      */
     @GetMapping("/api/reservation/list")
@@ -44,18 +44,31 @@ public class RestApiController {
         return result;
     }
 
-    @GetMapping("/members")
-    //@ResponseBody //메시지 컨버터(Message Converter)에 의해 화면(HTML)이 아닌 리턴 타입에 해당하는 데이터 자체를 리턴
-    public List<Map<String,Object>> findAllMember() {
-        List<Map<String,Object>> members = new ArrayList<>();
+    @PostMapping("/api/reservation/list/detail")
+    @ResponseBody
+    public List<Map<String, Object>> apiReservationListDetail(@RequestBody final ReservationRequest param){
+        List<ReservationResponse> list = reservationService.findPost(param);
 
-        for (int i=0; i<20; i++){
-            Map<String, Object> member = new HashMap<>();
-            member.put("id",i);
-            member.put("name",i+"번 개발자");
-            member.put("age",10+i);
-            members.add(member);
+        List<Map<String,Object>> result = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, Object> items = new HashMap<>();
+            items.put("id", list.get(i).getId());
+            items.put("title", list.get(i).getTitle());
+            items.put("start", list.get(i).getStartDate());
+            items.put("end", list.get(i).getStartDate());
+            items.put("status", list.get(i).getStatus());
+            items.put("ord", list.get(i).getOrd());
+            result.add(items);
         }
-        return members;
+        return result;
     }
+
+    @PostMapping("/api/reservation/update")
+    @ResponseBody
+    public Long apiReservationUpdate(@RequestBody final ReservationRequest param){
+        Long result = reservationService.updatePost(param);
+        return result;
+    }
+
 }

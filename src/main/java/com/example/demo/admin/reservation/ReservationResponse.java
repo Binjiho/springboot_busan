@@ -18,10 +18,8 @@ public class ReservationResponse {
     private Long id;                       // PK
     private String title;                  // 제목
     private int status;                    // 상태값
-    private Boolean deleteYn;              // 삭제 여부
-//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private LocalDate startDate;       // 시작일자
-    private LocalDate endDate;         // 마감일자
+    private Boolean payedYn;               // 결제 여부
+    private LocalDate startDate;           // 시작일자
+    private LocalDate endDate;             // 마감일자
     private int ord;                       // 순번
 }
