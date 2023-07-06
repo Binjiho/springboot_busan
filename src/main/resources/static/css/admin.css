@@ -1040,6 +1040,7 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .addr_in input {width:100%;}
 .addr_in .btns {height:38px; line-height:36px;}
 /* checkbox */
+/*
 .chkbox_group .chkbox {margin-right:20px;}
 .chkbox {position:relative; padding-left:25px; display:inline-block; color:#333;}
 .chkbox input[type="checkbox"], .chkbox i {position:absolute; top:3px; left:0px; width:15px; height:15px;}
@@ -1047,7 +1048,52 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .chkbox i {display:inline-block; border:1px solid #ccc; border-radius:2px; z-index:3;}
 .chkbox input:checked+i {border-color:#999;}
 .chkbox input:checked+i::before {background-position:-115px 0; width:10px; height:11px; position:absolute; top:50%; left:50%; margin:-5px 0 0 -5px;}
+*/
+/* checkbox */
+.chkbox_group {overflow:hidden;}
+.chkbox_group label {
+  font-size: 18px;
+  line-height: 2rem;
+  padding: 0.2em 0.4em;
+}
+.chkbox_group input[type="checkbox"], span {
+  vertical-align: middle;
+}
+.chkbox_group input[type="checkbox"] {
+  appearance: none;
+  border: max(2px, 0.1em) solid gray;
+  border-radius: 50%;
+  width: 1.25em;
+  height: 1.25em;
+  transition: border 0.5s ease-in-out;
+}
+.chkbox_group input[type="checkbox"]:checked {
+  border: 0.4em solid #48a7bf;
+}
+.chkbox_group input[type="checkbox"]:focus-visible {
+  outline-offset: max(2px, 0.1em);
+  outline: max(2px, 0.1em) dotted #48a7bf;
+}
+.chkbox_group input[type="checkbox"]:hover {
+  box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+  cursor: pointer;
+}
+.chkbox_group input[type="checkbox"]:hover + span {
+  cursor: pointer;
+}
+.chkbox_group input[type="checkbox"]:disabled {
+  background-color: lightgray;
+  box-shadow: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.chkbox_group input[type="checkbox"]:disabled + span {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 /* radio */
+/*
 .radio_group {overflow:hidden;}
 .radios {position:relative; display:inline-block; margin-right:15px;}
 .radios input[type=radio] {position:absolute; visibility:hidden;}
@@ -1057,6 +1103,52 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .radios input[type=radio]:checked ~ .check {border:1px solid #555; background:#fff;}
 .radios input[type=radio]:checked ~ .check::before {background:#555;}
 .radios input[type=radio]:checked ~ label {}
+*/
+
+/* radio */
+.radio_group {overflow:hidden;}
+.radio_group label {
+  font-size: 18px;
+  line-height: 2rem;
+  padding: 0.2em 0.4em;
+}
+.radio_group input[type="radio"], span {
+  vertical-align: middle;
+}
+.radio_group input[type="radio"] {
+  appearance: none;
+  border: max(2px, 0.1em) solid gray;
+  border-radius: 50%;
+  width: 1.25em;
+  height: 1.25em;
+  transition: border 0.5s ease-in-out;
+}
+.radio_group input[type="radio"]:checked {
+  border: 0.4em solid #48a7bf;
+}
+.radio_group input[type="radio"]:focus-visible {
+  outline-offset: max(2px, 0.1em);
+  outline: max(2px, 0.1em) dotted #48a7bf;
+}
+.radio_group input[type="radio"]:hover {
+  box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+  cursor: pointer;
+}
+.radio_group input[type="radio"]:hover + span {
+  cursor: pointer;
+}
+.radio_group input[type="radio"]:disabled {
+  background-color: lightgray;
+  box-shadow: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.radio_group input[type="radio"]:disabled + span {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
 /* 첨부파일 스타일 */
 .file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:70%; box-sizing:border-box;}
 .file_input label {vertical-align:middle; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; display:inline-block; overflow:hidden; width:95px; height:38px; line-height:38px; background:#777; color:#fff; text-align:center; box-sizing:border-box;}
@@ -1100,7 +1192,8 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 #popup_wrap .pop_con h3 {font-size:34px; margin-top:30px;}
 #popup_wrap .pop_con h3:first-child {margin-top:0px;}
 
-/* 레이어팝업 */
+
+/*
 .btn_close {display:inline-block; background-color:transparent; border:0; padding:5px;}
 .btn_close span {display:inline-block; font-size:27px;}
 .popLayer .btn_close {position:absolute; top:20px; right:15px;}
@@ -1113,3 +1206,35 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .popLayer .pop_container.scroll_cont {max-height:470px; overflow:auto;}
 .popLayer .pop_container .btn_set {margin:30px 0 0;}
 .popLayer .pop_container .btn_set > button {height:40px; line-height:38px; font-size:15px; min-width:80px;}
+*/
+/* 레이어팝업 */
+.popLayer {
+    position: absolute;
+    z-index: 90;
+    overflow: hidden;
+    border: 1px solid #353535;
+    border-radius: 14px;
+    z-index: 10;
+    left: 50%;
+    top:30%;
+    margin-left: -10%;
+    margin-top: -150px;
+    width:auto;
+    height:auto;
+    background: white;
+    border: 1px solid #d1d8dd;
+    box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
+}
+.popLayer .btn {
+    display: flex;
+    /*justify-content: space-between;*/
+    justify-content: end;
+    padding: 13px 10px;
+    background: #353535;
+    text-align: left;
+}
+
+.popLayer .btn > button {
+    background: #353535;
+    color: white;
+}

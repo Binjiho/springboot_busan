@@ -18,7 +18,7 @@ public interface ReservationMapper {
      * 게시글 저장
      * @param params - 게시글 정보
      */
-//    void save(BoardRequest params);
+    void save(ReservationDto params);
 
     /**
      * 게시글 삭제

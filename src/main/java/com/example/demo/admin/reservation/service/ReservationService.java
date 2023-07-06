@@ -1,7 +1,9 @@
 package com.example.demo.admin.reservation.service;
 
+import com.example.demo.admin.reservation.ReservationDto;
 import com.example.demo.admin.reservation.ReservationMapper;
 import com.example.demo.admin.reservation.ReservationResponse;
+import com.example.demo.base.file.FileRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +33,12 @@ public class ReservationService {
      * @param params - 게시글 정보
      * @return Generated PK
      */
-//    @Transactional
-//    public Long savePost(final BoardRequest params) {
-//        boardMapper.save(params);
-//        return params.getId();
-//    }
+    @Transactional
+    public void savePost(final List<ReservationDto> params) {
+        for (ReservationDto reservationDto : params) {
+            reservationMapper.save(reservationDto);
+        }
+    }
 
     /**
      * 스케쥴 삭제

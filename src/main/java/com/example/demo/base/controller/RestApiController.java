@@ -34,13 +34,13 @@ public class RestApiController {
         for (int i = 0; i < list.size(); i++) {
             Map<String, Object> items = new HashMap<>();
             items.put("id", list.get(i).getId());
-            items.put("name", list.get(i).getTitle());
+            items.put("title", list.get(i).getTitle());
+            items.put("start", list.get(i).getStartDate());
+            items.put("end", list.get(i).getStartDate());
             items.put("status", list.get(i).getStatus());
-            items.put("start_date", list.get(i).getStartDate());
             items.put("ord", list.get(i).getOrd());
             result.add(items);
         }
-
         return result;
     }
 
