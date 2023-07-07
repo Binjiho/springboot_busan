@@ -143,7 +143,7 @@ body{font-size:17rem;word-break:keep-all;overflow-y:overlay;overflow-x: hidden;}
 	body.active {overflow:hidden;}
 
 }
-
+/*
 @media all and (max-width:1023px){
 	html{font-size:0.09775171065493645vw;}
 	body{font-size:16rem;}
@@ -181,12 +181,9 @@ body{font-size:17rem;word-break:keep-all;overflow-y:overlay;overflow-x: hidden;}
 	#header[data-value="black"] .btn_menu {color:#111;}
 	#header[data-value="black"] .btn_menu > i span {background:#111;}
 	#header[data-value="black"] .btn_menu.active > i span {background:#333;}
-
-
 	.full_menu {display:none;}
-
 }
-
+*/
 @media all and (max-width:860px){
     html{font-size:0.13020833333333335vw;}
 

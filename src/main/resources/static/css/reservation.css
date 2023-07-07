@@ -1,4 +1,6 @@
-@charset "utf-8"; /* 체크인아웃 */
+@charset "utf-8";
+
+/* 체크인아웃 */
 .area_roomCheckIN {
     box-sizing: border-box;
     transition: all .3s;
@@ -455,11 +457,11 @@ a.for_wating.apply_btn:hover {
 .area_roomReserved .search .list li input:hover,
 .area_roomReserved .search .list li input:focus{outline:none;}
 .area_roomReserved .search .list li .ui-datepicker-trigger{position:absolute; right:0px; top:50%; margin-top:-10px;}
-.area_roomReserved .search .list li[data-room-search="person"]:after{content:''; display:block; position:absolute; top:50%; right:2px; width:16px; height:18px; margin-top:-9px; background:url(../images/reservation/icon_user.svg) no-repeat 50% 0;}
+.area_roomReserved .search .list li[data-room-search="person"]:after{content:''; display:block; position:absolute; top:50%; right:2px; width:16px; height:18px; margin-top:-9px; background:url(../images/module/icon_user.svg) no-repeat 50% 0;}
 .area_roomReserved .search .list li[data-room-search="person"] label{position:absolute; top:14px; left:8px; color:#666; font-weight:300;}
 .area_roomReserved .search .list li[data-room-search="person"] input{padding-left:100px; padding-right:25px;}
 .area_roomReserved .search p{position:relative; padding-left:25px; font-size:15px; font-weight:300; color:#222;}
-.area_roomReserved .search p:before{content:''; display:block; position:absolute; top:0px; left:0px; width:21px; height:20px; background:url(../images/reservation/icon_info.png) no-repeat 50% 0;}
+.area_roomReserved .search p:before{content:''; display:block; position:absolute; top:0px; left:0px; width:21px; height:20px; background:url(../images/module/icon_info.png) no-repeat 50% 0;}
 .area_roomReserved .search .button{width:100%; min-width:inherit; height:55px; line-height:53px; margin-top:30px;}
 .area_roomReserved .search .info{margin-top:80px; padding:15px; background:#f1ede1;}
 .area_roomReserved .search .info h3{display:inline-block; margin-top:0px; padding:5px 10px; background:#5f5949; border-radius:60px; font-weight:300; color:#fff; font-size:14px;}
@@ -611,8 +613,8 @@ a.for_wating.apply_btn:hover {
 .area_roomReserved.result ul li[data-room-result="tel"] input{float:left; width:calc(100% / 3 - 10px); margin:0 0 0 15px;}
 .area_roomReserved.result ul li[data-room-result="tel"] input:nth-of-type(1){margin-left:0;}
 .area_roomReserved.result ul li[data-room-result="tel"]:after{content:''; display:block; clear:both;}
-.area_roomReserved.result ul li[data-room-result="tel"]:before{background:url(../images/reservation/icon_data.svg) no-repeat 50% 50%;}
-.area_roomReserved.result ul li[data-room-result="user"]:before{background:url(../images/reservation/icon_user.svg) no-repeat 50% 50%;}
+.area_roomReserved.result ul li[data-room-result="tel"]:before{background:url(../images/module/icon_data.svg) no-repeat 50% 50%;}
+.area_roomReserved.result ul li[data-room-result="user"]:before{background:url(../images/module/icon_user.svg) no-repeat 50% 50%;}
 .area_roomReserved.result ul li[data-room-result="user"] input{padding-right:25px;}
 .area_roomReserved.result ul li.active label,
 .area_roomReserved.result ul li.in label{top:20px; color:#cab272; transform:translateY(0);}
@@ -1274,4 +1276,114 @@ input[data-form-type="datepicker"]{width:105px; text-align:center;}
     width: 1400rem;
     max-width: 92%;
     margin: 0 auto;
+}
+
+/*   full-calendar   */
+.fc .fc-toolbar-title {
+    color: black;
+    font-size: 20px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 20px 0 48px;
+    background: url(../images/module/img_calendar.svg) no-repeat 20px 50%;
+}
+/*
+.fc .fc-scroller {
+    overflow: hidden scroll;
+    position: relative;
+}
+*/
+.fc .fc-today-button {
+    display:none;
+}
+.fc .fc-button {
+    background-color: #111010;
+}
+.fc-theme-standard th {
+    padding: 5px;
+    background: #111010;
+    border: 1px solid #111010;
+    font-weight: 300;
+}
+.fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    padding: 2px 2px;
+    color: #fff;
+    font-size: 15px;
+}
+.fc-theme-standard td {
+    position: relative;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    transition: all 0.4s ease-out 0s;
+}
+.fc .fc-daygrid-day:hover{
+    z-index:2000;
+    box-shadow:0 8px 15px rgba(0,0,0,0.10);
+}
+.fc .fc-daygrid-day-number {
+    font-weight: 800;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color : white;
+    /*background : #f2f5ff;*/
+}
+.fc .fc-daygrid-day.fc-day-today:after {
+    content: 'TODAY';
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    line-height: 15px;
+    color: #48a7bf;
+    font-size: 15px;
+}
+
+/* 날짜 색상 */
+/*
+.fc-day-sun a {
+  color: red;
+  text-decoration: none;
+}
+.fc-day-sat a {
+  color: blue;
+  text-decoration: none;
+}
+*/
+
+/* event innerHTML */
+.fc-h-event {
+    border:none;
+}
+.fc-h-event .fc-event-main {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+}
+.fc-h-event .fc-event-title-container {
+    color: black;
+    font-weight: bold;
+}
+.value01 {
+    background: #f55f5f;
+    width: 30%;
+    height: inherit;
+    text-align: center;
+    border-radius: 6px;
+}
+.value02 {
+    background: #5eb917;
+    width: 30%;
+    height: inherit;
+    text-align: center;
+    border-radius: 6px;
+}
+.value03 {
+    background: #646464;
+    width: 30%;
+    height: inherit;
+    text-align: center;
+    border-radius: 6px;
 }

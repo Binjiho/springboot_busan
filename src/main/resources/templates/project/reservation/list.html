@@ -1,0 +1,254 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="project/layout/basic">
+
+<div id="wrap">
+
+  <th:block layout:fragment="content">
+  <!-- area_subVisual -->
+  <div class="area_subVisual">
+    <section class="wrapper">
+      <div class="sv_text">
+        <h2>Reservation</h2>
+        <p>아이들과 함께 편안하고 즐거운 추억을 만들어보세요.</p>
+      </div>
+
+      <div class="area_lnb">
+        <h3>quick menu</h3>
+        <ul>
+          <li class="active">
+            <a href="/reservation/list" class="reservation_list on">실시간 예약</a>
+          </li>
+          <li>
+            <a href="/reservation/guide" class="reservation_sub02">예약 안내</a>
+          </li>
+          <li>
+            <a href="/reservation/check" class="reservation_check">예약 조회</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <!-- //area_subVisual -->
+
+  <section id="container" class="wrapper rerservation02">
+    <div id="content">
+      <h3 class="sub_tit">실시간 예약</h3>
+      <p>부산에서 가장 넓고 쾌적한 대형 객실을 갖추고 있는 프리미엄 키즈 풀빌라를 <br>간편한 방법으로 예약하여 쾌적한 시설과 수준 높은 서비스를 느껴보세요.</p>
+      <ul class="icon_list" style="margin-bottom: 30rem; margin-top: 0rem;">
+        <!--<li><a href="#" target="_blank" onClick="alert('홈페이지 예약기능 준비중입니다. \n예약은 네이버, 여기어때, 야놀자, 쿠팡에서 가능합니다.')" title="홈페이지"><img src="/images/content/notice_logo01.svg" alt="홈페이지"></a></li>-->
+        <li><a href="https://naver.me/5MD7Xzvt" target="_blank" title="네이버"><img src="/images/sns/naver.svg" alt="네이버"></a></li>
+        <li><a href="https://place-site.yanolja.com/places/10043896" target="_blank" title="야놀자펜션"><img src="/images/sns/yanolja.svg" alt="야놀자펜션"></a></li>
+        <li><a href="https://www.goodchoice.kr/product/detail?ano=73531" target="_blank" title="여기어때"><img src="/images/sns/yeogi.svg" alt="여기어때"></a></li>
+        <li><a href="https://place-site.yanolja.com/places/10043896" target="_blank" title="쿠팡트레블"><img src="/images/sns/coupang.png" alt="쿠팡트레블"></a></li>
+      </ul>
+      <!-- <section>
+
+  <i><img src="/images/common/icon_notice.svg"></i>
+  <h3 class="font_jalnan">페이지 준비중입니다.</h3>
+  <p>보다 나은 서비스 제공을 위하여 페이지 준비중에있습니다. <br>빠른 시일내에 준비하여 찾아뵙겠습니다.</p>
+</section> -->
+
+      <div class="area_roomReserved area_calendar type02">
+
+        <!--<div class="note">※ 1박 2일 예약은 전화로 문의하시기 바랍니다.</div>-->
+
+        <form action="/contents/05_reservation/reservation.html" method="get" name="reservation_byjsh" enctype="multipart/form-data">
+          <input type="hidden" name="mode" value="write" />
+          <input type="hidden" name="c_date" value="" />
+          <input type="hidden" name="no" value="" />
+          <!-- 0525 디자인작업전
+               숙소 <input type="text" name="room" value="" readonly="readonly"/>
+          체크인 <input type="text" name="start_date" value="" />
+          체크아웃 <input type="text" name="end_date" value="" />
+
+
+          <input type="button" onclick="submit_reservation()" name="예약하기" value="예약하기" /> -->
+
+          <!-- 체크인아웃 -->
+          <div class="area_roomCheckIN">
+            <ul>
+              <li>
+                <label for="room">객실</label>
+                <div class="inputBox">
+                  <input type="text" name="room" id="room" value="" readonly="readonly">
+                </div>
+              </li>
+              <li>
+                <label for="checkIn">체크인</label>
+                <div class="inputBox">
+                  <i class="icon"></i>
+                  <input type="text" name="start_date" id="checkIn" value="" readonly="readonly">
+                </div>
+              </li>
+              <li>
+                <label for="checkOut">체크아웃</label>
+                <div class="inputBox">
+                  <i class="icon"></i>
+                  <input type="text" name="end_date" id="checkOut" value="" readonly="readonly">
+                </div>
+              </li>
+              <li>
+                <label for="diff_days">일수 :</label>
+                <div class="inputBox" id = "diff_days">
+
+                </div>
+              </li>
+              <li>
+            </ul>
+            <button type="button" onclick="submit_reservation()" name="예약하기">
+              <!-- <input type="button" onclick="submit_reservation()" name="예약하기" value="예약하기" /> -->
+              <span>예약하기</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="box_color">
+          <span class="reser_color01 reser_done">예약완료</span>
+          <span class="reser_color02">예약가능</span>
+          <span class="reser_color03">입금대기</span>
+          <span class="reser_standby">예약대기신청</span>
+        </div>
+
+      </div>
+
+      <!-- 예약대기신청 클릭시 팝업 -->
+      <div class="layer_popup book_ver">
+        <div class="apply_form">
+
+          <div class="apply_formBox"  id="view_modal">
+            <h6>예약 대기자 신청</h6>
+            <dl>
+              <dt>이용일자</dt>
+              <dd><em>2022.05.25</em></dd>
+            </dl>
+            <div class="detail">
+              <strong>예약 신청 내용</strong>
+              <ul>
+                <li>
+                  <label for="select_room">객실선택</label>
+                  <select id="select_room">
+                    <option value="객실선택">객실선택</option>
+                    <option value="여름">여름</option>
+                    <option value="겨울">겨울</option>
+                  </select>
+                </li>
+                <li class="w50">
+                  <label for="name">예약자명</label>
+                  <input type="text" id="name">
+                </li>
+                <li class="w50">
+                  <label for="count">인원수</label>
+                  <input type="number" id="count" placeholder="최대 4명">
+                </li>
+                <li>
+                  <label for="contact">연락처</label>
+                  <input type="number" id="contact" placeholder="">
+                </li>
+                <li>
+                  <label for="require">요청사항</label>
+                  <textarea id="require">
+
+				</textarea>
+                </li>
+              </ul>
+            </div>
+
+            <div class="apply_button">
+              <button class="cancle_btn">취소</button>
+              <button type="submit">신청하기</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="cancle"></div>
+      </div>
+
+      <div id="calendar">
+
+      </div>
+
+    </div>
+  </section>
+
+  </th:block>
+</div>
+
+<th:block layout:fragment="css">
+  <style>
+  </style>
+</th:block>
+
+<th:block layout:fragment="script">
+  <script src='../js/dist/index.global.js'></script>
+  <script th:inline="javascript">
+    $(function(){
+      const request = $.ajax({
+          url: "/api/reservation/list",
+          method: "GET",
+          dataType: "json"
+      });
+
+      request.done(function( data ) {
+          const calendarEl = document.getElementById('calendar');
+
+          const calendar = new FullCalendar.Calendar(calendarEl, {
+              initialView: 'dayGridMonth',
+              timeZone: 'local',
+              locale: 'ko',
+              editable: true,
+              titleFormat: function (date) {
+                  year = date.date.year;
+                  month = date.date.month + 1;
+
+                  return year + "년 " + month + "월";
+              },
+              events: data,
+              eventDidMount: function(info) {
+                  if (info.event.extendedProps.status == '1') {
+                      info.el.childNodes[0].innerHTML+="<span class='value01'>완료</span>";
+                  } else if(info.event.extendedProps.status == '2') {
+                      info.el.childNodes[0].innerHTML+="<span class='value02'>가능</span>";
+                  } else if(info.event.extendedProps.status == '3') {
+                      info.el.childNodes[0].innerHTML+="<span class='value03'>대기</span>";
+                  }
+              }
+          });
+          calendar.on('dateClick', function(info) {
+            // console.log('clicked on ' + info.dateStr);
+
+              const requestDetail = $.ajax({
+                  type : "POST",
+                  url: "/api/reservation/list/detail",
+                  data : JSON.stringify({
+                      "startDate" : info.dateStr
+                  }),
+                  contentType : "application/json",
+                  dataType : "json"
+              });
+              requestDetail.done(function( result ) {
+                  for(const idx in result){
+                      $('.chkbox_group').eq(idx).attr('data-id',result[idx].id);
+                      $('.chkbox_group').eq(idx).find('input[type=checkbox]').eq(result[idx].status-1).prop('checked',true);
+                  }
+              });
+              requestDetail.fail(function( jqXHR, textStatus ) {
+                  alert( "Request failed: " + textStatus );
+              });
+
+            $("#startDate").val(info.dateStr);
+            $(".popLayer").show();
+          });
+          calendar.render();
+      });
+
+      request.fail(function( jqXHR, textStatus ) {
+          alert( "Request failed: " + textStatus );
+      });
+  });
+  </script>
+
+  <script th:inline="javascript">
+    $(document).ready(function() {
+      AOS.init();
+    });
+  </script>
+</th:block>
