@@ -18,47 +18,71 @@
 
   <section id="container" class="wrapper">
     <div id="content">
-      <h3 class="sub_tit">이용후기</h3>
+      <h3 class="sub_tit"></h3>
+      <form action="/ko_admin/board/skin/gallery/proc.php" method="post" name="form" enctype="multipart/form-data">
+        <input type="hidden" name="board_id" value="board_food" />
+        <input type="hidden" name="mode" value="write" />
+        <input type="hidden" name="return_url" value="http://almondkidsbusan.com/contents/04_travel/food.html?mode=write&board_id=board_food&cate=" />
+        <input type="hidden" name="no" value="" />
+        <input type="hidden" name="ref_no" value="" />
+        <input type="hidden" name="tag_type" value="" />
 
-      <!-- 검색 및 버튼 -->
-      <div class="bbsSearch">
-        <form action="" method="get">
-          <input type="hidden" name="board_id" value="board_notice" />
-          <input type="hidden" name="start" value="0" />
+        <table class="bbsView">
+        <caption>게시판 글쓰기</caption>
+          <colgroup>
+            <col data-write="th" style="width:15%"/>
+            <col data-write="td" style="width:85%"/>
+          </colgroup>
+          <tbody>
+          <tr>
+            <th scope="row"><span class="marking">필수항목</span><label for="title">제목</label></th>
+            <td><input type="text" name="title" id="title" class="inputFull required" value=""/></td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="marking">필수항목</span><label for="name">작성자</label></th>
+            <td><input type="text" name="name" id="name" value="" class="required" /></td>
+          </tr>
+          <tr>
+            <th scope="row">비밀글 여부</th>
+            <td>
+              <div class="designCheck">
+                <input type="checkbox" name="secret" id="secret" value="Y" /><label for="secret">비밀글 사용</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">내용</th>
+            <td>
+              <textarea name="comments" id="smart_content" rows="2" cols="2" style="width:100%; ; height:412px;" class="inputFull"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">첨부파일</th>
+            <td>
+              <div class='designFile'><input type='text' readonly='readonly' value=''/><input type='file' name='file_1' id='file_1'/><label for='file_1' class='button white'> 파일선택</label>  </div><div class='designFile'><input type='text' readonly='readonly' value=''/><input type='file' name='file_2' id='file_2'/><label for='file_2' class='button white'> 파일선택</label>  </div><div class='designFile'><input type='text' readonly='readonly' value=''/><input type='file' name='file_3' id='file_3'/><label for='file_3' class='button white'> 파일선택</label>  </div>				<span>첨부파일 가능 용량은 20MB 입니다</span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="marking">필수항목</span><label for="pin">비밀번호</label></th>
+            <td>
+              <input type="password" name="password" id="pin" value="" class="required" title="비밀번호"  />
+              <em>※ 글 수정, 삭제시 필요합니다.</em>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
 
-          <div class="designSelect">
-            <select name="search_key" id="searchType">
-              <option value="">전체</option>
-              <option value="title"> 제목</option>
-              <option value="name">작성자</option>
-            </select>
-          </div>
-
-          <input type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" value="">
-          <input type="submit" class="button" value="검색">
-        </form>
+      <!-- 버튼 -->
+      <div class="btn_area">
+        <input type="submit" onclick="msgImpletion();" class="button white" value="저장" />
+        <a href="/contents/04_travel/food.html?board_id=board_food&amp;mode=list&amp;start=" class="button gray">취소</a>
       </div>
-
-      <ul class="bbsList">
-        <li class='none'>등록된 글이 없습니다.</li>
-      </ul>
-
-      <!-- page -->
-      <div class="pagination">
-        <div class='page_control_prev'>
-          <a href='/contents/03_offers/notice.html?board_id=board_notice&amp;search_key=&amp;keyword=&amp;cate=&amp;start=0' class='btn_end first'><span>맨처음</span></a></div><ol><li class='on'><a href='javascript:void(0);'>1</a></li></ol><div class='page_control_next'><a href='/contents/03_offers/notice.html?board_id=board_notice&amp;search_key=&amp;keyword=&amp;cate=&amp;start=0' class='btn_end last'><span>맨마지막</span></a>
-        </div>
-      </div>
-      <!-- //page -->
-
-      <!--   button    -->
-      <div class="btn" style="float: right">
-        <a href="/review/write" class="button"><span>글쓰기</span></a>
-      </div>
-
+      <!-- //버튼 -->
     </div>
   </section>
-</th:block>
+
+  </th:block>
 </div>
 
 <th:block layout:fragment="css">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <div th:fragment="HeaderFragment" id="header" class="mob">
       <div class="header_inner">
         <h1>
@@ -9,13 +9,13 @@
         <!-- gnb -->
         <nav>
           <ul class="gnb">
-            <li><a href="/about/introduce" class="about">About</a>
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'about')} ? 'on' : '' "><a href="/about/introduce" class="about">About</a>
               <ul>
                 <li><a href="/about/introduce" class="about_sub01">소개, 전경</a></li>
                 <li><a href="/about/informationUse" class="about_sub02">이용안내</a></li>
               </ul>
             </li>
-            <li><a href="/rooms/kp" class="room">Rooms</a>
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'rooms')} ? 'on' : '' "><a href="/rooms/kp" class="room">Rooms</a>
               <ul>
                 <li><a href="/rooms/kp" class="room_sub01">키즈핑크</a></li>
                 <li><a href="/rooms/ky" class="room_sub02">키즈옐로우</a></li>
@@ -25,11 +25,11 @@
               </ul>
             </li>
 
-            <li><a href="/notice/list" class="notice">Notice</a></li>
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'notice')} ? 'on' : '' "><a href="/notice/list" class="notice">Notice</a></li>
 
-            <li><a href="/review/list" class="review">Review</a></li>
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'review')} ? 'on' : '' "><a href="/review/list" class="review">Review</a></li>
 
-            <li><a href="/reservation/list" class="reservation">Reservation</a>
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'reservation')} ? 'on' : '' "><a href="/reservation/list" class="reservation">Reservation</a>
               <ul>
                 <li><a href="/reservation/list" class="reservation_list">실시간 예약</a></li>
                 <li><a href="/reservation/guide" class="reservation_sub02">예약 안내</a></li>
@@ -37,7 +37,7 @@
               </ul>
             </li>
 
-            <li><a href="/location" class="location">Location</a></li>
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'location')} ? 'on' : '' "><a href="/location" class="location">Location</a></li>
           </ul>
         </nav>
         <!-- //gnb -->

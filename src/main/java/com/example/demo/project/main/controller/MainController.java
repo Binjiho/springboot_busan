@@ -1,12 +1,18 @@
 package com.example.demo.project.main.controller;
 
 import com.example.demo.admin.board.BoardDetailResponse;
+import com.example.demo.admin.board.BoardRequest;
+import com.example.demo.admin.board.BoardResponse;
 import com.example.demo.admin.board.service.BoardDetailService;
 import com.example.demo.base.controller.BaseController;
+import com.example.demo.base.dto.MessageDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +38,7 @@ public class MainController extends BaseController {
      * @return
      */
     @GetMapping("/about/introduce")
-    public String openAboutPage(){
+    public String openAboutPage(Model model){
         return "project/about/introduce";
     }
 
@@ -99,6 +105,32 @@ public class MainController extends BaseController {
     @GetMapping("/review/list")
     public String openReviewListPage(){
         return "project/review/list";
+    }
+
+    //이용후기 작성 페이지
+    @GetMapping("/review/write")
+    public String openReviewdWritePage(@RequestParam(value = "id", required = false) final Long id, Model model) {
+//        if (id != null) {
+//            BoardResponse item = reviewService.findPostById(id);
+//            model.addAttribute("item", item);
+//        }
+        return "project/review/write";
+    }
+
+    //이용후기 생성
+//    @PostMapping("/review/save")
+//    public String saveReview(final ReviewRequest params, Model model) {
+//        reviewService.savePost(params);
+//        return "redirect:/project/review/list";
+//    }
+
+    //이용후기 뷰 페이지
+    @GetMapping("/review/detail")
+    public String openReviewDetail(@RequestParam final Long id, Model model){
+//        ReviewResponse item = reviewService.findPostById(id);
+//        model.addAttribute("item", item);
+        return "project/review/detail";
+//        return "project/review/detail?id={id}";
     }
 
     /* reservation */

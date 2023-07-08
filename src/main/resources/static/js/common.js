@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	// gnb
 	$("nav > ul > li.has_sub > a").click(function(e){
 		if($(this).parent().has("> ul")) {
@@ -52,6 +53,14 @@ $(document).ready(function(){
 		$(this).parent('label').parent('.file_upload').parent('.file_preview').find("img").attr('src',tmppath);
 	});
 });
+
+//gnb add on
+function gnbClassOn(uri){
+	console.log('hihihihi');
+	if(uri.includes('about')){
+		console.log('hihi');
+	}
+}
 
 // 레이어 팝업(기본)
 function layerPop(popName){

@@ -14,13 +14,13 @@
       <div class="area_lnb">
         <h3>quick menu</h3>
         <ul>
-          <li class="active">
-            <a href="/reservation/list" class="reservation_list on">실시간 예약</a>
+          <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'list')} ? 'active' : '' ">
+            <a href="/reservation/list" class="reservation_list">실시간 예약</a>
           </li>
-          <li>
-            <a href="/reservation/guide" class="reservation_sub02">예약 안내</a>
+          <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'guide')} ? 'active' : '' ">
+            <a href="/reservation/guide" class="reservation_guide">예약 안내</a>
           </li>
-          <li>
+          <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'check')} ? 'active' : '' ">
             <a href="/reservation/check" class="reservation_check">예약 조회</a>
           </li>
         </ul>
