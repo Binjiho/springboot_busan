@@ -18,7 +18,7 @@
 
   <section id="container" class="wrapper">
     <div id="content">
-      <h3 class="sub_tit"></h3>
+      <h3 class="sub_tit">이용후기 글쓰기</h3>
       <form action="/ko_admin/board/skin/gallery/proc.php" method="post" name="form" enctype="multipart/form-data">
         <input type="hidden" name="board_id" value="board_food" />
         <input type="hidden" name="mode" value="write" />
@@ -28,7 +28,6 @@
         <input type="hidden" name="tag_type" value="" />
 
         <table class="bbsView">
-        <caption>게시판 글쓰기</caption>
           <colgroup>
             <col data-write="th" style="width:15%"/>
             <col data-write="td" style="width:85%"/>
@@ -42,14 +41,26 @@
             <th scope="row"><span class="marking">필수항목</span><label for="name">작성자</label></th>
             <td><input type="text" name="name" id="name" value="" class="required" /></td>
           </tr>
+
+          <tr>
+            <th scope="row">비밀글 여부</th>
+            <td>
+              <span class="chkbox">
+                <input type="checkbox" id="isNotice" name="isNotice" class="chk" /><i></i><label for="isNotice"> 설정</label>
+              </span>
+            </td>
+          </tr>
+
           <tr>
             <th scope="row">비밀글 여부</th>
             <td>
               <div class="designCheck">
-                <input type="checkbox" name="secret" id="secret" value="Y" /><label for="secret">비밀글 사용</label>
+                <input type="checkbox" name="isSecret" id="secret" value="Y" /><label for="secret">비밀글 사용</label>
               </div>
             </td>
           </tr>
+
+
           <tr>
             <th scope="row">내용</th>
             <td>
@@ -59,7 +70,11 @@
           <tr>
             <th scope="row">첨부파일</th>
             <td>
-              <div class='designFile'><input type='text' readonly='readonly' value=''/><input type='file' name='file_1' id='file_1'/><label for='file_1' class='button white'> 파일선택</label>  </div><div class='designFile'><input type='text' readonly='readonly' value=''/><input type='file' name='file_2' id='file_2'/><label for='file_2' class='button white'> 파일선택</label>  </div><div class='designFile'><input type='text' readonly='readonly' value=''/><input type='file' name='file_3' id='file_3'/><label for='file_3' class='button white'> 파일선택</label>  </div>				<span>첨부파일 가능 용량은 20MB 입니다</span>
+              <div class='designFile'>
+                <input type='text' readonly='readonly' value=''/>
+                <input type='file' name='file_1' id='file_1'/><label for='file_1' class='button white'> 파일선택</label>
+              </div>
+              <span>첨부파일 가능 용량은 20MB 입니다</span>
             </td>
           </tr>
           <tr>

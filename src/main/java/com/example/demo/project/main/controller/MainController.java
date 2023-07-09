@@ -97,42 +97,6 @@ public class MainController extends BaseController {
         return "project/notice/list";
     }
 
-    /* review */
-    /**
-     * 이용후기 페이지
-     * @return
-     */
-    @GetMapping("/review/list")
-    public String openReviewListPage(){
-        return "project/review/list";
-    }
-
-    //이용후기 작성 페이지
-    @GetMapping("/review/write")
-    public String openReviewdWritePage(@RequestParam(value = "id", required = false) final Long id, Model model) {
-//        if (id != null) {
-//            BoardResponse item = reviewService.findPostById(id);
-//            model.addAttribute("item", item);
-//        }
-        return "project/review/write";
-    }
-
-    //이용후기 생성
-//    @PostMapping("/review/save")
-//    public String saveReview(final ReviewRequest params, Model model) {
-//        reviewService.savePost(params);
-//        return "redirect:/project/review/list";
-//    }
-
-    //이용후기 뷰 페이지
-    @GetMapping("/review/detail")
-    public String openReviewDetail(@RequestParam final Long id, Model model){
-//        ReviewResponse item = reviewService.findPostById(id);
-//        model.addAttribute("item", item);
-        return "project/review/detail";
-//        return "project/review/detail?id={id}";
-    }
-
     /* reservation */
     /**
      * 실시간 예약 조회 페이지
