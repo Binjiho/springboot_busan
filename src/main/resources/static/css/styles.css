@@ -174,12 +174,12 @@ body{font-size:17rem;word-break:keep-all;overflow-y:overlay;overflow-x: hidden;}
 	#header nav .gnb > li{display:block;}
 	#header nav .gnb{display:grid; align-content:center; width:100%; overflow-y:auto;}
 	#header nav .gnb > li {padding:0; margin:20rem 0;}
-	#header nav .gnb > li > a {display:inline-block; padding:0 20rem; font-size:27rem; font-weight:600; font-family: 'Jalnan'; color:#333; transition:all 0.3s ease 0s;}
+	#header nav .gnb > li > a {display:inline-block; padding:0 20rem; font-size:27rem; font-weight:600; font-family: 'Jalnan'; color:#fff; transition:all 0.3s ease 0s;}
 	#header nav .gnb > li ul{display:none; padding:0;}
 	#header nav .gnb > li ul > li {display:inline-block; padding:0 10rem;}
-	#header nav .gnb > li ul > li > a {display:block; padding:10rem 0rem; font-size: 16rem; color:#333;}
+	#header nav .gnb > li ul > li > a {display:block; padding:10rem 0rem; font-size: 16rem; color:#fff;}
 	#header nav .gnb > li ul li.active a{color:#eeaf5e;}
-	#header nav > h1 { display:block; width:100%; padding:20rem 31rem; font-size: 24rem; text-transform: uppercase; color: #333; border-bottom:1px solid rgba(255, 255, 255, .1);}
+	#header nav > h1 { display:block; width:100%; padding:20rem 31rem; font-size: 24rem; text-transform: uppercase; color: #fff; border-bottom:1px solid rgba(255, 255, 255, .1);}
 	#header nav > h1 img {width:170rem; height:40rem;}
 
 	#header .area_until {right:0;}

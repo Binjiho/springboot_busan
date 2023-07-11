@@ -19,13 +19,9 @@
   <section id="container" class="wrapper">
     <div id="content">
       <h3 class="sub_tit">이용후기 글쓰기</h3>
-      <form action="/ko_admin/board/skin/gallery/proc.php" method="post" name="form" enctype="multipart/form-data">
-        <input type="hidden" name="board_id" value="board_food" />
-        <input type="hidden" name="mode" value="write" />
-        <input type="hidden" name="return_url" value="http://almondkidsbusan.com/contents/04_travel/food.html?mode=write&board_id=board_food&cate=" />
-        <input type="hidden" name="no" value="" />
-        <input type="hidden" name="ref_no" value="" />
-        <input type="hidden" name="tag_type" value="" />
+      <form id="saveForm" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="${items?.id} " />
+        <input type="hidden" name="return_url" value="/review/list" />
 
         <table class="bbsView">
           <colgroup>
@@ -35,52 +31,48 @@
           <tbody>
           <tr>
             <th scope="row"><span class="marking">필수항목</span><label for="title">제목</label></th>
-            <td><input type="text" name="title" id="title" class="inputFull required" value=""/></td>
+            <td><input type="text" name="title" id="title" class="inputFull required" th:value="${items?.title} "/></td>
           </tr>
           <tr>
-            <th scope="row"><span class="marking">필수항목</span><label for="name">작성자</label></th>
-            <td><input type="text" name="name" id="name" value="" class="required" /></td>
-          </tr>
-
-          <tr>
-            <th scope="row">비밀글 여부</th>
-            <td>
-              <span class="chkbox">
-                <input type="checkbox" id="isNotice" name="isNotice" class="chk" /><i></i><label for="isNotice"> 설정</label>
-              </span>
-            </td>
+            <th scope="row"><span class="marking">필수항목</span><label for="writer">작성자</label></th>
+            <td><input type="text" name="writer" id="writer" class="required" th:value="${items?.writer}" /></td>
           </tr>
 
           <tr>
             <th scope="row">비밀글 여부</th>
             <td>
-              <div class="designCheck">
-                <input type="checkbox" name="isSecret" id="secret" value="Y" /><label for="secret">비밀글 사용</label>
+              <div class="checkBox">
+                <input type="checkbox" name="secretYn" id="secret" value="1" th:checked="${items?.secretYn == 1} ? 'checked' "/><label for="secret">비밀글 사용</label>
               </div>
             </td>
           </tr>
 
-
           <tr>
-            <th scope="row">내용</th>
+            <th scope="row"><span class="marking">필수항목</span><label for="contents">내용</label></th>
             <td>
-              <textarea name="comments" id="smart_content" rows="2" cols="2" style="width:100%; ; height:412px;" class="inputFull"></textarea>
+              <textarea name="content" id="contents" rows="2" cols="2" style="width:100%; ; height:412px;" class="inputFull" th:text="${items?.content}"></textarea>
             </td>
           </tr>
           <tr>
             <th scope="row">첨부파일</th>
             <td>
-              <div class='designFile'>
-                <input type='text' readonly='readonly' value=''/>
-                <input type='file' name='file_1' id='file_1'/><label for='file_1' class='button white'> 파일선택</label>
+              <div class="file_list">
+                <div class='designFile'>
+                  <input type='text' readonly='readonly' th:value="${items?.saveName}" />
+                  <input type='file' name='files' id='file' onchange="selectFile(this);"/><label for='file' class='button white'> 파일선택</label>
+                </div>
+                <!--
+                <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+                <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
+                -->
               </div>
               <span>첨부파일 가능 용량은 20MB 입니다</span>
             </td>
           </tr>
           <tr>
-            <th scope="row"><span class="marking">필수항목</span><label for="pin">비밀번호</label></th>
+            <th scope="row"><span class="marking">필수항목</span><label for="password">비밀번호</label></th>
             <td>
-              <input type="password" name="password" id="pin" value="" class="required" title="비밀번호"  />
+              <input type="password" name="password" id="password"  class="required" title="비밀번호" th:value="${items?.password} "/>
               <em>※ 글 수정, 삭제시 필요합니다.</em>
             </td>
           </tr>
@@ -90,8 +82,8 @@
 
       <!-- 버튼 -->
       <div class="btn_area">
-        <input type="submit" onclick="msgImpletion();" class="button white" value="저장" />
-        <a href="/contents/04_travel/food.html?board_id=board_food&amp;mode=list&amp;start=" class="button gray">취소</a>
+        <input type="button" class="button white" onclick="savePost()" th:value="${items} ? '수정' : '저장'"/>
+        <a href="/review/list" class="button gray">취소</a>
       </div>
       <!-- //버튼 -->
     </div>
@@ -108,352 +100,95 @@
 
 <th:block layout:fragment="script">
   <script th:inline="javascript">
-    $(document).ready(function() {
-      selectDesign();
-  });
+    // 게시글 저장(수정)
+    function savePost() {
+        const form = document.getElementById('saveForm');
+        const fields = [form.title, form.writer, form.password];
+        const fieldNames = ['제목', '작성자', '비밀번호'];
 
-  $(function(){
-      jQuery('.scrollbar-dynamic').scrollbar();
-      jQuery('.scrollbar-inner').scrollbar();
-  });
+        //유효성 검사
+        for (let i = 0, len = fields.length; i < len; i++) {
+            isValid(fields[i], fieldNames[i]);
+        }
 
-  $(function() {
-    $( ".datepicker" ).datepicker({
-      dateFormat: 'yy-mm-dd',
-      prevText: '이전 달',
-      nextText: '다음 달',
-      monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-      monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-      dayNames: ['일','월','화','수','목','금','토'],
-      dayNamesShort: ['일','월','화','수','목','금','토'],
-      dayNamesMin: ['일','월','화','수','목','금','토'],
-      showMonthAfterYear: true,
-      changeMonth: true,
-      changeYear: true,
-      showOn: "both",
-      buttonText: "달력보기",
-    });
-  });
+        form.action = [[ ${items == null} ]] ? '/review/save' : '/review/update';
+        form.submit();
+    }
 
-  function sms_send() {
-      var phone_tmp1 = $("input[name='phone1']").val();
-      var phone_tmp2 = $("input[name='phone2']").val();
-      var phone_tmp3 = $("input[name='phone3']").val();
+    function hasCoda(value) {
+        return ((value.charCodeAt(value.length - 1) - 0xAC00) % 28) > 0;
+    }
 
-      if( phone_tmp1 == "" || phone_tmp2 == "" || phone_tmp3 == "" ){
-          alert("휴대폰번호를 올바르게 입력해주세요.");
+    /**
+     * 필드(Elemenet) 유효성 검사
+     * @param target - 검사 대상 Element
+     * @param fieldName - 필드명
+     * @param focusTarget - 포커스 대상 Element
+     * @returns 필드 입력(선택) 여부
+     */
+    function isValid(target, fieldName, focusTarget) {
+        if (target.value.trim()) {
+            return true;
+        }
+
+        const particle = (hasCoda(fieldName)) ? '을' : '를'; // 조사
+        const elementType = (target.type === 'text' || target.type === 'password' || target.type === 'search' || target.type === 'textarea') ? '입력' : '선택';
+        alert( `${fieldName + particle} ${elementType}해 주세요.` );
+
+        target.value = '';
+        ( !focusTarget ? target : focusTarget).focus();
+        throw new Error(`"${target.id}" is required...`)
+    }
+
+    // 파일 선택
+    function selectFile(element) {
+      const file = element.files[0];
+      const filename = element.closest('.designFile').firstElementChild;
+
+      // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+      if ( !file ) {
+          filename.value = '';
           return false;
       }
 
-      if( phone_tmp1.length != 3 || phone_tmp2.length != 4 || phone_tmp3.length != 4 ){
-          alert("휴대폰번호를 올바르게 입력해주세요.");
+      // 2. 파일 크기가 10MB를 초과하는 경우
+      const fileSize = Math.floor(file.size / 1024 / 1024);
+      if (fileSize > 10) {
+          alert('10MB 이하의 파일로 업로드해 주세요.');
+          filename.value = '';
+          element.value = '';
           return false;
       }
 
-      var data = phone_tmp1 + "-" + phone_tmp2 + "-" + phone_tmp3;
+      // 3. 파일명 지정
+      filename.value = file.name;
+    }
 
-      $.ajax({
-          type : "POST",
-          url : "/ko_admin/inc/sms_ajax.php",
-          data : {
-              data_send : data
-          },
-          success : function(args) {
-                  alert(args);
-          }
-      });
-  }
-
-  function sms_auth() {
-      var sms_auth = $("input[name='sms_auth']").val();
-
-      if( sms_auth == ""){
-          alert("인증번호를 올바르게 입력해주세요.");
-          return false;
-      }
-
-      var phone_tmp1 = $("input[name='phone1']").val();
-      var phone_tmp2 = $("input[name='phone2']").val();
-      var phone_tmp3 = $("input[name='phone3']").val();
-
-      if( phone_tmp1 == "" || phone_tmp2 == "" || phone_tmp3 == "" ){
-          alert("휴대폰번호를 올바르게 입력해주세요.");
-          return false;
-      }
-
-      if( phone_tmp1.length != 3 || phone_tmp2.length != 4 || phone_tmp3.length != 4 ){
-          alert("휴대폰번호를 올바르게 입력해주세요.");
-          return false;
-      }
-
-      var data = phone_tmp1 + "-" + phone_tmp2 + "-" + phone_tmp3;
-
-      $.ajax({
-          type : "POST",
-          dataType: 'json',
-          url : "/ko_admin/inc/sms_auth_ajax.php",
-          data : {
-              sms_auth : sms_auth,
-              data_send : data
-          },
-          success : function(request) {
-              alert(request.message);
-              $("#auth_message").html(request.tag);
-              if(request.result == "true"){
-                  $("#sms_auth2").val("Y");
-              }
-          }
-      });
-  }
-
-  $(document).ready(function() {
-      $('form').submit(function() {
-          var chk = true;
-
-          //셀렉트 체크
-          $('.required_select').each(function() {
-              if (!$(this).val()) {
-                  alert($(this).attr('title') + "을 선택하세요.");
-                  $(this).focus();
-                  chk = false;
-                  return false;
-              }
-          });
-          if (!chk) { return false; }
-
-          // 라디오 버튼 체크
-          $('.required_radio').each(function() {
-          /*
-              if (!$(this).find('input:radio:checked').length) {
-                  alert($(this).attr('title') + "을 선택하세요.");
-                  $(this).find('input:radio').first().focus();
-                  chk = false;
-                  return false;
-              }
-          */
-              var radio_name = $(this).attr("name");
-
-              if(!$("input[type=radio][name="+radio_name+"]").is(":checked")){
-                  alert($(this).attr('title') + "을 선택하세요.");
-                  //$(this).find('input:radio').first().focus();
-                  $("input[type=radio][name="+radio_name+"]").focus();
-                  chk = false;
-                  return false;
-              }
-
-          });
-          if (!chk) { return false; }
-
-          // 체크박스 버튼 체크
-          $('.required_checkbox').each(function() {
-
-              // 최소 한개 선택
-              if (!$(this).find('input:checkbox:checked').length) {
-                  alert($(this).attr('title') + "을 선택하세요.");
-                  $(this).find('input:checkbox').first().focus();
-                  chk = false;
-                  return false;
-              }
-
-              // 최대 선택
-              if ($(this).find('input:checkbox:checked').length > $(this).attr('limit')) {
-                  alert($(this).attr('title') + "는 " + $(this).attr('limit') + "개까지 선택이 가능합니다.");
-                  $(this).find('input:checkbox').first().focus();
-                  chk = false;
-                  return false;
-              }
-              /*
-              // 필수 선택 수 적용
-              if ($(this).find('input:checkbox:checked').length != $(this).attr('limit')) {
-                  alert($(this).attr('title') + "는 " + $(this).attr('limit') + "개까지 선택하셔야 합니다.");
-                  $(this).find('input:checkbox').first().focus();
-                  chk = false;
-                  return false;
-              }
-              */
-
-          });
-
-          if (!chk) { return false; }
-
-          $('.required').each(function() {
-              if (!$(this).val()) {
-                  alert($(this).attr('title') + "을 입력하세요.");
-                  $(this).focus();
-                  chk = false;
-                  return false;
-              }
-          });
-
-          if (!chk) { return false; }
+    // 파일 추가
+    function addFile() {
+      const fileDiv = document.createElement('div');
+      fileDiv.innerHTML = `
+          <div class='designFile'>
+            <input type='text' readonly='readonly' value=''/>
+            <input type='file' name='file_1' id='file_1'/><label for='file_1' class='button white'> 파일선택</label>
+          </div>
+          <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+      `;
+      document.querySelector('.file_list').appendChild(fileDiv);
+    }
 
 
-          if("<?=$board[sms_auth]?>" == "Y" && "<?=$mode?>" != "modify"){
-              $('.auth_required').each(function() {
-                  if ($(this).val() != "Y") {
-                      alert("인증을 진행해주세요.");
-                      chk = false;
-                      return false;
-                  }
-              });
+    // 파일 삭제
+    function removeFile(element) {
+        const fileAddBtn = element.nextElementSibling;
+        if (fileAddBtn) {
+            const inputs = element.previousElementSibling.querySelectorAll('input');
+            inputs.forEach(input => input.value = '')
+            return false;
+        }
+        element.parentElement.remove();
+    }
 
-              if (!chk) { return false; }
-          }
-      });
-
-  });
-
-  $(document).on('click', 'a[href="#"]', function(e){
-      e.preventDefault();
-  });
-
-  $(function(){
-      $('.btn_del').click(function(){
-          $("."+$(this).attr('id')).toggle('show');
-      });
-
-      $('.btn_reply').click(function(){
-          $("."+$(this).attr('id')).toggle('show');
-      });
-
-      $('.hide_all').click(function(){
-              //$("."+$(this).attr('id')).toggle('hide');
-              $(this).closest("div").toggle('hide');
-      });
-  });
-
-      function reply_check(idx){
-          var chk = true;
-
-          if($("#"+"re_comment_name_"+idx).val() == "") {
-              alert("이름을 작성하세요");
-              chk = false;
-              return false;
-          }
-          if (!chk) { return false; }
-
-
-          if($("#"+"re_comment_pw_"+idx).val() == "") {
-              alert("비밀번호를 작성하세요");
-              chk = false;
-              return false;
-          }
-          if (!chk) { return false; }
-
-          if($("#"+"re_comment_text_"+idx).val() == "") {
-              alert("내용을 작성하세요");
-              chk = false;
-              return false;
-          }
-          if (!chk) { return false; }
-      }
-
-
-
-  $(document).ready(function() {
-      var chk = true;
-      $(".comment_del_form").submit(function() {
-          if($(this).children("input[type=password]").val() == ""){
-              alert($(this).children('input[type=password]').attr('title')+"을 입력하세요");
-              chk = false;
-              return false;
-          }
-          if (!chk) { return false; }
-      });
-
-      $(".comment_append_form").submit(function() {
-          if($(this).children("input[type=password]").val() == ""){
-              alert($(this).children('input[type=password]').attr('title')+"을 입력하세요");
-              chk = false;
-              return false;
-          }
-          if (!chk) { return false; }
-      });
-
-      $(".comment_write").submit(function() {
-
-          if($(this).children("input[type=comm_name]").val() == ""){
-              alert($(this).children('input[type=comm_name]').attr('title')+"을 입력하세요");
-              chk = false;
-              return false;
-          }
-          if (!chk) { return false; }
-
-          if($(this).children("input[type=comm_password]").val() == ""){
-              alert($(this).children('input[type=comm_password]').attr('title')+"을 입력하세요");
-              chk = false;
-              return false;
-          }
-          if (!chk) { return false; }
-
-          if($(this).children("textarea[type=comm_comments]").val() == ""){
-              alert($(this).children('textarea[type=comm_comments]').attr('title')+"을 입력하세요");
-              chk = false;
-              return false;
-          }
-          if (!chk) { return false; }
-      });
-
-
-
-  });
-
-  function selectDesign(){
-      $('.designSelect select').each(function(){
-          var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-          $this.addClass('select-hidden');
-          $this.wrap('<div class="select"></div>');
-          $this.after('<div class="selectbox"></div>');
-
-          var $styledSelect = $this.next('div.selectbox');
-          $styledSelect.text($this.children('option').eq(0).text());
-
-          var $list = $('<ul />', {
-              'class': 'selectoption'
-          }).insertAfter($styledSelect);
-
-          for (var i = 0; i < numberOfOptions; i++) {
-              $('<li />', {
-                  text: $this.children('option').eq(i).text(),
-                  rel: $this.children('option').eq(i).val()
-              }).appendTo($list);
-              if($this.children('option').eq(i).is(':selected')){
-                  var tmp_this = $this.children('option').eq(i);
-                  $styledSelect.text(tmp_this.text()).removeClass('active');
-              }
-          }
-
-          var $listItems = $list.children('li');
-
-          $styledSelect.click(function(e) {
-              $(this).parent("div").toggleClass('active');
-              //$(".designSelect .select").addClass('active');
-              e.stopPropagation();
-              $('div.selectbox.active').not(this).each(function(){
-                  $(this).removeClass('active').next('ul.selectoption').slideToggle();
-              });
-              $(this).toggleClass('active').next('ul.selectoption').slideToggle();
-
-              $( ".designSelect" ).mouseleave(function() {
-                   $styledSelect.removeClass('active').addClass('trans');
-                   $(".designSelect .select").removeClass('active');
-                  $list.slideUp();
-              });
-          });
-
-          $listItems.click(function(e) {
-              $list.children('li').removeClass("selected");
-              $styledSelect.removeClass('trans');
-              $(this).addClass("selected");
-              e.stopPropagation();
-              $styledSelect.text($(this).text()).removeClass('active');
-              $this.val($(this).attr('rel'));
-              $list.hide();
-              $(".designSelect .select").removeClass('active');
-          });
-      });
-  }
 
   </script>
 </th:block>

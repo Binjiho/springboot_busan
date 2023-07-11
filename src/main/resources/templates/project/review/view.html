@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="project/layout/basic">
+
+
+<div id="wrap">
+
+  <th:block layout:fragment="content">
+  <!-- area_subVisual -->
+  <div class="area_subVisual">
+    <section class="wrapper">
+      <div class="sv_text">
+        <h2>review</h2>
+        <p>아이들과 함께 편안하고 즐거운 추억을 만들어보세요.</p>
+      </div>
+    </section>
+  </div>
+  <!-- //area_subVisual -->
+
+  <section id="container" class="wrapper">
+    <div id="content">
+      <h3 class="sub_tit"></h3>
+      <div class="bbsNew_container v2">
+
+        <div class="bbsTitle_cont">
+          <h3 class="bbsTitle" th:text="${items.title}"></h3>
+          <div class="bbsDate">
+            <ul>
+              <li>아몬드키즈풀빌라 남포점</li>
+              <li th:text="${#temporals.format(items.createdDate, 'yyyy.MM.dd')}"><i>작성일</i></li>
+              <li th:text="${items.writer}"><i>작성자</i></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bbsContent">
+          <div class="conts">
+            <div class="contents" th:text="${items.content}">
+            </div>
+
+            <th:block th:if="${not #strings.isEmpty(items.saveName)}">
+            <div class="images">
+              <img style="width:100%; height:auto;" th:src="@{/files/} + ${items.saveName}" alt="reviewImg">
+            </div>
+            </th:block>
+          </div>
+        </div>
+
+        <div class="bbsPager admPager">
+          <div class="inr_pager">
+            <a th:href="@{/review/list}" class="pager_list">
+              <span>목록으로</span>
+            </a>
+
+            <ul class="admPager_btn">
+              <li class="delete"><a th:href="@{/review/delete( id=${items.id} )}" onclick='return confirm("삭제한 데이터는 다시 복구 할 수 없습니다. 삭제하시겠습니까?");'>삭제</a></li>
+              <li class="modify"><a th:href="@{/review/write( id=${items.id} )}">수정</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 이전글, 다음글 -->
+        <!--
+        <div class="bbsControls">
+          <ul>
+            <li class="btn_ctrol prev">
+              <a href="?no=1&amp;mode=view&amp;board_id=board_food&amp;start=&amp;search_key=&amp;keyword=&amp;cate=">
+                <em>이전글</em>
+                <p>아몬드키즈풀빌라 남포점 주변 맛집 1</p>
+              </a>
+            </li>
+            <li class="btn_ctrol next">
+              <a href="#">
+                <em>다음글</em>
+                <p>다음글이 없습니다.</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        -->
+      </div>
+    </div>
+  </section>
+
+  </th:block>
+</div>
+
+<th:block layout:fragment="css">
+  <style >
+
+  </style>
+</th:block>
+
+<th:block layout:fragment="script">
+
+</th:block>

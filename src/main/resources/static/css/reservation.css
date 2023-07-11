@@ -415,7 +415,8 @@ a.for_wating.apply_btn:hover {
  * CSS Document - only reservation
  */
 .button{background:#fff; border-color:#cab272; color:#cab272;}
-.button.white{border-color:#222;}
+.button.black{background:#fff; border-color:#41464e; color:#41464e;}
+.button.white{border-color:#222; width:auto;}
 .button span{color:#cab272; transition:all 0.5s cubic-bezier(0, 0, 0.21, 0.87) 0s;}
 .button.blue span,
 .button.gray span,
@@ -442,6 +443,7 @@ a.for_wating.apply_btn:hover {
 .button.blue:focus span,
 .button.gray:focus span,
 .button.red:focus span,
+.button.black:focus span,
 .designFile label.button:hover span{color:#444 !important;}
 .button.black{background:#222; border-color:#222;}
 .search_bbs .search .button{background:#cab272;}

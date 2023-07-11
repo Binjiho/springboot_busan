@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="admin/layout/basic">
+<th:block layout:fragment="title">
+    <title>이용후기 글작성 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+    <section id="container">
+
+    <div class="page_tits">
+        <h3>이용후기 글작성 페이지</h3>
+        <p class="path"><strong>현재 위치 :</strong> <span>이용후기 관리</span> <span>리스트형</span> <span>글작성</span></p>
+    </div>
+
+    <div class="content">
+
+            <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:value="${items?.id} " />
+                <table class="tb tb_row">
+                    <colgroup>
+                        <col style="width:15%;" />
+                        <col style="width:35%;" />
+                        <col style="width:15%;" />
+                        <col style="width:35%;" />
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">게시판 번호</th>
+                        <td><input type="text" name="reviewId" th:value="${items?.id} " readonly /></td>
+
+                        <th scope="row">등록일</th>
+                        <td colspan="3">
+                            <input type="text" id="createdDate" name="createdDate" th:value="${items?.createdDate} " readonly />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">비밀글 여부</th>
+                        <td><span class="chkBox"><input type="checkbox" id="isSecret" name="secretYn" class="chk" /><i></i><label for="isSecret"> 설정</label></span></td>
+
+                        <th scope="row">삭제 여부</th>
+                        <td><span class="chkBox"><input type="checkbox" id="isDelete" name="deleteYn" class="chk" /><i></i><label for="isDelete"> 설정</label></span></td>
+                    </tr>
+                    <tr>
+                        <th>제목 <span class="es">필수 입력</span></th>
+                        <td colspan="3"><input type="text" id="title" name="title" maxlength="50" placeholder="제목을 입력해 주세요." th:value="${items?.title} "/></td>
+                    </tr>
+                    <tr>
+                        <th>이름 <span class="es">필수 입력</span></th>
+                        <td colspan="3"><input type="text" id="writer" name="writer" maxlength="10" placeholder="이름을 입력해 주세요." th:value="${items?.writer} " /></td>
+                    </tr>
+                    <tr>
+                        <th>내용 <span class="es">필수 입력</span></th>
+                        <td colspan="3"><textarea id="content" name="content" placeholder="내용을 입력해 주세요." th:text="${items?.content} " /></td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호 <span class="es">필수 입력</span></th>
+                        <td colspan="3"><input type="text" id="password" name="password" maxlength="10" placeholder="비밀번호를 입력해 주세요." th:value="${items?.password} " /></td>
+                    </tr>
+                    <tr>
+                        <th>순서변경 1~9</th>
+                        <td colspan="3">
+                            <select class="select" name="ord" title="순서 선택(1~9)">
+                                <option value="0">순서없음</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>첨부파일</th>
+                        <td colspan="3">
+                            <div class="file_list">
+                                <div>
+                                    <div class="file_input">
+                                        <input type="text" th:value="${items?.saveName}" readonly />
+                                        <label> 첨부파일
+                                            <input type="file" name="files" onchange="selectFile(this);" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">파일 미리보기</th>
+                        <td colspan="3">
+                            <th:block th:if="${items}">
+                                <img th:src="@{/files/} + ${items.saveName}" style="width:300px;" alt="">
+                            </th:block>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </form>
+            <p class="btn_set">
+                <button type="button" id="saveBtn" onclick="savePost();" class="btns btn_st3 btn_mid">저장</button>
+                <a th:href="@{/admin/board/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+            </p>
+    </div>
+        <!--/* .content */-->
+    </section>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        // 게시글 저장(수정)
+        function savePost() {
+            const form = document.getElementById('saveForm');
+            const fields = [form.title, form.writer];
+            const fieldNames = ['제목', '이름'];
+
+            //유효성 검사
+            for (let i = 0, len = fields.length; i < len; i++) {
+                isValid(fields[i], fieldNames[i]);
+            }
+
+            document.getElementById('saveBtn').disabled = true;
+
+            form.action = [[ ${item == null} ]] ? '/admin/board/detail/save' : '/admin/board/detail/update';
+            form.submit();
+        }
+
+        // 파일 선택
+        function selectFile(element) {
+
+            const file = element.files[0];
+            const filename = element.closest('.file_input').firstElementChild;
+
+            // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+            if ( !file ) {
+                filename.value = '';
+                return false;
+            }
+
+            // 2. 파일 크기가 10MB를 초과하는 경우
+            const fileSize = Math.floor(file.size / 1024 / 1024);
+            if (fileSize > 10) {
+                alert('10MB 이하의 파일로 업로드해 주세요.');
+                filename.value = '';
+                element.value = '';
+                return false;
+            }
+
+            // 3. 파일명 지정
+            filename.value = file.name;
+        }
+        </script>
+</th:block>
+</html>
