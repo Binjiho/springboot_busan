@@ -35,12 +35,6 @@ public interface AdminReviewMapper {
     void updateWithFiles(ReviewRequest params);
 
     /**
-     * 게시글 삭제
-     * @param id - PK
-     */
-    void deleteById(Long id);
-
-    /**
      * 게시글 리스트 조회
      * @return 게시글 리스트
      */

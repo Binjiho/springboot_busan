@@ -6,7 +6,6 @@ import com.example.demo.admin.board.BoardRequest;
 import com.example.demo.admin.board.service.BoardDetailService;
 import com.example.demo.base.controller.BaseController;
 import com.example.demo.base.file.FileRequest;
-import com.example.demo.base.file.FileService;
 import com.example.demo.base.file.FileUtils;
 import com.example.demo.base.paging.PagingResponse;
 import com.example.demo.base.paging.SearchDto;
@@ -28,7 +27,6 @@ public class BoardController extends BaseController {
 
     private final BoardService boardService;
     private final BoardDetailService boardDetailService;
-    private final FileService fileService;
     private final FileUtils fileUtils;
 
     //게시판 리스트 페이지
@@ -53,8 +51,8 @@ public class BoardController extends BaseController {
     @PostMapping("/save")
     public String saveBoard(final BoardRequest params, Model model) {
         boardService.savePost(params);
-        MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/admin/board/list", RequestMethod.GET, null);
-        return showAlertAndRedirect(message, model);
+//        MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/admin/board/list", RequestMethod.GET, null);
+        return "redirect:/admin/board/list";
     }
 
     //게시판 뷰 페이지

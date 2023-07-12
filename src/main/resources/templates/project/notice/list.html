@@ -22,47 +22,71 @@
 
       <!-- 검색 및 버튼 -->
       <div class="bbsSearch">
-        <form action="" method="get">
-          <input type="hidden" name="board_id" value="board_notice">
-          <input type="hidden" name="start" value="0">
+        <form id="searchForm">
+          <input type="hidden" name="board_id" value="board_notice" />
+          <input type="hidden" name="start" value="0" />
 
-          <div class="designSelect">
-            <select name="search_key" id="searchType">
-              <option value="">전체</option>
-              <option value="title"> 제목</option>
-              <option value="name">작성자</option>
+          <div class="selectBox">
+            <select class="select" name="searchType" title="검색 유형 선택">
+              <option value="" th:selected="${params.searchType} == '' ">전체</option>
+              <option value="title" th:selected="${params.searchType} == 'title' ">제목</option>
+              <option value="content" th:selected="${params.searchType} == 'content' ">내용</option>
+              <option value="writer" th:selected="${params.searchType} == 'writer' ">작성자</option>
             </select>
+            <span class="iconArrow"><img src="/images/module/arrow.svg" alt=""></span>
           </div>
 
-          <input type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" value="">
+          <input type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" th:value="${params.keyword}">
           <input type="submit" class="button" value="검색">
         </form>
       </div>
 
-      <ul class="bbsList">
-        <li class='none'>등록된 글이 없습니다.</li>
-      </ul>
-
-      <ul class="photoList">
-        <li>
-          <a href="">
-            <span class="img"></span>
-            <em>홈페이지 오픈 이벤트</em>
-            <span class="write">
-              <em>2023-06-06</em>
-              <i>아몬드키즈풀빌라 남포점</i>
-            </span>
-          </a>
-        </li>
-      </ul>
-
-      <!-- page -->
-      <div class="pagination">
-        <div class='page_control_prev'>
-          <a href='/contents/03_offers/notice.html?board_id=board_notice&amp;search_key=&amp;keyword=&amp;cate=&amp;start=0' class='btn_end first'><span>맨처음</span></a></div><ol><li class='on'><a href='javascript:void(0);'>1</a></li></ol><div class='page_control_next'><a href='/contents/03_offers/notice.html?board_id=board_notice&amp;search_key=&amp;keyword=&amp;cate=&amp;start=0' class='btn_end last'><span>맨마지막</span></a>
+      <div class="notice_list">
+        <div class="board_th">
+          <div class="cell_box" style="width: 146px;">번호</div>
+          <div class="cell_box left">제목</div>
+          <div class="cell_box" style="width: 123px;">작성일</div>
         </div>
+
+        <ul class="bbsList">
+          <th:block th:if="${not #strings.isEmpty(list)}">
+            <th:block th:each="items: ${list.list}">
+              <li id="">
+                <a th:href="@{/notice/view(id=${items.id})}">
+                <div class="top_box">
+                  <div class="no" th:text="${items.id}"></div>
+                  <div class="title" th:text="${items.title}"></div>
+                  <div class="datetime" th:text="${#temporals.format(items.startDate, 'yyyy.MM.dd')}"></div>
+                </div>
+                </a>
+              </li>
+            </th:block>
+          </th:block>
+          <th:block th:unless="${not #strings.isEmpty(list)}">
+            <li class='none'>등록된 글이 없습니다.</li>
+          </th:block>
+        </ul>
+
       </div>
-      <!-- //page -->
+
+      <!--/* 페이지네이션 */-->
+      <th:block th:if="${params.pagination}">
+        <div class="paging">
+          <th:block th:if="${params.pagination.existPrevPage}">
+            <a href="javascript:void(0);" th:onclick=movePage([[${params.pagination.startPage-10}]]); class="page_bt prev">이전페이지</a>
+          </th:block>
+
+          <th:block th:each="num : ${#numbers.sequence( params.pagination.startPage ,params.pagination.endPage )}">
+            <p>
+              <a href="javascript:void(0);" th:onclick="movePage([[${num}]])" th:text="${num}" th:classappend="${params.page== num } ? 'on' : '' "></a>
+            </p>
+          </th:block>
+
+          <th:block th:if="${params.pagination.existNextPage}">
+            <a href="javascript:void(0);" th:onclick="movePage([[${params.pagination.endPage+1}]]);" class="page_bt next">다음페이지</a>
+          </th:block>
+        </div>
+      </th:block>
 
     </div>
   </section>
@@ -70,235 +94,128 @@
 </div>
 
 <th:block layout:fragment="css">
+  <style>
+    .selectBox {
+      position: relative;
+      z-index: 3;
+      width: 150px;
+      height: 50px;
+      line-height: 50px;
+      background: #fff;
+      font-weight: 400;
+      font-size: 14px;
+      color: #333;
+      text-align: left;
+      margin-right: 13px;
+    }
+    .selectBox .select {
+      width: inherit;
+      height: inherit;
+      background: transparent;
+      border: 0 none;
+      outline: 0 none;
+      padding: 0 10px;
+      position: relative;
+      z-index: 3;
+    }
+    .selectBox .select option {
+      background: white;
+      color: #444;
+      padding: 3px 0;
+      font-size: 16px;
+    }
 
+    .selectBox .iconArrow {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      width: 35px;
+      height: inherit;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .selectBox .iconArrow img {
+      width: 30%;
+      height: 30%;
+
+      transition: .3s;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .selectBox .select + .iconArrow img {
+      transform: rotate(270deg);
+    }
+
+    .selectBox .select:hover + .iconArrow img {
+      transform: rotate(90deg);
+    }
+
+    .notice_list .board_th {
+      display: table;
+      width: 100%;
+      height: 45px;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+    }
+
+    .notice_list .board_th .cell_box {
+      display: table-cell;
+      font-size: 14px;
+      font-weight: 700;
+      color: #000;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    ul.bbsList li{
+      border-bottom: 1px solid #ddd;
+    }
+    ul.bbsList li .top_box {
+      height: 53px;
+      width: 100%;
+      display: table;
+      vertical-align: middle;
+      text-align: center;
+      font-size: large;
+    }
+    ul.bbsList li .top_box div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    ul.bbsList li .top_box div:nth-child(1) {
+      width: 145px;
+    }
+    ul.bbsList li .top_box div:nth-child(2) {
+      width: auto;
+    }
+    ul.bbsList li .top_box div:nth-child(3) {
+      width: 123px;
+      color: #999;
+    }
+  </style>
 </th:block>
 
 <th:block layout:fragment="script">
   <script th:inline="javascript">
+    // 페이지 이동
+    function movePage(page) {
 
-    $(document).ready(function() {
-      selectDesign();
-    });
+        const form = document.getElementById('searchForm');
 
+        const queryParams = {
+            page: (page) ? page : 1,
+            recordSize: 10,
+            pageSize: 10,
+            searchType: form.searchType.value,
+            keyword: form.keyword.value
+        }
 
-    function selectDesign(){
-        $('.designSelect select').each(function(){
-            var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-            $this.addClass('select-hidden');
-            $this.wrap('<div class="select"></div>');
-            $this.after('<div class="selectbox"></div>');
-
-            var $styledSelect = $this.next('div.selectbox');
-            $styledSelect.text($this.children('option').eq(0).text());
-
-            var $list = $('<ul />', {
-                'class': 'selectoption'
-            }).insertAfter($styledSelect);
-
-            for (var i = 0; i < numberOfOptions; i++) {
-                $('<li />', {
-                    text: $this.children('option').eq(i).text(),
-                    rel: $this.children('option').eq(i).val()
-                }).appendTo($list);
-                if($this.children('option').eq(i).is(':selected')){
-                    var tmp_this = $this.children('option').eq(i);
-                    $styledSelect.text(tmp_this.text()).removeClass('active');
-                }
-            }
-
-            var $listItems = $list.children('li');
-
-            $styledSelect.click(function(e) {
-                $(this).parent("div").toggleClass('active');
-                //$(".designSelect .select").addClass('active');
-                e.stopPropagation();
-                $('div.selectbox.active').not(this).each(function(){
-                    $(this).removeClass('active').next('ul.selectoption').slideToggle();
-                });
-                $(this).toggleClass('active').next('ul.selectoption').slideToggle();
-
-                $( ".designSelect" ).mouseleave(function() {
-                     $styledSelect.removeClass('active').addClass('trans');
-                     $(".designSelect .select").removeClass('active');
-                    $list.slideUp();
-                });
-            });
-
-            $listItems.click(function(e) {
-                $list.children('li').removeClass("selected");
-                $styledSelect.removeClass('trans');
-                $(this).addClass("selected");
-                e.stopPropagation();
-                $styledSelect.text($(this).text()).removeClass('active');
-                $this.val($(this).attr('rel'));
-                $list.hide();
-                $(".designSelect .select").removeClass('active');
-            });
-        });
+        location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
     }
-
-
-<!--  $(document).ready(function() {-->
-<!--      $('form').submit(function() {-->
-<!--          var chk = true;-->
-
-<!--          //셀렉트 체크-->
-<!--          $('.required_select').each(function() {-->
-<!--              if (!$(this).val()) {-->
-<!--                  alert($(this).attr('title') + "을 선택하세요.");-->
-<!--                  $(this).focus();-->
-<!--                  chk = false;-->
-<!--                  return false;-->
-<!--              }-->
-<!--          });-->
-<!--          if (!chk) { return false; }-->
-
-<!--          // 라디오 버튼 체크-->
-<!--          $('.required_radio').each(function() {-->
-<!--          /*-->
-<!--              if (!$(this).find('input:radio:checked').length) {-->
-<!--                  alert($(this).attr('title') + "을 선택하세요.");-->
-<!--                  $(this).find('input:radio').first().focus();-->
-<!--                  chk = false;-->
-<!--                  return false;-->
-<!--              }-->
-<!--          */-->
-<!--              var radio_name = $(this).attr("name");-->
-
-<!--              if(!$("input[type=radio][name="+radio_name+"]").is(":checked")){-->
-<!--                  alert($(this).attr('title') + "을 선택하세요.");-->
-<!--                  //$(this).find('input:radio').first().focus();-->
-<!--                  $("input[type=radio][name="+radio_name+"]").focus();-->
-<!--                  chk = false;-->
-<!--                  return false;-->
-<!--              }-->
-
-<!--          });-->
-<!--          if (!chk) { return false; }-->
-
-<!--          // 체크박스 버튼 체크-->
-<!--          $('.required_checkbox').each(function() {-->
-
-<!--              // 최소 한개 선택-->
-<!--              if (!$(this).find('input:checkbox:checked').length) {-->
-<!--                  alert($(this).attr('title') + "을 선택하세요.");-->
-<!--                  $(this).find('input:checkbox').first().focus();-->
-<!--                  chk = false;-->
-<!--                  return false;-->
-<!--              }-->
-
-<!--              // 최대 선택-->
-<!--              if ($(this).find('input:checkbox:checked').length > $(this).attr('limit')) {-->
-<!--                  alert($(this).attr('title') + "는 " + $(this).attr('limit') + "개까지 선택이 가능합니다.");-->
-<!--                  $(this).find('input:checkbox').first().focus();-->
-<!--                  chk = false;-->
-<!--                  return false;-->
-<!--              }-->
-<!--              /*-->
-<!--              // 필수 선택 수 적용-->
-<!--              if ($(this).find('input:checkbox:checked').length != $(this).attr('limit')) {-->
-<!--                  alert($(this).attr('title') + "는 " + $(this).attr('limit') + "개까지 선택하셔야 합니다.");-->
-<!--                  $(this).find('input:checkbox').first().focus();-->
-<!--                  chk = false;-->
-<!--                  return false;-->
-<!--              }-->
-<!--              */-->
-
-<!--          });-->
-
-<!--          if (!chk) { return false; }-->
-
-<!--          $('.required').each(function() {-->
-<!--              if (!$(this).val()) {-->
-<!--                  alert($(this).attr('title') + "을 입력하세요.");-->
-<!--                  $(this).focus();-->
-<!--                  chk = false;-->
-<!--                  return false;-->
-<!--              }-->
-<!--          });-->
-
-<!--          if (!chk) { return false; }-->
-
-
-<!--          if("<?=$board[sms_auth]?>" == "Y" && "<?=$mode?>" != "modify"){-->
-<!--              $('.auth_required').each(function() {-->
-<!--                  if ($(this).val() != "Y") {-->
-<!--                      alert("인증을 진행해주세요.");-->
-<!--                      chk = false;-->
-<!--                      return false;-->
-<!--                  }-->
-<!--              });-->
-
-<!--              if (!chk) { return false; }-->
-<!--          }-->
-<!--      });-->
-
-<!--  });-->
-
-<!--  $(document).on('click', 'a[href="#"]', function(e){-->
-<!--      e.preventDefault();-->
-<!--  });-->
-
-<!--  $(function(){-->
-<!--      $('.btn_del').click(function(){-->
-<!--          $("."+$(this).attr('id')).toggle('show');-->
-<!--      });-->
-
-<!--      $('.btn_reply').click(function(){-->
-<!--          $("."+$(this).attr('id')).toggle('show');-->
-<!--      });-->
-
-<!--      $('.hide_all').click(function(){-->
-<!--              //$("."+$(this).attr('id')).toggle('hide');-->
-<!--              $(this).closest("div").toggle('hide');-->
-<!--      });-->
-<!--  });-->
-
-<!--  $(document).ready(function() {-->
-<!--      var chk = true;-->
-<!--      $(".comment_del_form").submit(function() {-->
-<!--          if($(this).children("input[type=password]").val() == ""){-->
-<!--              alert($(this).children('input[type=password]').attr('title')+"을 입력하세요");-->
-<!--              chk = false;-->
-<!--              return false;-->
-<!--          }-->
-<!--          if (!chk) { return false; }-->
-<!--      });-->
-
-<!--      $(".comment_append_form").submit(function() {-->
-<!--          if($(this).children("input[type=password]").val() == ""){-->
-<!--              alert($(this).children('input[type=password]').attr('title')+"을 입력하세요");-->
-<!--              chk = false;-->
-<!--              return false;-->
-<!--          }-->
-<!--          if (!chk) { return false; }-->
-<!--      });-->
-
-<!--      $(".comment_write").submit(function() {-->
-
-<!--          if($(this).children("input[type=comm_name]").val() == ""){-->
-<!--              alert($(this).children('input[type=comm_name]').attr('title')+"을 입력하세요");-->
-<!--              chk = false;-->
-<!--              return false;-->
-<!--          }-->
-<!--          if (!chk) { return false; }-->
-
-<!--          if($(this).children("input[type=comm_password]").val() == ""){-->
-<!--              alert($(this).children('input[type=comm_password]').attr('title')+"을 입력하세요");-->
-<!--              chk = false;-->
-<!--              return false;-->
-<!--          }-->
-<!--          if (!chk) { return false; }-->
-
-<!--          if($(this).children("textarea[type=comm_comments]").val() == ""){-->
-<!--              alert($(this).children('textarea[type=comm_comments]').attr('title')+"을 입력하세요");-->
-<!--              chk = false;-->
-<!--              return false;-->
-<!--          }-->
-<!--          if (!chk) { return false; }-->
-<!--      });-->
-<!--  });-->
-
   </script>
 </th:block>

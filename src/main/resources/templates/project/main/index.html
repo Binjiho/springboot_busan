@@ -322,34 +322,44 @@
                             <a href="tel:051-715-8844">051-715-8844</a>
                         </div>
                         <ul>
-                            <li><a href="/contents/04_travel/food.html?board_id=board_food">
+                            <li>
+                                <a href="/review/list">
                                 <i><img src="/images/main/main_location_icon05.svg" alt="이용후기"><img src="/images/main/main_location_icon05_on.svg" alt="이용후기" class="on"></i>
                                 <dl>
                                     <dd>고객님들의 실제 후기</dd>
                                     <dt>이용후기</dt>
                                 </dl>
-                            </a></li>
-                            <li><a href="/contents/04_travel/travel.html?board_id=board_gallery#lnb">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/notice/list">
+                                    <i><img src="/images/main/main_location_icon04.svg" alt="공지사항"><img src="/images/main/main_location_icon04_on.svg" alt="공지사항" class="on"></i>
+                                    <dl>
+                                        <dd>최신 소식 한눈에 보기 </dd>
+                                        <dt>공지사항</dt>
+                                    </dl>
+                                </a>
+                            </li>
+                            <!--
+                            <li>
+                                <a href="/contents/04_travel/travel.html?board_id=board_gallery#lnb">
                                 <i><img src="/images/main/main_location_icon02.svg" alt="주변 관광 명소"><img src="/images/main/main_location_icon02_on.svg" alt="주변 관광 명소" class="on"></i>
                                 <dl>
                                     <dd>가까운 관광지 알아보기</dd>
                                     <dt>주변 관광 명소</dt>
                                 </dl>
-                            </a></li>
-                            <li><a href="/contents/03_offers/event.html?board_id=board_event">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/contents/03_offers/event.html?board_id=board_event">
                                 <i><img src="/images/main/main_location_icon03.svg" alt="이벤트"><img src="/images/main/main_location_icon03_on.svg" alt="이벤트" class="on"></i>
                                 <dl>
                                     <dd>다양하게 준비한 이벤트!</dd>
                                     <dt>이벤트</dt>
                                 </dl>
-                            </a></li>
-                            <li><a href="/contents/03_offers/notice.html?board_id=board_notice">
-                                <i><img src="/images/main/main_location_icon04.svg" alt="공지사항"><img src="/images/main/main_location_icon04_on.svg" alt="공지사항" class="on"></i>
-                                <dl>
-                                    <dd>최신 소식 한눈에 보기 </dd>
-                                    <dt>공지사항</dt>
-                                </dl>
-                            </a></li>
+                                </a>
+                            </li>
+                            -->
                         </ul>
                     </div>
                 </section>
@@ -378,7 +388,6 @@
             AOS.init();
             mainSlider();
             sliderTab();
-            responsive();
         });
     </script>
 
@@ -401,10 +410,10 @@
             });
 
             new Swiper("article.area_room .mySwiper", {
+                slidesPerView : 1,
                 loop : true,
                 speed: 1000,
                 effect:'fade',
-                slidesPerView : '1',
                 autoplay : {
                     delay : 5000,
                     disableOnInteraction : false,
@@ -418,10 +427,10 @@
             });
 
             new Swiper(".event_slider", {
-                slidesPerView : '1',
-                loop : true,
+                slidesPerView : 2,
                 slidesPerGroup: 2,
-                speed: 1700,
+                loop : true,
+                speed: 2000,
                 pagination: {
                     el: ".event_pagination",
                     clickable: true
@@ -431,11 +440,10 @@
                     prevEl : '.event_button > .swiper-button-prev',
                 },
                 autoplay : {
-                    delay : 1700,
+                    delay : 2000,
                     disableOnInteraction : false,
                 },
                 breakpoints: {
-
                     540: {
                       slidesPerView: 2
                     }
@@ -467,182 +475,6 @@
 
     </script>
 
-    <script th:inline="javascript">
-        //responsive style
-        function responsive(){
-
-            //main_visual Height
-            var innerH = $(window).innerHeight();
-            var headerH = $('#header').innerHeight();
-            var roomH = $('article.area_room .tab_content').innerHeight();
-
-            $('.area_visual').css('height', innerH);
-            $('.vs_text').css('padding-top', headerH);
-            $('article.area_room .tab_container').css('height', roomH);
-
-            //header
-            var res = ""
-            var param = $("#header");
-            var nav = $("#header nav");
-            var navClone = $("#header nav").clone();
-            var gnbClone = navClone.find(".gnb");
-            var gnbArea = $(".gnb > li");
-            var gnbLink = gnbArea.children("a");
-            $('#header nav .gnb > li ul').addClass('active');
-            $('#header nav').prepend('<h1 class="font_jalnan">almond kids poolvilla</h1>');
-            $('#header .btn_menu_pc').prepend('<i><span></span><span></span><span></span><span></span></i>');
-            $('#header .btn_menu').prepend('<i><span></span><span></span><span></span><span></span></i>');
-            $('.full_menu .full_gnb').prepend(gnbClone);
-
-            //lng + sub title
-            var subTitle = $('#header .gnb > li > a.on').html();
-            var pageTitle = $('#header .gnb > li > ul > li > a.on').html();
-            var lnbHtml = $('#header .gnb > li > a.on').next('ul').html();
-
-            $('.sv_text h2').html(subTitle);
-            $('.sub_tit').html(pageTitle);
-            $('.area_lnb ul').append(lnbHtml);
-            $('.area_lnb ul > li').each(function(){
-                var lnbLink = $(this).find('a').attr('href');
-                $(this).find('a').attr('href',lnbLink + '#lnb');
-            });
-
-            nav.hover(function(){
-                param.addClass("active");
-
-            }, function(){
-                param.removeClass("active");
-            });
-
-            gnbLink.hover(function() {
-                if(param.attr("class") == "web" || param.attr("class") && "web"){
-
-                    $(this).addClass("active").parent().addClass("active");
-                    $(this).parent().hover(function() {
-                    }, function(){
-                        $(this).removeClass("active", function(){
-                            $(this).parent().find("a").removeClass("active");
-                        });
-                    });
-
-                    if(!($(this).parent().find("ul").length > 0)) {
-                        $(this).parent().removeClass("active").find("a").removeClass("active");
-                    }
-                }
-            });
-
-            //default
-            if(!$(".btn_menu").is(":hidden")) res = "mob";
-            else res = "web";
-            param.attr("class",res);
-            def(param);
-
-            $(window).resize(function(){
-                if(!$(".btn_menu").is(":hidden")) res2 = "mob";
-                else res2 = "web";
-                param.attr("class",res2);
-                if(res != res2){
-                    res = res2;
-                    def(param);
-                }
-            });
-
-            $('.btn_menu_pc').on('click',function(){
-                if($(this).hasClass('active')){
-                    $('.btn_menu_pc').removeClass('active');
-                    $('.full_menu').removeClass('active');
-                    posY = $('body').attr('data-scroll');
-                    $(window).scrollTop(posY);
-                }else{
-                    posY = window.scrollY || document.documentElement.scrollTop;
-                    $(this).toggleClass('active');
-                    $('.full_menu').toggleClass('active');
-                    $('body').attr('data-scroll',posY);
-                }
-                return false;
-            });
-
-
-            //mobile
-            $('.btn_menu').on('click',function(){
-                if($(this).hasClass('active')){
-                    $('.btn_menu').removeClass('active');
-                    $('body').removeClass('active');
-                    $('.area_until > ul').removeClass('active');
-                    param.find('nav').removeClass('on');
-                    gnbLink.removeClass('on');
-                    gnbLink.parent().find('ul').slideUp();
-                    posY = $('body').attr('data-scroll');
-                    $(window).scrollTop(posY);
-                }else{
-                    posY = window.scrollY || document.documentElement.scrollTop;
-                    $(this).toggleClass('active');
-                    $('.area_until > ul').toggleClass('active');
-                    setTimeout(function() {
-                         $('body').toggleClass('active');
-                    }, 0);
-                    param.find('nav').toggleClass('on');
-                    gnbLink.removeClass('active');
-                    gnbLink.parent().find('ul').slideUp();
-                    $('body').attr('data-scroll',posY);
-                }
-                return false;
-            });
-
-            $('.btn_close').on('click',function(){
-                $('.btn_menu').removeClass('active');
-                $('.full_menu').removeClass('active');
-                $('body').removeClass('active');
-                param.find('nav').removeClass('active');
-                gnbLink.removeClass('active');
-                gnbLink.parent().find('ul').slideUp();
-                return false;
-            });
-
-            function def(param){
-                if(param.attr("class") == "web" ){
-                    $('#header .gnb > li > a').unbind('click');
-                    $('#header .gnb > li > ul').removeAttr('style');
-                    $('.btn_menu, body, #header nav').removeClass('active');
-                    gnbLink.removeClass('active');
-
-                    gnbLink.hover(function() {
-                        if(param.attr("class") == "web" || param.attr("class") && "web"){
-                            $(this).addClass("active").parent().addClass("active");
-                            $(this).parent().hover(function() {
-                            }, function(){
-                               $(this).removeClass("active", function(){
-                                    $(this).parent().find("a").removeClass("active");
-                               });
-                            });
-                              //하위메뉴가 없을경우  a에 active 추가 없음
-                            if(!($(this).parent().find("ul").length > 0)) {
-                               $(this).parent().removeClass("active").find("a").removeClass("active");
-                            }
-                        }
-                    });
-
-                } else if (param.attr("class") == "mob"){
-                    $('#header .gnb li').off('mouseenter mouseleave');
-
-                    $('#header.mob .gnb > li').each(function(){
-                        var gnbLink = $(this).children('a');
-                        if($(this).children('ul').length > 0){
-                            gnbLink.on('click',function(e){
-                                e.preventDefault();
-                                $('#header .gnb a').removeClass('active');
-                                gnbArea.children('ul').stop().slideUp();
-                                $(this).addClass('active');
-                                $(this).siblings('a').addClass('active');
-                                $(this).parent().children('ul').stop().slideDown();
-                                return false;
-                            });
-                        }
-                    });
-                }
-            }
-        }
-    </script>
     <script th:inline="javascript">
         // 쿠키 체크
     <!--	function getCookie(name)-->

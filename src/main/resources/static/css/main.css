@@ -166,7 +166,9 @@ article[class^=area_] h2 {margin-bottom: 13rem; font-size: 42rem; font-family: '
 
 /* area_banner */
 .area_banner {position:relative; text-align:center; color:#fff; background:url(/images/main/ms_bg03.jpg) no-repeat center / cover; background-attachment:fixed;}
+/*
 .area_banner::before {position:absolute; left:0; top:0; content:''; width:100%; height:55rem; background:url(/images/main/main_wave.svg) repeat-x; transform: scaleY(-1);}
+*/
 article.area_banner h2 {display: flex; justify-content: center; align-items: center; margin-bottom: 0; padding:170rem 0; font-size:35rem; font-weight:400; color:#fff; font-family:NanumSquareNeo, '맑은 고딕', '돋움', Dotum, '굴림', Gulim, Sans-serif;}
 .area_banner h2 span {margin-top: 1rem; padding-left:15rem; font-size:39rem;}
 
@@ -387,7 +389,9 @@ article.area_banner h2 {display: flex; justify-content: center; align-items: cen
     .area_customer .map_info ul li a dl dd {font-size: 12rem; font-weight: 300;}
 
     .area_banner {padding:65rem 0 55rem; background-attachment:initial;}
+    /*
     .area_banner::before {top: -1rem; height: 20rem;}
+    */
     .area_banner h2 {font-size: 16rem !important;}
     article.area_banner h2 span {font-size:20rem;}
  }
@@ -406,7 +410,9 @@ article.area_banner h2 {display: flex; justify-content: center; align-items: cen
    .area_room .room_exp > p {font-weight: 300;}
    .area_customer .map_info ul li a dl dt {margin-top: 0;}
 
+/*
    .area_banner::before {top: 0; transform: scale(-1.1);}
+*/
    .area_banner h2, .area_banner h2 {font-size: 22rem;}
    .area_banner h2, .area_banner h2 span {font-size: 24rem;}
 

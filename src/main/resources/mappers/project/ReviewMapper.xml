@@ -11,6 +11,7 @@
         , secret_yn
         , content
         , password
+        , ord
         , original_name
         , save_name
         , upload_path
@@ -28,7 +29,7 @@
             #{id}
             , #{title}
             , #{writer}
-            , #{secret_yn}
+            , #{secretYn}
             , #{content}
             , #{password}
             , #{originalName}
@@ -52,6 +53,8 @@
             , content = #{content}
             , secret_yn = #{secretYn}
             , password = #{password}
+            , delete_yn = #{deleteYn}
+            , ord = #{ord}
         WHERE
             id = #{id}
     </update>
@@ -66,6 +69,8 @@
             , content = #{content}
             , secret_yn = #{secretYn}
             , password = #{password}
+            , delete_yn = #{deleteYn}
+            , ord = #{ord}
             , original_name = #{originalName}
             , save_name = #{saveName}
             , upload_path = #{uploadPath}
@@ -103,8 +108,8 @@
         WHERE
             delete_yn = 0
             <include refid="search" />
-        ORDER BY
-            id DESC
+        ORDER BY FIELD
+            (ord, 1,2,3,4,5,6,7,8,9,0), id DESC
         LIMIT #{pagination.limitStart}, #{recordSize}
     </select>
 

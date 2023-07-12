@@ -1,5 +1,6 @@
 package com.example.demo.admin.review.controller;
 
+import com.example.demo.admin.review.service.AdminReviewService;
 import com.example.demo.base.controller.BaseController;
 import com.example.demo.base.file.FileRequest;
 import com.example.demo.base.file.FileUtils;
@@ -7,7 +8,6 @@ import com.example.demo.base.paging.PagingResponse;
 import com.example.demo.base.paging.SearchDto;
 import com.example.demo.project.review.ReviewRequest;
 import com.example.demo.project.review.ReviewResponse;
-import com.example.demo.project.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminReviewController extends BaseController {
 
-    private final ReviewService reviewService;
+    private final AdminReviewService reviewService;
     private final FileUtils fileUtils;
 
     /**
@@ -78,13 +78,6 @@ public class AdminReviewController extends BaseController {
             files = fileUtils.uploadFiles(params.getFiles());
         }
         reviewService.updatePost(params,files);
-        return "redirect:/admin/review/list";
-    }
-
-    //게시판 삭제
-    @GetMapping("/delete")
-    public String deleteReview(@RequestParam final Long id){
-        reviewService.deletePost(id);
         return "redirect:/admin/review/list";
     }
 

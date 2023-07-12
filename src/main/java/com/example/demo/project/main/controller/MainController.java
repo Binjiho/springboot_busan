@@ -1,18 +1,19 @@
 package com.example.demo.project.main.controller;
 
 import com.example.demo.admin.board.BoardDetailResponse;
-import com.example.demo.admin.board.BoardRequest;
-import com.example.demo.admin.board.BoardResponse;
+
 import com.example.demo.admin.board.service.BoardDetailService;
+import com.example.demo.admin.notice.NoticeResponse;
+import com.example.demo.admin.notice.service.NoticeService;
 import com.example.demo.base.controller.BaseController;
 import com.example.demo.base.dto.MessageDto;
+import com.example.demo.base.paging.PagingResponse;
+import com.example.demo.base.paging.SearchDto;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ import java.util.Objects;
 public class MainController extends BaseController {
 
     private final BoardDetailService boardDetailService;
+    private final NoticeService noticeService;
+
     @GetMapping("/")
     public String mainPage(Model model){
 
@@ -93,8 +96,17 @@ public class MainController extends BaseController {
      * @return
      */
     @GetMapping("/notice/list")
-    public String openNoticeListPage(){
+    public String openNoticeListPage(@ModelAttribute("params") final SearchDto params, Model model){
+        PagingResponse<NoticeResponse> list = noticeService.findAllPostFront(params);
+        model.addAttribute("list", list);
         return "project/notice/list";
+    }
+
+    @GetMapping("/notice/view")
+    public String openNoticeDetail(@RequestParam final Long id, Model model){
+        NoticeResponse items = noticeService.findPostById(id);
+        model.addAttribute("items", items);
+        return "project/notice/view";
     }
 
     /* reservation */

@@ -16,7 +16,7 @@ public class ReviewResponse {
     private String originalName;           // 원본 파일명
     private String saveName;               // 저장 파일명
     private String uploadPath;             // 저장 경로
-    private Boolean deleteYn;              // 삭제 여부
+    private int deleteYn;              // 삭제 여부
     private LocalDateTime createdDate;     // 생성일시
     private LocalDateTime modifiedDate;    // 최종 수정일시
     private LocalDateTime deletedDate;     // 삭제 일시

@@ -9,7 +9,7 @@
 
     <div class="page_tits">
       <h3>이용후기 상세 관리</h3>
-      <p class="path"><strong>현재 위치 :</strong> <span>이용후기 상세 관리</span> <span>리스트형</span> <span>상세정보</span></p>
+      <p class="path"><strong>현재 위치 :</strong> <span>이용후기 상세 관리</span> <span>상세정보</span></p>
     </div>
 
     <div class="content">
@@ -29,29 +29,36 @@
             <td th:text="${#temporals.format( items.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
           </tr>
           <tr>
+            <th scope="row">비밀글 여부</th>
+            <td th:text="${items.secretYn == 1 ? '비공개' : '공개' }"></td>
+
+            <th scope="row">삭제 여부</th>
+            <td th:text="${items.deleteYn == 1 ? '삭제됨' : '일반글'}"></td>
+          </tr>
+          <tr>
             <th scope="row">순서</th>
-            <td colspan="3">[[ ${items.ord} ]]</td>
+            <td colspan="3" th:text="${items.ord}"></td>
           </tr>
           <tr>
             <th scope="row">제목</th>
-            <td colspan="3">[[ ${items.title} ]]</td>
+            <td colspan="3" th:text="${items.title}"></td>
           </tr>
           <tr>
             <th scope="row">이름</th>
-            <td colspan="3">[[ ${items.writer} ]]</td>
+            <td colspan="3" th:text="${items.writer}"></td>
           </tr>
           <tr>
             <th scope="row">내용</th>
-            <td colspan="3">[[ ${items.content} ]]</td>
+            <td colspan="3" th:text="${items.content}"></td>
           </tr>
 
           <tr>
             <th scope="row">파일저장된이름</th>
-            <td colspan="3">[[ ${items.saveName} ]]</td>
+            <td colspan="3" th:text="${items.saveName}"></td>
           </tr>
 
           <tr>
-            <th scope="row">파일 미리보기</th>
+            <th scope="row">파일 내용</th>
             <td colspan="3">
               <img th:src="@{/files/} + ${items.saveName}" style="width:300px;" alt="">
             </td>
@@ -61,7 +68,6 @@
 
       <p class="btn_set">
         <a th:href="@{/admin/review/write( id=${items.id} )}" class="btns btn_bdr4 btn_mid">수정</a>
-        <a th:onclick="deletePost();" class="btns btn_bdr1 btn_mid">삭제</a>
         <a th:href="@{/admin/review/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
       </p>
     </div> <!--/* .content */-->

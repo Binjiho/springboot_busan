@@ -71,16 +71,6 @@ public class AdminReviewService {
     }
 
     /**
-     * 이용후기 삭제
-     * @param id - PK
-     * @return PK
-     */
-    public Long deletePost(final Long id) {
-        reviewMapper.deleteById(id);
-        return id;
-    }
-
-    /**
      * 이용후기 리스트 조회
      * @param params - search conditions
      * @return list & pagination information
