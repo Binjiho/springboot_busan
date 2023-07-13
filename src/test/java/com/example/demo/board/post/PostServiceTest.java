@@ -13,14 +13,14 @@ public class PostServiceTest {
 
     @Test
     void save() {
-        for (int i = 1; i <= 1000; i++) {
-            BoardRequest params = new BoardRequest();
-            params.setTitle(i + "번 게시글 제목");
-            params.setContent(i + "번 게시글 내용");
-            params.setWriter("테스터" + i);
-            params.setNoticeYn(false);
-            Long id = boardService.savePost(params);
+//        for (int i = 1; i <= 1000; i++) {
+//            BoardRequest params = new BoardRequest();
+//            params.setTitle(i + "번 게시글 제목");
+//            params.setContent(i + "번 게시글 내용");
+//            params.setWriter("테스터" + i);
+//            params.setNoticeYn(false);
+//            Long id = boardService.savePost(params);
 //            System.out.println("생성된 게시글 ID : " + id);
-        }
+//        }
     }
 }

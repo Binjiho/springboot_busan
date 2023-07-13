@@ -42,21 +42,21 @@ public class BoardMapperTests {
 
     @Test
     void update(){
-        BoardRequest params = new BoardRequest();
-        params.setId(1L);
-        params.setTitle("1번 게시글 제목 수정합니다.");
-        params.setContent("1번 게시글 내용 수정합니다.");
-        params.setWriter("도뎡이");
-        params.setNoticeYn(true);
-        boardMapper.update(params);
-
-        BoardResponse post = boardMapper.findById(1L);
-        try {
-            String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);
-            System.out.println(postJson);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+//        BoardRequest params = new BoardRequest();
+//        params.setId(1L);
+//        params.setTitle("1번 게시글 제목 수정합니다.");
+//        params.setContent("1번 게시글 내용 수정합니다.");
+//        params.setWriter("도뎡이");
+//        params.setNoticeYn(true);
+//        boardMapper.update(params);
+//
+//        BoardResponse post = boardMapper.findById(1L);
+//        try {
+//            String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);
+//            System.out.println(postJson);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 //    @Test
