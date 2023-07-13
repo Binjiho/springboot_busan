@@ -72,7 +72,7 @@
     </select>
 
     <!-- ID 중복 체크 -->
-    <select id="countByLoginId" parameterType="string" resultType="int">
+    <select id="countBySignUpId" parameterType="string" resultType="int">
         SELECT
             count(*)
         FROM

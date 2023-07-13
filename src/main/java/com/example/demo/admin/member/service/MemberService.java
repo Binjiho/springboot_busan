@@ -66,8 +66,8 @@ public class MemberService {
      * @param loginId - UK
      * @return 회원 수
      */
-    public int countMemberByLoginId(final String loginId) {
-        return memberMapper.countByLoginId(loginId);
+    public int countMemberBysignUpId(final String signUpId) {
+        return memberMapper.countBySignUpId(signUpId);
     }
 
 }

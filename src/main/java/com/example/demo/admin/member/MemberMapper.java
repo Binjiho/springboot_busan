@@ -33,9 +33,9 @@ public interface MemberMapper {
 
     /**
      * 회원 수 카운팅 (ID 중복 체크)
-     * @param loginId - UK
+     * @param SignUpId - UK
      * @return 회원 수
      */
-    int countByLoginId(String loginId);
+    int countBySignUpId(String signUpId);
 }
 
