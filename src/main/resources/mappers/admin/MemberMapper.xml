@@ -33,6 +33,7 @@
             , 1
             , 0
             , NOW()
+            , NULL
         )
     </insert>
 

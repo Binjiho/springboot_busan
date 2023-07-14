@@ -19,6 +19,9 @@ button span {position:relative;}
 .btn_st4 {background:#00bc8c; color:#fff;} /* 그린 */
 .btn_st5 {background:#375a7f; color:#fff;} /* 네이비 */
 .btn_st6 {background:#6F8294; color:#fff;} /* 네이비 */
+.btn_st7 {background:#f4f4f4; color:#000000;} /* 연그레이 */
+.btn_st7.on {background:#00bc8c; color:#fff;} /* 연그레이 */
+.btn_st7.on:before {background:#00bc8c; color:#fff;} /* 연그레이 */
 
 .btn_bdr1 {background:#fff; border:1px solid #d74242; color:#d74242;} /* 레드 */
 .btn_bdr2 {background:#fff; border:1px solid #b4b4b4; color:#666;} /* 그레이 */

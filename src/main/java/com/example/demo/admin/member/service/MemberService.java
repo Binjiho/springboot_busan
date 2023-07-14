@@ -63,11 +63,33 @@ public class MemberService {
 
     /**
      * 회원 수 카운팅 (ID 중복 체크)
-     * @param loginId - UK
+     * @param userId - UK
      * @return 회원 수
      */
-    public int countMemberBysignUpId(final String signUpId) {
-        return memberMapper.countBySignUpId(signUpId);
+    public int countMemberBysignUpId(final String userId) {
+        return memberMapper.countBySignUpId(userId);
+    }
+
+    /**
+     * 로그인
+     * @param loginId - 로그인 ID
+     * @param password - 비밀번호
+     * @return 회원 상세정보
+     */
+    public MemberResponse login(final String loginId, final String password) {
+
+        // 1. 회원 정보 및 비밀번호 조회
+        MemberResponse member = findMemberByLoginId(loginId);
+        String encodedPassword = (member == null) ? "" : member.getUserPw();
+
+        // 2. 회원 정보 및 비밀번호 체크
+        if (member == null || passwordEncoder.matches(password, encodedPassword) == false) {
+            return null;
+        }
+
+        // 3. 회원 응답 객체에서 비밀번호를 제거한 후 회원 정보 리턴
+        member.clearPassword();
+        return member;
     }
 
 }

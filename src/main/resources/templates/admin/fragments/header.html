@@ -23,6 +23,16 @@
         <li><a href="/admin/login">로그인</a></li>
         <li><a href="/admin/logout">로그아웃</a></li>
       </ul>
+
+      <th:block th:if="${session.loginMember != null}" class="top_menu">
+        <div class="login_user"><strong><i class="far fa-user-circle"></i> [[ ${session.loginMember.name} ]]</strong>님 반갑습니다.</div>
+        <div class="logout">
+          <form action="/logout" method="post">
+            <button type="submit"><span class="skip_info">로그아웃</span><i class="fas fa-sign-out-alt"></i></button>
+          </form>
+        </div>
+      </th:block>
+
     </div>
   </div>
   <div class="submenu_Bg"></div>
