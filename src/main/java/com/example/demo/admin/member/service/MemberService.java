@@ -1,95 +1,44 @@
 package com.example.demo.admin.member.service;
 
-import com.example.demo.admin.member.MemberMapper;
-import com.example.demo.admin.member.MemberRequest;
-import com.example.demo.admin.member.MemberResponse;
+import com.example.demo.admin.member.entity.MemberEntity;
+import com.example.demo.admin.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-public class MemberService {
+//@Log4j2
+//@Service
+//@RequiredArgsConstructor
+//public class MemberDetailService implements UserDetailsService {
+//
+//    private final MemberRepository memberRepository;
 
-    private final MemberMapper memberMapper;
-    private final PasswordEncoder passwordEncoder;
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-    /**
-     * 회원 정보 저장 (회원가입)
-     * @param params - 회원 정보
-     * @return PK
-     */
-    @Transactional
-    public Long saveMember(final MemberRequest params) {
-        params.encodingPassword(passwordEncoder);
-        memberMapper.save(params);
-        return params.getId();
-    }
-
-    /**
-     * 회원 상세정보 조회
-     * @param loginId - UK
-     * @return 회원 상세정보
-     */
-    public MemberResponse findMemberByLoginId(final String loginId) {
-        return memberMapper.findByLoginId(loginId);
-    }
-
-    /**
-     * 회원 정보 수정
-     * @param params - 회원 정보
-     * @return PK
-     */
-    @Transactional
-    public Long updateMember(final MemberRequest params) {
-        params.encodingPassword(passwordEncoder);
-        memberMapper.update(params);
-        return params.getId();
-    }
-
-    /**
-     * 회원 정보 삭제 (회원 탈퇴)
-     * @param id - PK
-     * @return PK
-     */
-    @Transactional
-    public Long deleteMemberById(final Long id) {
-        memberMapper.deleteById(id);
-        return id;
-    }
-
-
-    /**
-     * 회원 수 카운팅 (ID 중복 체크)
-     * @param userId - UK
-     * @return 회원 수
-     */
-    public int countMemberBysignUpId(final String userId) {
-        return memberMapper.countBySignUpId(userId);
-    }
-
-    /**
-     * 로그인
-     * @param loginId - 로그인 ID
-     * @param password - 비밀번호
-     * @return 회원 상세정보
-     */
-    public MemberResponse login(final String loginId, final String password) {
-
-        // 1. 회원 정보 및 비밀번호 조회
-        MemberResponse member = findMemberByLoginId(loginId);
-        String encodedPassword = (member == null) ? "" : member.getUserPw();
-
-        // 2. 회원 정보 및 비밀번호 체크
-        if (member == null || passwordEncoder.matches(password, encodedPassword) == false) {
-            return null;
-        }
-
-        // 3. 회원 응답 객체에서 비밀번호를 제거한 후 회원 정보 리턴
-        member.clearPassword();
-        return member;
-    }
-
-}
+//        log.info("UserDetailsService loadUserByUsername" + username);
+//        Optional<MemberEntity> result = memberRepository.findByUserId(username,0);
+//        if(result.isPresent()){
+//            throw new UsernameNotFoundException("check Email or Social");
+//        }
+//
+//        MemberEntity memberEntity = result.get();
+//        log.info("================================================");
+//        log.info(memberEntity);
+//
+//        MemberDto memberDto = new MemberDto(
+//                memberEntity.getUserId(),
+//                memberEntity.getUserPw(),
+//                memberEntity.getFromSocial(),
+//                memberEntity.getRoleSet().stream()
+//                        .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name())).collect(Collectors.toSet())
+//                );
+//
+//        return memberDto;
+//    }
+//}

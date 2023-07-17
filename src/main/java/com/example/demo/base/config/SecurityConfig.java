@@ -43,11 +43,17 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests()
                 .antMatchers("/project/**").permitAll()
+                .antMatchers("/admin/member/login").permitAll()
                 .antMatchers("/admin/**").hasRole("USER")
                 .anyRequest().permitAll();
 
         http
-                .formLogin();
+                .formLogin()
+                .loginPage("/admin/member/login")
+                .loginProcessingUrl("/loginProcess")
+                .usernameParameter("id")
+                .passwordParameter("pw")
+                .defaultSuccessUrl("/admin/login/main", true);
 
         http
                 .logout();

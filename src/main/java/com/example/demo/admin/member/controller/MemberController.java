@@ -2,7 +2,7 @@ package com.example.demo.admin.member.controller;
 
 import com.example.demo.admin.member.MemberRequest;
 import com.example.demo.admin.member.MemberResponse;
-import com.example.demo.admin.member.service.MemberService;
+import com.example.demo.admin.member.service.MemberMybatisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -18,16 +18,15 @@ import java.util.Map;
 @Log4j2
 public class MemberController {
 
-    private final MemberService memberService;
+    private final MemberMybatisService memberService;
 
-    @GetMapping("/all")
-    public String exAll(){
-        log.info("exAll---------");
+    @GetMapping("/login/main")
+    public String openMainPage(){
         return "admin/main";
     }
 
     // 로그인 페이지
-    @GetMapping("/login")
+    @GetMapping("/member/login")
     public String openLoginPage() {
         return "admin/member/login";
     }
