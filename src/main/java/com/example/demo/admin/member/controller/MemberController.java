@@ -4,6 +4,7 @@ import com.example.demo.admin.member.MemberRequest;
 import com.example.demo.admin.member.MemberResponse;
 import com.example.demo.admin.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +15,16 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
+@Log4j2
 public class MemberController {
 
     private final MemberService memberService;
+
+    @GetMapping("/all")
+    public String exAll(){
+        log.info("exAll---------");
+        return "admin/main";
+    }
 
     // 로그인 페이지
     @GetMapping("/login")

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="HeaderAdmin" id="header" class="mob">
   <div class="header_inner">
     <h1>
@@ -20,18 +20,20 @@
 
     <div class="area_until">
       <ul>
-        <li><a href="/admin/login">로그인</a></li>
-        <li><a href="/admin/logout">로그아웃</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/admin/login">로그인</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/admin/logout">로그아웃</a></li>
       </ul>
 
-      <th:block th:if="${session.loginMember != null}" class="top_menu">
-        <div class="login_user"><strong><i class="far fa-user-circle"></i> [[ ${session.loginMember.name} ]]</strong>님 반갑습니다.</div>
-        <div class="logout">
-          <form action="/logout" method="post">
-            <button type="submit"><span class="skip_info">로그아웃</span><i class="fas fa-sign-out-alt"></i></button>
-          </form>
+      <div sec:authorize="isAuthenticated()" class="top_menu">
+        <div class="login_user">
+          <strong><i class="far fa-user-circle"></i><div sec:authentication="name"></div></strong>님 반갑습니다.
         </div>
-      </th:block>
+<!--        <div class="logout">-->
+<!--          <form action="/logout" method="post">-->
+<!--            <button type="submit"><span class="skip_info">로그아웃</span><i class="fas fa-sign-out-alt"></i></button>-->
+<!--          </form>-->
+<!--        </div>-->
+      </div>
 
     </div>
   </div>
