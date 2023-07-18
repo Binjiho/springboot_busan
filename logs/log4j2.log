@@ -1,0 +1,3 @@
+[2023-07-18 17:29:05.043]  INFO 7840 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2023-07-18 17:29:05.044]  INFO 7840 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown initiated...
+[2023-07-18 17:29:05.050]  INFO 7840 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown completed.
