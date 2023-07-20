@@ -11,12 +11,6 @@ java {
 	sourceCompatibility = '11'
 }
 
-docker {
-	name imageName
-	files "build/libs/${bootJar.archiveFileName.get()}"
-	buildArgs([JAR_FILE: bootJar.archiveFileName.get()])
-}
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
