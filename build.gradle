@@ -11,9 +11,10 @@ java {
 	sourceCompatibility = '11'
 }
 
-// build.gradle 변경하고자 하는 이름
-bootJar {
-	archiveFileName = 'app.jar'
+docker {
+	name imageName
+	files "build/libs/${bootJar.archiveFileName.get()}"
+	buildArgs([JAR_FILE: bootJar.archiveFileName.get()])
 }
 
 configurations {
