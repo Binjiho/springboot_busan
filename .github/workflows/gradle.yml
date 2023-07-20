@@ -50,4 +50,4 @@ jobs:
       uses: docker/build-push-action@v4.1.1
       with:
           push: true
-          tags: jiyu1948/${{ secrets.DOCKERHUB_REPO_NAME }}:latest
+          tags: jiyu1948/${{ secrets.DOCKERHUB_REPO }}:latest
