@@ -33,7 +33,7 @@ jobs:
 #      run: ./gradlew bootJar
 
     - name: docker image build
-      run: docker build -t jiyu1948/busan_ci .
+      run: docker build -t busan_ci:latest .
 #    - name: Set up QEMU
 #      uses: docker/setup-qemu-action@v2
 #
@@ -47,7 +47,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: docker Hub push
-      run: docker push jiyu1948/busan_ci
+      run: docker push busan_ci
     #Dockerfile
 #    - name: Build and push Docker images
 #      uses: docker/build-push-action@v4.1.1
