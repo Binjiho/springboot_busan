@@ -1,5 +1,5 @@
 FROM openjdk:11
-ENV APP_HOME=/apps
+VOLUME /tmp
 #상대경로
 ARG JAR_FILE=build/libs/*.jar
 WORKDIR $APP_HOME
