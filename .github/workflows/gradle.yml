@@ -43,7 +43,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    #buildx failed with: ERROR: invalid tag ":latest": invalid reference format
+    #Dockerfile
     - name: Build and push Docker images
       uses: docker/build-push-action@v4.1.1
       with:
