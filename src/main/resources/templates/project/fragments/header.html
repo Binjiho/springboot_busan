@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <div th:fragment="HeaderFragment" id="header" class="mob">
+      <div class="header_inner">
+        <h1>
+          <a href="/" class="font_jalnan" title="아몬드키즈풀빌라">almond kids poolvilla</a>
+        </h1>
+
+        <!-- gnb -->
+        <nav>
+          <ul class="gnb">
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'about')} ? 'on' : '' "><a href="/about/introduce" class="about">About</a>
+              <ul>
+                <li><a href="/about/introduce" class="about_sub01">소개, 전경</a></li>
+                <li><a href="/about/informationUse" class="about_sub02">이용안내</a></li>
+              </ul>
+            </li>
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'rooms')} ? 'on' : '' "><a href="/rooms/kp" class="room">Rooms</a>
+              <ul>
+                <li><a href="/rooms/kp" class="room_sub01">키즈핑크</a></li>
+                <li><a href="/rooms/ky" class="room_sub02">키즈옐로우</a></li>
+                <li><a href="/rooms/cw" class="room_sub03">시티풀화이트</a></li>
+                <li><a href="/rooms/mp" class="room_sub04">뮤직핑크</a></li>
+                <li><a href="/rooms/my" class="room_sub05">뮤직옐로우</a></li>
+              </ul>
+            </li>
+
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'notice')} ? 'on' : '' "><a href="/notice/list" class="notice">Notice</a></li>
+
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'review')} ? 'on' : '' "><a href="/review/list" class="review">Review</a></li>
+
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'reservation')} ? 'on' : '' "><a href="/reservation/list" class="reservation">Reservation</a>
+              <ul>
+                <li><a href="/reservation/list" class="reservation_list">실시간 예약</a></li>
+                <li><a href="/reservation/guide" class="reservation_sub02">예약 안내</a></li>
+                <li><a href="/reservation/check" class="reservation_check">예약 조회</a></li>
+              </ul>
+            </li>
+
+            <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'location')} ? 'on' : '' "><a href="/location" class="location">Location</a></li>
+          </ul>
+        </nav>
+        <!-- //gnb -->
+
+        <div class="area_until">
+          <ul>
+            <li><a href="/notice/list">공지사항</a></li>
+            <li><a href="/reservation/guide">예약안내</a></li>
+          </ul>
+          <a href="#" class="btn_menu_pc" data-util="menu">
+            <p>Menu</p>
+          </a>
+          <a href="#" class="btn_menu" data-util="menu"></a>
+        </div>
+      </div>
+      <div class="submenu_Bg"></div>
+      <div class="full_menu">
+        <div class="img"></div>
+        <div class="full_gnb"></div>
+      </div>
+    </div>
+</html>

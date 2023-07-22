@@ -1,0 +1,92 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="project/layout/basic">
+
+<div id="wrap">
+
+  <th:block layout:fragment="content">
+  <!-- area_subVisual -->
+  <div class="area_subVisual">
+    <section class="wrapper">
+      <div class="sv_text">
+        <h2>Reservation</h2>
+        <p>아이들과 함께 편안하고 즐거운 추억을 만들어보세요.</p>
+      </div>
+
+      <div class="area_lnb">
+        <h3>quick menu</h3>
+        <ul>
+          <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'list')} ? 'active' : '' ">
+            <a href="/reservation/list" class="reservation_list">실시간 예약</a>
+          </li>
+          <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'guide')} ? 'active' : '' ">
+            <a href="/reservation/guide" class="reservation_guide">예약 안내</a>
+          </li>
+          <li th:classappend="${#strings.contains(#ctx.springRequestContext.requestUri, 'check')} ? 'active' : '' ">
+            <a href="/reservation/check" class="reservation_check">예약 조회</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <!-- //area_subVisual -->
+
+    <section id="container" class="rerservation02 wrapper">
+      <div id="content">
+        <h3 class="sub_tit">예약 안내</h3>
+        <p>부산에서 가장 넓고 쾌적한 대형 객실을 갖추고 있는 프리미엄 키즈 풀빌라를 <br>간편한 방법으로 예약하여 쾌적한 시설과 수준 높은 서비스를 느껴보세요.</p>
+        <ul class="icon_list">
+          <li>
+            <a href="#" target="_blank" class="rers_home" onClick="alert('홈페이지 예약기능 준비중입니다. \n예약은 네이버, 여기어때, 야놀자, 쿠팡에서 가능합니다.')" title="홈페이지"><img src="/images/sns/home.svg" alt="홈페이지"></a>
+          </li>
+          <li>
+            <a href="https://naver.me/5MD7Xzvt" target="_blank" title="네이버"><img src="/images/sns/naver.svg" alt="네이버"></a>
+          </li>
+          <li>
+            <a href="https://place-site.yanolja.com/places/10043896" target="_blank" title="야놀자펜션"><img src="/images/sns/yanolja.svg" alt="야놀자펜션"></a>
+          </li>
+          <li>
+            <a href="https://www.goodchoice.kr/product/detail?ano=73531" target="_blank" title="여기어때"><img src="/images/sns/yeogi.svg" alt="여기어때"></a>
+          </li>
+          <li>
+            <a href="https://place-site.yanolja.com/places/10043896" target="_blank" title="쿠팡트레블"><img src="/images/sns/coupang.png" alt="쿠팡트레블"></a>
+          </li>
+        </ul>
+
+        <div class="sub_section ss01">
+          <h4 class="font_jalnan">예약순서</h4>
+          <div class="process">
+            <div class="box">
+              <i><img src="/images/content/notice_icon01.svg" alt="홈페이지 실시간 예약"></i>
+              <p>홈페이지 실시간 예약</p>
+            </div>
+
+            <div class="box">
+              <i><img src="/images/content/notice_icon02.svg" alt="예약확인 문자/안내"></i>
+              예약확인 문자/안내<span>(010-2449-5665)</span>
+            </div>
+
+            <div class="box">
+              <i><img src="/images/content/notice_icon03.svg" alt="입금"></i>
+              입금
+            </div>
+
+            <div class="box">
+              <i><img src="/images/content/notice_icon04.svg" alt="예약완료"></i>
+              <p>예약완료</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </th:block>
+</div>
+
+<th:block layout:fragment="css">
+  <style>
+  </style>
+</th:block>
+
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+  </script>
+</th:block>

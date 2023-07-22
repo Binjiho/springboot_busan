@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.admin.reservation.ReservationMapper">
+
+    <!-- rs_schedule 테이블 전체 컬럼 -->
+    <sql id="scheduleColumns">
+        id
+        ,title
+        ,status
+        ,payed_yn
+        ,start_date
+        ,ord
+    </sql>
+
+    <!-- 리스트 조회 -->
+    <select id="findAll" resultType="com.example.demo.admin.reservation.ReservationResponse">
+        SELECT
+            <include refid="scheduleColumns" />
+        FROM
+            rs_schedule
+        WHERE
+            payed_yn = 0
+        ORDER BY
+            start_date, ord
+    </select>
+
+    <!-- 특정 일자 리스트 조회 -->
+    <select id="find" resultType="com.example.demo.admin.reservation.ReservationResponse">
+        SELECT
+            <include refid="scheduleColumns" />
+        FROM
+            rs_schedule
+        WHERE
+            payed_yn = 0
+            AND start_date BETWEEN #{startDate} AND DATE_SUB( DATE_ADD(#{startDate}, INTERVAL 1 DAY) , INTERVAL 1 SECOND)
+        ORDER BY
+            start_date, ord
+    </select>
+
+    <!-- 저장 -->
+    <insert id="save" parameterType="com.example.demo.admin.reservation.ReservationDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO rs_schedule (
+            <include refid="scheduleColumns" />
+        ) VALUES (
+            #{id}
+            , #{title}
+            , #{status}
+            , 0
+            , #{startDate}
+            , #{ord}
+        )
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update" parameterType="com.example.demo.admin.reservation.ReservationRequest">
+        UPDATE
+            rs_schedule
+        SET
+            status = #{status}
+        WHERE
+            id = #{id}
+    </update>
+
+</mapper>

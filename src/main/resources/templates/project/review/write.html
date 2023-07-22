@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="project/layout/basic">
+
+
+<div id="wrap">
+
+  <th:block layout:fragment="content">
+  <!-- area_subVisual -->
+  <div class="area_subVisual">
+    <section class="wrapper">
+      <div class="sv_text">
+        <h2>review</h2>
+        <p>아이들과 함께 편안하고 즐거운 추억을 만들어보세요.</p>
+      </div>
+    </section>
+  </div>
+  <!-- //area_subVisual -->
+
+  <section id="container" class="wrapper">
+    <div id="content">
+      <h3 class="sub_tit">이용후기 글쓰기</h3>
+      <form id="saveForm" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="${items?.id} " />
+        <input type="hidden" name="return_url" value="/review/list" />
+
+        <table class="bbsView">
+          <colgroup>
+            <col data-write="th" style="width:15%"/>
+            <col data-write="td" style="width:85%"/>
+          </colgroup>
+          <tbody>
+          <tr>
+            <th scope="row"><span class="marking">필수항목</span><label for="title">제목</label></th>
+            <td><input type="text" name="title" id="title" class="inputFull required" th:value="${items?.title} "/></td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="marking">필수항목</span><label for="writer">작성자</label></th>
+            <td><input type="text" name="writer" id="writer" class="required" th:value="${items?.writer}" /></td>
+          </tr>
+
+          <tr>
+            <th scope="row">비밀글 여부</th>
+            <td>
+              <div class="checkBox">
+                <input type="checkbox" name="secretYn" id="secret" value="1" th:checked="${items?.secretYn == 1} ? 'checked' "/><label for="secret">비밀글 사용</label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row"><span class="marking">필수항목</span><label for="contents">내용</label></th>
+            <td>
+              <textarea name="content" id="contents" rows="2" cols="2" style="width:100%; ; height:412px;" class="inputFull" th:text="${items?.content}"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">첨부파일</th>
+            <td>
+              <div class="file_list">
+                <div class='designFile'>
+                  <input type='text' readonly='readonly' th:value="${items?.saveName}" />
+                  <input type='file' name='files' id='file' onchange="selectFile(this);"/><label for='file' class='button white'> 파일선택</label>
+                </div>
+                <!--
+                <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+                <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
+                -->
+              </div>
+              <span>첨부파일 가능 용량은 20MB 입니다</span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="marking">필수항목</span><label for="password">비밀번호</label></th>
+            <td>
+              <input type="password" name="password" id="password"  class="required" title="비밀번호" th:value="${items?.password} "/>
+              <em>※ 글 수정, 삭제시 필요합니다.</em>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
+
+      <!-- 버튼 -->
+      <div class="btn_area">
+        <input type="button" class="button white" onclick="savePost()" th:value="${items} ? '수정' : '저장'"/>
+        <a href="/review/list" class="button gray">취소</a>
+      </div>
+      <!-- //버튼 -->
+    </div>
+  </section>
+
+  </th:block>
+</div>
+
+<th:block layout:fragment="css">
+  <style >
+
+  </style>
+</th:block>
+
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    // 게시글 저장(수정)
+    function savePost() {
+        const form = document.getElementById('saveForm');
+        const fields = [form.title, form.writer, form.password];
+        const fieldNames = ['제목', '작성자', '비밀번호'];
+
+        //유효성 검사
+        for (let i = 0, len = fields.length; i < len; i++) {
+            isValid(fields[i], fieldNames[i]);
+        }
+
+        form.action = [[ ${items == null} ]] ? '/review/save' : '/review/update';
+        form.submit();
+    }
+
+    function hasCoda(value) {
+        return ((value.charCodeAt(value.length - 1) - 0xAC00) % 28) > 0;
+    }
+
+    /**
+     * 필드(Elemenet) 유효성 검사
+     * @param target - 검사 대상 Element
+     * @param fieldName - 필드명
+     * @param focusTarget - 포커스 대상 Element
+     * @returns 필드 입력(선택) 여부
+     */
+    function isValid(target, fieldName, focusTarget) {
+        if (target.value.trim()) {
+            return true;
+        }
+
+        const particle = (hasCoda(fieldName)) ? '을' : '를'; // 조사
+        const elementType = (target.type === 'text' || target.type === 'password' || target.type === 'search' || target.type === 'textarea') ? '입력' : '선택';
+        alert( `${fieldName + particle} ${elementType}해 주세요.` );
+
+        target.value = '';
+        ( !focusTarget ? target : focusTarget).focus();
+        throw new Error(`"${target.id}" is required...`)
+    }
+
+    // 파일 선택
+    function selectFile(element) {
+      const file = element.files[0];
+      const filename = element.closest('.designFile').firstElementChild;
+
+      // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+      if ( !file ) {
+          filename.value = '';
+          return false;
+      }
+
+      // 2. 파일 크기가 10MB를 초과하는 경우
+      const fileSize = Math.floor(file.size / 1024 / 1024);
+      if (fileSize > 10) {
+          alert('10MB 이하의 파일로 업로드해 주세요.');
+          filename.value = '';
+          element.value = '';
+          return false;
+      }
+
+      // 3. 파일명 지정
+      filename.value = file.name;
+    }
+
+    // 파일 추가
+    function addFile() {
+      const fileDiv = document.createElement('div');
+      fileDiv.innerHTML = `
+          <div class='designFile'>
+            <input type='text' readonly='readonly' value=''/>
+            <input type='file' name='file_1' id='file_1'/><label for='file_1' class='button white'> 파일선택</label>
+          </div>
+          <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+      `;
+      document.querySelector('.file_list').appendChild(fileDiv);
+    }
+
+
+    // 파일 삭제
+    function removeFile(element) {
+        const fileAddBtn = element.nextElementSibling;
+        if (fileAddBtn) {
+            const inputs = element.previousElementSibling.querySelectorAll('input');
+            inputs.forEach(input => input.value = '')
+            return false;
+        }
+        element.parentElement.remove();
+    }
+
+
+  </script>
+</th:block>

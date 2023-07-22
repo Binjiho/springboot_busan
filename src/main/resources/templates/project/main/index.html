@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="project/layout/basic">
+
+<th:block layout:fragment="title">
+    <title>아몬드키즈풀빌라 - 부산점</title>
+</th:block>
+
+
+<!--<div id="layer_10" class="layerPop" style="left:100px; top:150px; width:500px; z-index:;">-->
+<!--    <a href="/" target="_blank"><img src="/upload/program/popup/popup.jpg" alt="예약기능 준비중 안내"/></a>-->
+<!--    <div class="btn">-->
+<!--        <button onclick="todaycloseWin('10');">오늘 하루 열지 않기</button>-->
+<!--        <button onclick="closeWin('10');">X 닫기</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="wrap">
+    <th:block layout:fragment="content">
+    <!-- visual -->
+    <div class="area_visual">
+        <div class="swiper-container main_slider">
+            <ul class="swiper-wrapper">
+                <th:block th:if="${bannerTop.isEmpty()}" >
+                    <li class="swiper-slide" style="background-image: url(/images/main/main_visual01.jpg);"></li>
+                    <li class="swiper-slide" style="background-image: url(/images/main/main_visual02.jpg);"></li>
+                </th:block>
+                <th:block th:unless="${bannerTop.isEmpty()}" th:each="items : ${bannerTop}">
+                    <li class="swiper-slide">
+                        <img style="width:100%; height:1041px;" th:src="@{/files/} + ${items.saveName}" alt="mainTopBanner">
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+
+        <div class="vs_text">
+            <h2 class="font_jalnan" data-aos="fade-up" data-aos-duration="1500">
+                <span style="--i:1">a</span>
+                <span style="--i:2">l</span>
+                <span style="--i:3">m</span>
+                <span style="--i:4">o</span>
+                <span style="--i:5">n</span>
+                <span style="--i:6">d</span>
+                <span style="--i:7" class="space">k</span>
+                <span style="--i:9">i</span>
+                <span style="--i:10">d</span>
+                <span style="--i:11">s</span>
+                <span style="--i:12" class="space">p</span>
+                <span style="--i:13">o</span>
+                <span style="--i:14">o</span>
+                <span style="--i:15">l</span>
+                <span style="--i:16">v</span>
+                <span style="--i:17">i</span>
+                <span style="--i:18">l</span>
+                <span style="--i:19">l</span>
+                <span style="--i:20">a</span>
+            </h2>
+            <p  data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500">스페셜한 공간에서 프라이빗하게 소중한 사람들과 추억을 남기세요.</p>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="deco">
+            <i><img src="/images/main/deco_cloud_gray.svg" alt=""></i>
+            <i><img src="/images/main/deco_cloud.svg" alt=""></i>
+            <i><img src="/images/main/deco_cloud2_gray.svg" alt=""></i>
+            <i><img src="/images/main/deco_cloud2.svg" alt=""></i>
+        </div>
+    </div>
+    <!-- //visual -->
+
+    <section id="container">
+        <!-- 본문 -->
+        <div id="content">
+            <article class="area_intro" data-aos="fade-up" data-aos-duration="1500">
+                <div class="wrapper">
+                    <div>
+                        <span class="font_ulbee">Stay in ALMOND KIDS POOLVILLA</span>
+                        <h2>삶에 대한 가치를 느낄 수 있는, <br>휴식과 즐거움이 만나는 곳</h2>
+                        <p>아몬드키즈풀빌라는 편안하고 깔끔한 인테리어의 객실과 <br>
+                            아이들이 즐겁게 놀 수 있는 키즈 놀이시설을 완비하였습니다. <br>
+                            복잡한 도심을벗어나 아이들과 함께 즐겁고 신나는 추억을 선물하세요!
+                        </p>
+                    </div>
+                    <div class="img">
+                        <div class="deco">
+                            <i data-ani="shake_lr" class="ab_left"><img src="/images/main/deco_needle_leaf.png"></i>
+                            <i data-ani="shake_lr" class="ab_left"><img src="/images/main/deco_needle.png"></i>
+                            <i data-ani="shake_rl" class="ab_right"><img src="/images/main/deco_flower2.png"></i>
+                            <i data-ani="shake_rl" class="ab_right"><img src="/images/main/deco_needle2.png"></i>
+                        </div>
+                        <img src="/images/main/intro_img.jpg" alt="Stay in ALMOND KIDS POOLVILLA">
+                    </div>
+                </div>
+            </article>
+
+            <article class="area_room">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 20 150 25" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave" d="M -160 44 c 30 0 58 -5 88 -5 s 58 5 88 5 s 58 -5 88 -5 s 58 5 88 5 v 5 h -352 z" />
+                    </defs>
+                    <g class="waves_motion">
+                        <use xlink:href="#gentle-wave" x="48" y="0" fill="#f7f3e8" />
+                    </g>
+                </svg>
+                <div class="wrapper" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="area_title">
+                        <h2>ALMOND’s Rooms</h2>
+                        <p>감동적인 여행이 되길 바라는마음으로 곳곳에 배려와 정성을 담았습니다.</p>
+                        <a href="/reservation/list" ><span>실시간 예약</span></a>
+                    </div>
+
+                    <ul class="tab_list">
+                        <li class="active" rel="tab1">키즈핑크</li>
+                        <li rel="tab2">키즈옐로우</li>
+                        <li rel="tab3">시티풀화이트</li>
+                        <li rel="tab4">뮤직핑크</li>
+                        <li rel="tab5">뮤직옐로우</li>
+                    </ul>
+
+                    <div class="tab_container">
+                        <div id="tab1" class="tab_content on">
+                            <div class="room_exp">
+                                <h3>키즈핑크</h3>
+                                <p>객실 안 개별 키즈온수풀장과 놀이시설로 프라이빗한 시간을 경험할 수 있다. </p>
+                                <a href="/rooms/kp" class="area_btn">view more <span>→</span></a>
+                            </div>
+                            <section>
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room01_img01.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room01_img02.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room01_img03.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room01_img04.jpg)"></div>
+                                    </div>
+                                </div>
+                                <div class="swiper-button room-button-next"></div>
+                                <div class="swiper-button room-button-prev"></div>
+                            </section>
+                        </div>
+
+                        <div id="tab2" class="tab_content on">
+                            <div class="room_exp">
+                                <h3>키즈옐로우</h3>
+                                <p>객실 안 개별 키즈온수풀장과 놀이시설로 프라이빗한 시간을 경험할 수 있다. </p>
+                                <a href="/rooms/ky" class="area_btn">view more <span>→</span></a>
+                            </div>
+                            <section>
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room02_img01.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room02_img02.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room02_img03.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room02_img04.jpg)"></div>
+
+                                    </div>
+                                </div>
+                                <div class="swiper-button room-button-next"></div>
+                                <div class="swiper-button room-button-prev"></div>
+                            </section>
+                        </div>
+
+                        <div id="tab3" class="tab_content on">
+                            <div class="room_exp">
+                                <h3>시티풀화이트</h3>
+                                <p>객실 안 개별 키즈온수풀장과 놀이시설로 프라이빗한 시간을 경험할 수 있다. </p>
+                                <a href="/rooms/cw" class="area_btn">view more <span>→</span></a>
+                            </div>
+                            <section>
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room03_img01.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room03_img02.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room03_img03.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room03_img04.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room03_img05.jpg)"></div>
+                                    </div>
+                                </div>
+                                <div class="swiper-button room-button-next"></div>
+                                <div class="swiper-button room-button-prev"></div>
+                            </section>
+                        </div>
+
+                        <div id="tab4" class="tab_content on">
+                            <div class="room_exp">
+                                <h3>뮤직핑크</h3>
+                                <p>객실 안 개별 키즈온수풀장과 놀이시설로 프라이빗한 시간을 경험할 수 있다. </p>
+                                <a href="/rooms/mp" class="area_btn">view more <span>→</span></a>
+                            </div>
+                            <section>
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room04_img01.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room04_img02.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room04_img03.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room04_img04.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room04_img05.jpg)"></div>
+                                    </div>
+                                </div>
+                                <div class="swiper-button room-button-next"></div>
+                                <div class="swiper-button room-button-prev"></div>
+                            </section>
+                        </div>
+
+                        <div id="tab5" class="tab_content on">
+                            <div class="room_exp">
+                                <h3>뮤직옐로우</h3>
+                                <p>객실 안 개별 키즈온수풀장과 놀이시설로 프라이빗한 시간을 경험할 수 있다. </p>
+                                <a href="/rooms/my" class="area_btn">view more <span>→</span></a>
+                            </div>
+                            <section>
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room05_img01.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room05_img02.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room05_img03.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room05_img04.jpg)"></div>
+                                        <div class="swiper-slide" style="background-image:url(/images/rooms/room05_img05.jpg)"></div>
+                                    </div>
+                                </div>
+                                <div class="swiper-button room-button-next"></div>
+                                <div class="swiper-button room-button-prev"></div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="deco">
+                    <i><img src="/images/main/deco_flower_leaf.png"></i>
+                    <i><img src="/images/main/deco_flower.png"></i>
+                </div>
+            </article>
+
+            <article class="area_event">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 20 150 25" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave" d="M -160 44 c 30 0 58 -5 88 -5 s 58 5 88 5 s 58 -5 88 -5 s 58 5 88 5 v 5 h -352 z" />
+                    </defs>
+                    <g class="waves_motion">
+                        <use xlink:href="#gentle-wave" x="48" y="0" fill="#689b9e" />
+                    </g>
+                </svg>
+
+                <div class="deco">
+                    <i><img src="/images/main/deco2_leaf.png"></i>
+                    <i><img src="/images/main/deco2_leaf2.png"></i>
+                </div>
+
+                <div class="area_title">
+                    <section class="wrapper">
+                        <div class="deco">
+                            <i><img src="/images/main/deco_character.svg"></i>
+                        </div>
+                        <h2 data-aos="fade-up" data-aos-duration="1500">Special  Event</h2>
+                        <p data-aos="fade-up" data-aos-duration="1500">아몬드키즈풀빌라에서 진행하는 특급 이벤트를 한눈에 알아보세요.  </p>
+                        <a href="/contents/03_offers/sub02.html" class="area_btn" data-aos="fade-up" data-aos-duration="1500">view more <span>→</span></a>
+                    </section>
+                </div>
+                <div class="area_slider wrapper" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500">
+                    <div class="swiper event_slider">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><a href="/contents/03_offers/sub02.html">
+                                <span class="sl_date">2023.01.01 ~ 2023.05.31</span>
+                                <dl>
+                                    <dt>숙소에서 바로 받는 Food 아몬드키즈풀빌라, 1++ 한우 3만원 할인 쿠폰</dt>
+                                    <dd>여행의 완성은 맛! 틀별한 여행을 완성하기 위해 탄생한 1++ 프리미엄 한우 코스와 함께 떠나는 여행.</dd>
+                                </dl>
+                                <div class="sl_img"><img src="/images/main/event_img01.jpg" alt="숙소에서 바로 받는 Food 아몬드키즈풀빌라, 1++ 한우 3만원 할인 쿠폰"></div>
+                            </a></div>
+
+                            <div class="swiper-slide"><a href="/contents/03_offers/sub02.html">
+                                <span class="sl_date font_pre">2023.01.01 ~ 2023.05.31</span>
+                                <dl>
+                                    <dt>숙박대전 기간 내 선착순 예약고객 한정 시그니처 사은품 증정 이벤트</dt>
+                                    <dd>ONLY 숙박대전 기간한정! 숙박대전 3만원쿠폰 + 아몬드키즈풀빌라 추가 1만원 쿠폰 혜택에 시그니처 사은품 이벤트를 더하다.</dd>
+                                </dl>
+                                <div class="sl_img"><img src="/images/main/event_img02.jpg" alt="숙박대전 기간 내 선착순 예약고객 한정 시그니처 사은품 증정 이벤트"></div>
+                            </a></div>
+
+                            <div class="swiper-slide"><a href="/contents/03_offers/sub02.html">
+                                <span class="sl_date">2023.01.01 ~ 2023.05.31</span>
+                                <dl>
+                                    <dt>숙소에서 바로 받는 Food 아몬드키즈풀빌라, 1++ 한우 3만원 할인 쿠폰</dt>
+                                    <dd>여행의 완성은 맛! 틀별한 여행을 완성하기 위해 탄생한 1++ 프리미엄 한우 코스와 함께 떠나는 여행.</dd>
+                                </dl>
+                                <div class="sl_img"><img src="/images/main/event_img01.jpg" alt="숙소에서 바로 받는 Food 아몬드키즈풀빌라, 1++ 한우 3만원 할인 쿠폰"></div>
+                            </a></div>
+
+                            <div class="swiper-slide"><a href="/contents/03_offers/sub02.html">
+                                <span class="sl_date font_pre">2023.01.01 ~ 2023.05.31</span>
+                                <dl>
+                                    <dt>숙박대전 기간 내 선착순 예약고객 한정 시그니처 사은품 증정 이벤트</dt>
+                                    <dd>ONLY 숙박대전 기간한정! 숙박대전 3만원쿠폰 + 아몬드키즈풀빌라 추가 1만원 쿠폰 혜택에 시그니처 사은품 이벤트를 더하다.</dd>
+                                </dl>
+                                <div class="sl_img"><img src="/images/main/event_img02.jpg" alt="숙박대전 기간 내 선착순 예약고객 한정 시그니처 사은품 증정 이벤트"></div>
+                            </a></div>
+                        </div>
+                    </div>
+                    <div class="event_pagination"></div>
+                    <ul class="event_button">
+                        <li class="swiper-button-prev"></li>
+                        <li class="swiper-button-next"></li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="area_customer">
+                <div class="deco">
+                    <i><img src="/images/main/deco3_img.png"></i>
+                    <i><img src="/images/main/deco3_img2.png"></i>
+                    <i><img src="/images/main/deco3_img3.svg"></i>
+                    <i><img src="/images/main/deco3_img4.svg"></i>
+                    <i><img src="/images/main/deco3_img3.svg"></i>
+                    <i><img src="/images/main/deco3_img5.svg"></i>
+                    <i><img src="/images/main/deco3_img6.svg"></i>
+                </div>
+                <section class="wrapper"  data-aos="fade-up" data-aos-duration="1500">
+                    <div class="map"><i><img src="/images/main/main_location_color.svg"></i></div>
+                    <div class="map_info">
+                        <div class="area_title">
+                            <h2>Contact Us</h2>
+                        </div>
+                        <div class="call">
+                            <p class="font_pre">부산광역시 중구 자갈치해안로57</p>
+                            <a href="tel:051-715-8844">051-715-8844</a>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="/review/list">
+                                <i><img src="/images/main/main_location_icon05.svg" alt="이용후기"><img src="/images/main/main_location_icon05_on.svg" alt="이용후기" class="on"></i>
+                                <dl>
+                                    <dd>고객님들의 실제 후기</dd>
+                                    <dt>이용후기</dt>
+                                </dl>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/notice/list">
+                                    <i><img src="/images/main/main_location_icon04.svg" alt="공지사항"><img src="/images/main/main_location_icon04_on.svg" alt="공지사항" class="on"></i>
+                                    <dl>
+                                        <dd>최신 소식 한눈에 보기 </dd>
+                                        <dt>공지사항</dt>
+                                    </dl>
+                                </a>
+                            </li>
+                            <!--
+                            <li>
+                                <a href="/contents/04_travel/travel.html?board_id=board_gallery#lnb">
+                                <i><img src="/images/main/main_location_icon02.svg" alt="주변 관광 명소"><img src="/images/main/main_location_icon02_on.svg" alt="주변 관광 명소" class="on"></i>
+                                <dl>
+                                    <dd>가까운 관광지 알아보기</dd>
+                                    <dt>주변 관광 명소</dt>
+                                </dl>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/contents/03_offers/event.html?board_id=board_event">
+                                <i><img src="/images/main/main_location_icon03.svg" alt="이벤트"><img src="/images/main/main_location_icon03_on.svg" alt="이벤트" class="on"></i>
+                                <dl>
+                                    <dd>다양하게 준비한 이벤트!</dd>
+                                    <dt>이벤트</dt>
+                                </dl>
+                                </a>
+                            </li>
+                            -->
+                        </ul>
+                    </div>
+                </section>
+            </article>
+
+            <article class="area_banner">
+                <h2 class="wrapper" data-aos="fade-up" data-aos-duration="1500">지친 일상 속 쉼이 되어주는 곳, <span class="font_jalnan">ALMOND KIDS POOLVILLA</span></h2>
+            </article>
+        </div>
+        <!-- //본문 -->
+    </section>
+</th:block>
+</div>
+
+<th:block layout:fragment="css">
+    <style >
+    .area_room .tab_container {
+        height: 749px;
+    }
+    </style>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            AOS.init();
+            mainSlider();
+            sliderTab();
+        });
+    </script>
+
+    <script th:inline="javascript">
+        // swiper
+        function mainSlider() {
+            new Swiper(".main_slider", {
+                slidesPerView : '1',
+                loop : true,
+                loopAdditionalSlides : 1,
+                effect : 'fade',
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true
+                },
+                autoplay : {
+                    delay : 3000,
+                    disableOnInteraction : false,
+                },
+            });
+
+            new Swiper("article.area_room .mySwiper", {
+                slidesPerView : 1,
+                loop : true,
+                speed: 1000,
+                effect:'fade',
+                autoplay : {
+                    delay : 5000,
+                    disableOnInteraction : false,
+                },
+                navigation: {
+                    nextEl: ".room-button-next",
+                    prevEl: ".room-button-prev",
+                },
+                observer:true,
+                observeParents:true
+            });
+
+            new Swiper(".event_slider", {
+                slidesPerView : 2,
+                slidesPerGroup: 2,
+                loop : true,
+                speed: 2000,
+                pagination: {
+                    el: ".event_pagination",
+                    clickable: true
+                },
+                navigation : {
+                    nextEl : '.event_button > .swiper-button-next',
+                    prevEl : '.event_button > .swiper-button-prev',
+                },
+                autoplay : {
+                    delay : 2000,
+                    disableOnInteraction : false,
+                },
+                breakpoints: {
+                    540: {
+                      slidesPerView: 2
+                    }
+                }
+            });
+        }
+    </script>
+
+    <script th:inline="javascript">
+        function sliderTab(){
+            $(".tab_container").children(".tab_content").removeClass("on");
+            $(".tab_container").children(".tab_content:first-child").addClass("on");
+
+            $("article.area_room .tab_list li").click(function(){
+                change_tab($(this));
+            });
+        }
+
+        function change_tab(el) {
+            var parThis = el.closest("article.area_room").find(".tab_container");
+            var activeTab = el.attr("rel");
+
+            el.parent("ul").children("li").removeClass("active");
+            el.addClass("active");
+
+            parThis.children(".tab_content").removeClass("on");
+            parThis.children("#" + activeTab).addClass("on");
+        }
+
+    </script>
+
+    <script th:inline="javascript">
+        // 쿠키 체크
+    <!--	function getCookie(name)-->
+    <!--	{-->
+    <!--        var nameOfCookie = name + "=";-->
+    <!--        var x = 0;-->
+    <!--        while ( x <= document.cookie.length )-->
+    <!--        {-->
+    <!--                var y = (x+nameOfCookie.length);-->
+    <!--                if ( document.cookie.substring( x, y ) == nameOfCookie ) {-->
+    <!--                        if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )-->
+    <!--                                endOfCookie = document.cookie.length;-->
+    <!--                        return unescape( document.cookie.substring( y, endOfCookie ) );-->
+    <!--                }-->
+    <!--                x = document.cookie.indexOf( " ", x ) + 1;-->
+    <!--                if ( x == 0 )-->
+    <!--                        break;-->
+    <!--        }-->
+    <!--        return "";-->
+    <!--	}-->
+    </script>
+    <script th:inline="javascript">
+    <!--	function setCookie( name, value, expirehours ) {-->
+    <!--		var todayDate = new Date();-->
+    <!--		todayDate.setHours( todayDate.getHours() + expirehours );-->
+    <!--		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"-->
+    <!--	}-->
+    <!--	function closeWin(no) {-->
+    <!--		document.getElementById("layer_"+no).style.display = "none";-->
+
+    <!--		if(document.getElementById("layer_"+no)){-->
+    <!--			document.getElementById("layer_"+no).style.display = "none";-->
+
+    <!--		}-->
+    <!--	}-->
+    <!--	function todaycloseWin(no) {-->
+    <!--		var cookie_name = "layer_"+no;-->
+    <!--		setCookie( cookie_name, "done" , 24 );-->
+    <!--		//document.getElementById(no).style.display = "none";-->
+    <!--		$("#layer_"+no).css("display", "none");-->
+    <!--	}-->
+    </script>
+    <script th:inline="javascript">
+    <!--	cookiedata = document.cookie;-->
+    <!--	if ( cookiedata.indexOf("layer_"+"10") < 0 ){-->
+    <!--		document.getElementById("layer_10").style.display = "block";-->
+    <!--	} else {-->
+    <!--		document.getElementById("layer_10").style.display = "none";-->
+    <!--	}-->
+    </script>
+</th:block>
+
+</html>

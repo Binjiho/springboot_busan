@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="admin/layout/basic">
+<th:block layout:fragment="title">
+  <title>로그인 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+
+  <section id="container">
+
+    <div id="login_wrap">
+      <div id="login_box">
+        <div class="login_con">
+          <div class="login_tit">
+            <h2>ADMIN</h2>
+            <p>LOG<i>IN</i></p>
+          </div>
+
+          <div class="login_input">
+            <form id="loginForm" method="post" action="/login_Process">
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+              <ul>
+                <li>
+                  <label for="loginId" class="skip_info">아이디</label>
+                  <input type="text" id="loginId" name="loginId" placeholder="아이디" title="아이디" />
+                </li>
+                <li>
+                  <label for="password" class="skip_info">비밀번호</label>
+                  <input type="password" id="password" name="loginPw" title="비밀번호" placeholder="비밀번호" />
+                </li>
+              </ul>
+              <button type="submit"  class="login_btn">로그인</button>
+              <button type="button" onclick="openSignupPopup();" class="signup_btn">회원가입</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--/* 회원가입 popup */-->
+    <div id="signupPopup" class="popLayer">
+      <h3>회원가입</h3>
+      <div class="pop_container">
+        <form id="signupForm" onsubmit="return false;" autocomplete="off">
+          <table class="tb tb_row tl">
+            <colgroup>
+              <col style="width:30%;" /><col style="width:70%;" />
+            </colgroup>
+            <tbody>
+            <tr>
+              <th scope="row">아이디<span class="es">필수 입력</span></th>
+              <td>
+                <input type="text" name="userId" onchange="reWrite()" placeholder="아이디" maxlength="20" style="width: 70%;" />
+                <button type="button" id="idCheckBtn" class="btns btn_st7" onclick="checkSignUpId();" style="width: auto; float: right;">중복확인</button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">비밀번호<span class="es">필수 입력</span></th>
+              <td><input type="password" name="userPw" placeholder="비밀번호" maxlength="30" /></td>
+            </tr>
+            <tr>
+              <th scope="row">비밀번호 재입력<span class="es">필수 입력</span></th>
+              <td><input type="password" name="userPwCheck" placeholder="비밀번호 재입력" maxlength="30" /></td>
+            </tr>
+            <tr>
+              <th scope="row">이름<span class="es">필수 입력</span></th>
+              <td><input type="text" name="name" placeholder="이름" maxlength="10" /></td>
+            </tr>
+
+            <tr>
+              <th scope="row">휴대폰번호<span class="es">필수 입력</span></th>
+              <td><input type="text" name="htel" placeholder="'-' 없이 입력" /></td>
+            </tr>
+            </tbody>
+          </table>
+        </form>
+        <p class="btn_set">
+          <button type="button" class="btns btn_st4" onclick="saveMember();">가입</button>
+          <button type="button" class="btns btn_st1" onclick="closeSignupPopup();">취소</button>
+        </p>
+      </div>
+      <button type="button" class="btn_close" onclick="closeSignupPopup();"><span><i class="far fa-times-circle"></i></span></button>
+    </div>
+
+  </section>
+</th:block>
+
+<th:block layout:fragment="script">
+
+
+  <script th:inline="javascript">
+
+    function openSignupPopup() {
+        layerPop('signupPopup')
+    }
+
+    function closeSignupPopup() {
+        const form = document.getElementById('signupForm');
+        form.idCheckBtn.classList.remove('on');
+        form.reset();
+        layerPopClose();
+    }
+
+    function reWrite() {
+      const form = document.getElementById('signupForm');
+      form.idCheckBtn.classList.remove('on');
+    }
+
+    // 회원가입 아이디 중복 체크
+    function checkSignUpId() {
+
+      const form = document.getElementById('signupForm');
+      const fields = [form.userId];
+      const fieldNames = ['아이디'];
+      const userId = form.userId;
+
+      //유효성 검사
+      for (let i = 0, len = fields.length; i < len; i++) {
+        isValid(fields[i], fieldNames[i]);
+      }
+
+      let count = 0;
+      const memberCount = $.ajax({
+          type : "POST",
+          url: "/admin/member/check",
+          data : JSON.stringify({
+              'userId' : userId.value
+          }),
+          contentType : "application/json",
+          dataType : "json"
+      });
+      memberCount.done(function( result ) {
+          count = result;
+          if (count > 0) {
+            alert('이미 가입된 아이디가 있습니다.');
+            userId.focus();
+            return false;
+          }else{
+            if (confirm('사용 가능한 아이디입니다.\n입력하신 아이디로 결정하시겠어요?')) {
+              document.getElementById('idCheckBtn').classList.add('on');
+            }
+          }
+      });
+      memberCount.fail(function( jqXHR, textStatus ) {
+          alert( "Request failed: " + textStatus );
+      });
+
+
+    }
+
+    // 회원 정보 저장 (회원가입)
+    function saveMember() {
+
+      const form = document.getElementById('signupForm');
+      validationMemberInfo(form);
+
+      const params = {}
+      new FormData(form).forEach((value, key) => params[key] = value.trim());
+      params.htel = params.htel.replace(/[^0-9]/g, '');
+
+      const memberSave = $.ajax({
+          type : "POST",
+          url: "/admin/member/save",
+          data : JSON.stringify(params),
+          contentType : "application/json",
+          dataType : "json"
+      });
+      memberSave.done(function( result ) {
+          alert('가입을 축하드립니다!\n로그인 후 서비스를 이용해 주세요.');
+      });
+      memberSave.fail(function( jqXHR, textStatus ) {
+          alert('에러가 발생하였습니다.');
+      });
+
+      closeSignupPopup();
+    }
+
+    // 회원 정보 유효성 검사
+    function validationMemberInfo(form) {
+
+      const fields = form.querySelectorAll('input:not([type="radio"])');
+      const fieldNames = ['아이디', '비밀번호', '비밀번호 재입력', '이름', '휴대폰번호'];
+      const strChk = /^[가-힣]{2,6}|[a-zA-Z]{2,10}$/;
+      const intChK = /^[0-9]*$/;
+
+      for (let i = 0, len = fields.length; i < len; i++) {
+          isValid(fields[i], fieldNames[i]);
+      }
+
+      if (!form.idCheckBtn.classList.contains('on')) {
+          alert('아이디 중복 체크를 완료해 주세요.');
+          throw new Error();
+      }
+
+      if (form.userPw.value !== form.userPwCheck.value) {
+          alert('비밀번호가 일치하지 않습니다.');
+          form.passwordCheck.focus();
+          throw new Error();
+      }
+      if (!strChk.test(form.name.value)){
+          alert('이름은 한글과 영어만 적어 주세요.');
+          form.name.focus();
+          throw new Error();
+      }
+      if (!intChK.test(form.htel.value)){
+          alert('휴대폰 번호는 숫자만 적어 주세요.');
+          form.htel.focus();
+          throw new Error();
+      }
+    }
+  </script>
+</th:block>

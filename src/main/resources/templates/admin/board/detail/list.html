@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="admin/layout/basic">
+<th:block layout:fragment="title">
+    <title>게시판 상세 리스트 페이지</title>
+</th:block>
+
+
+<th:block layout:fragment="content">
+
+    <section id="container">
+
+        <div class="page_tits">
+            <h3>상세 게시판 관리</h3>
+            <p class="path"><strong>현재 위치 :</strong> <span>상세 게시판 관리</span> <span>리스트형</span> <span>리스트</span></p>
+        </div>
+
+        <div class="content">
+
+            <!--/* 게시판 상세 */-->
+            <table class="tb tb_row">
+                <colgroup>
+                    <col style="width:10%;" />
+                    <col style="width:23%;" />
+                    <col style="width:10%;" />
+                    <col style="width:23%;" />
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">게시판 ID</th>
+                    <td th:text="${item.id}"></td>
+
+                    <th scope="row">등록일</th>
+                    <td th:text="${#temporals.format( item.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">제목</th>
+                    <td>[[ ${item.title} ]]</td>
+
+                </tr>
+                <tr>
+                    <th scope="row">이름</th>
+                    <td colspan="3">[[ ${item.writer} ]]</td>
+                </tr>
+                <tr>
+                    <th scope="row">내용</th>
+                    <td colspan="3">[[ ${item.content} ]]</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--/* 게시판 상세 리스트 */-->
+            <table class="tb tb_col">
+                <colgroup>
+                    <col style="width:10%;"/>
+                    <col style="width:10%;"/>
+                    <col style="width:auto;"/>
+                    <col style="width:15%;"/>
+                    <col style="width:25%;"/>
+                    <col style="width:15%;"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th scope="col"><input type="checkbox"/></th>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">등록일</th>
+                    <th scope="col">수정</th>
+                </tr>
+                </thead>
+                <tbody id="list">
+                    <th:block th:each="items: ${boardDetailList}">
+                        <tr>
+                            <td><input type="checkbox" /></td>
+                            <td th:text="${items.id} "></td>
+                            <td class="tl td-hover"><a th:href="@{/admin/board/detail/view(id=${items.id})}" th:text="${items.title}"></a></td>
+                            <td th:text="${items.writer}"></td>
+                            <td th:text="${#temporals.format(items.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td><a th:href="@{/admin/board/detail/view(id=${items.id})}" class="btns btn_st6 btn_mid">수정</a></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+
+            <!--/* 버튼 */-->
+            <p class="btn_set tr">
+                <a th:href="@{/admin/board/detail/write(boardId=${item.id})}" class="btns btn_st6 btn_mid">상세 글쓰기</a>
+            </p>
+        </div>
+        <!--/* .content */-->
+</section>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+    </script>
+</th:block>
+</html>

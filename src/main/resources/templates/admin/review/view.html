@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="admin/layout/basic">
+<th:block layout:fragment="title">
+  <title>이용후기 상세 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+  <section id="container">
+
+    <div class="page_tits">
+      <h3>이용후기 상세 관리</h3>
+      <p class="path"><strong>현재 위치 :</strong> <span>이용후기 상세 관리</span> <span>상세정보</span></p>
+    </div>
+
+    <div class="content">
+      <table class="tb tb_row">
+        <colgroup>
+          <col style="width:10%;" />
+          <col style="width:23%;" />
+          <col style="width:10%;" />
+          <col style="width:23%;" />
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">글 유형</th>
+            <td th:text="일반"></td>
+
+            <th scope="row">등록일</th>
+            <td th:text="${#temporals.format( items.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
+          </tr>
+          <tr>
+            <th scope="row">비밀글 여부</th>
+            <td th:text="${items.secretYn == 1 ? '비공개' : '공개' }"></td>
+
+            <th scope="row">삭제 여부</th>
+            <td th:text="${items.deleteYn == 1 ? '삭제됨' : '일반글'}"></td>
+          </tr>
+          <tr>
+            <th scope="row">순서</th>
+            <td colspan="3" th:text="${items.ord}"></td>
+          </tr>
+          <tr>
+            <th scope="row">제목</th>
+            <td colspan="3" th:text="${items.title}"></td>
+          </tr>
+          <tr>
+            <th scope="row">이름</th>
+            <td colspan="3" th:text="${items.writer}"></td>
+          </tr>
+          <tr>
+            <th scope="row">내용</th>
+            <td colspan="3" th:text="${items.content}"></td>
+          </tr>
+
+          <tr>
+            <th scope="row">파일저장된이름</th>
+            <td colspan="3" th:text="${items.saveName}"></td>
+          </tr>
+
+          <tr>
+            <th scope="row">파일 내용</th>
+            <td colspan="3">
+              <img th:src="@{/files/} + ${items.saveName}" style="width:300px;" alt="">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="btn_set">
+        <a th:href="@{/admin/review/write( id=${items.id} )}" class="btns btn_bdr4 btn_mid">수정</a>
+        <a th:href="@{/admin/review/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+      </p>
+    </div> <!--/* .content */-->
+  </section>
+</th:block>
+
+<th:block layout:fragment="css">
+  <style >
+  .btn_set > a {
+    color: #111111;
+  }
+  </style>
+</th:block>
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+      /*<![CDATA[*/
+
+          // 게시글 삭제
+          function deletePost() {
+              const id = [[ ${items.id} ]];
+
+              if ( !confirm(id + '번 게시글을 삭제할까요?') ) {
+                  return false;
+              }
+
+              const formHtml = `
+                  <form id="deleteForm" action="/admin/review/delete" method="post">
+                      <input type="hidden" id="id" name="id" value="${id}" />
+                  </form>
+              `;
+              const doc = new DOMParser().parseFromString(formHtml, 'text/html');
+              const form = doc.body.firstChild;
+              document.body.append(form);
+              document.getElementById('deleteForm').submit();
+          }
+
+      /*]]>*/
+
+      </script>
+</th:block>
+</html>
