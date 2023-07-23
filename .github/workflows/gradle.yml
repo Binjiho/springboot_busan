@@ -48,7 +48,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: docker Hub push
-      run: docker push jiyu1948/busan_moon
+      run: docker push jiyu1948/busan_moon:latest
 
 #    - name: Build and push Docker images
 #      uses: docker/build-push-action@v4.1.1
