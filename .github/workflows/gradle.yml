@@ -102,9 +102,9 @@ jobs:
           timeout: 40s
           script_stop: true
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_ci:latest
             docker stop $(docker ps -a -q)
-            docker run -it -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+            docker run -it -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_ci:latest
             docker rm $(docker ps --filter 'status=exited' -a -q)
             docker image prune -a -f
 
