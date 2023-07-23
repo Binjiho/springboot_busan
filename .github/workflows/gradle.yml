@@ -103,9 +103,7 @@ jobs:
           script_stop: true
           script: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_ci:latest
-            docker stop $(docker ps -aq)
             docker run -i -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_ci:latest
-            docker rm $(docker ps --filter 'status=exited' -aq)
             docker image prune -a -f
 
       - name: Remove Github Actions IP From Security Group
