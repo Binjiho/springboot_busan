@@ -33,7 +33,7 @@ jobs:
       run: ./gradlew bootJar
 
     - name: docker image build
-      run: docker build -t web:latest .
+      run: docker build -t jiyu1948/busan_moon .
 
 #    - name: Set up QEMU
 #      uses: docker/setup-qemu-action@v2
