@@ -76,7 +76,7 @@ jobs:
 #          target: "/deploy"
 
       - name: DockerImagePull
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
           username: ec2-user
