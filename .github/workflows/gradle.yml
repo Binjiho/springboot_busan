@@ -29,15 +29,11 @@ jobs:
 
     #build 폴더를 삭제하고 다시 빌드
     - name: Build with Gradle
-#      run: ./gradlew clean build --exclude-task test
       run: ./gradlew bootJar
 
     - name: docker image build
       run: docker build -t jiyu1948/busan_moon .
 
-#    - name: Set up QEMU
-#      uses: docker/setup-qemu-action@v2
-#
 #    - name: Set up Docker Buildx
 #      uses: docker/setup-buildx-action@v2
 
