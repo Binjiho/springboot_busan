@@ -80,10 +80,12 @@ jobs:
         with:
           host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
           username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY }} # pem 키
+          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+          timeout: 40s
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-            docker stop $(docker ps -a -q)
-            docker run -d --log-driver=syslog -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-            docker rm $(docker ps --filter 'status=exited' -a -q)
-            docker image prune -a -f
+            echo "테스트출력"
+#            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+#            docker stop $(docker ps -a -q)
+#            docker run -d --log-driver=syslog -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+#            docker rm $(docker ps --filter 'status=exited' -a -q)
+#            docker image prune -a -f
