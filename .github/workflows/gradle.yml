@@ -71,11 +71,12 @@ jobs:
 #          target: "/home/ubuntu/deploy"
 
       - name: DockerImagePull
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          username: ec2-user
           host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
+          username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+          port: 22
           # 도커 작업
           script: |
             sudo docker rm -f $(docker ps -qa)
