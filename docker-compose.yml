@@ -1,18 +1,9 @@
 version: "3"
 services:
   web:
-    build: .
+    container_name: web
+    image: jiyu1948/busan_moon
+    expose:
+      - 8083
     ports:
       - 8083:8083
-
-  nginx_docker:
-    # 컨테이너 이름을 주고 싶다면 작성한다
-    # container_name: nginx_docker
-    image: nginx
-    restart: always
-    environment:
-      - TZ=Asia/Seoul
-    ports:
-      - 80:80
-    depends_on:
-      - web
