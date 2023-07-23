@@ -102,8 +102,9 @@ jobs:
           timeout: 40s
           script_stop: true
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_ci:latest
-            docker run -i -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_ci:latest
+            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+            docker run -i -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
             docker image prune -a -f
 
       - name: Remove Github Actions IP From Security Group
