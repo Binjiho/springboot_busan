@@ -65,17 +65,17 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           username: ubuntu
-          host: ${{ secrets.HOST }}
-          key: ${{ secrets.PRIVATE_KEY }}
+          host: ${{ secrets.EC2PUBLICDNS }}
+          key: ${{ secrets.EC2PRIVATE_KEY }}
           source: "deploy.sh"
           target: "/home/ubuntu/deploy"
 
       - name: DockerImagePull
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }} # EC2 인스턴스 퍼블릭 DNS
+          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
           username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY }} # pem 키
+          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           # 도커 작업
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/sejongmate:latest
