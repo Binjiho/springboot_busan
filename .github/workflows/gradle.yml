@@ -48,7 +48,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: docker Hub push
-      run: docker push jiyu1948/busan_moon:latest
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
 
 #    - name: Build and push Docker images
 #      uses: docker/build-push-action@v4.1.1
@@ -83,8 +83,8 @@ jobs:
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           # 도커 작업
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/sejongmate:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
             docker stop $(docker ps -a -q)
-            docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/sejongmate:latest
+            docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
             docker rm $(docker ps --filter 'status=exited' -a -q)
             docker image prune -a -f
