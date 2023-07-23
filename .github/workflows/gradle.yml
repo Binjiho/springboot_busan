@@ -103,6 +103,7 @@ jobs:
           script_stop: true
           script: |
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+            docker stop $(docker ps -a -q)
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
             docker run -i -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
             docker image prune -a -f
