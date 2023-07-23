@@ -81,8 +81,11 @@ jobs:
           host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
           username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+          port: 22
           timeout: 40s
           script: |
+            whoami
+            ls -al
             echo "테스트출력"
 #            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
 #            docker stop $(docker ps -a -q)
