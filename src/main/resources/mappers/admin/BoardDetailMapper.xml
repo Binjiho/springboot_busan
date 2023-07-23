@@ -15,7 +15,6 @@
         , delete_yn
         , created_date
         , modified_date
-        , deleted_date
     </sql>
 
 
@@ -33,7 +32,6 @@
             , #{uploadPath}
             , 0
             , NOW()
-            , NULL
             , NULL
         )
     </insert>
