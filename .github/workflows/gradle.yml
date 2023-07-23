@@ -99,9 +99,6 @@ jobs:
 #          timeout: 40s
           script_stop: true
           script: |
-            whoami
-            ls -al
-            echo "테스트출력"
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
             docker stop $(docker ps -a -q)
             docker run -it -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
