@@ -96,13 +96,19 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           port: 22
-          timeout: 40s
+#          timeout: 40s
+          script_stop: true
           script: |
             whoami
             ls -al
             echo "테스트출력"
-#            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-#            docker stop $(docker ps -a -q)
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+            docker stop $(docker ps -a -q)
+            docker run -it -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
 #            docker run -d --log-driver=syslog -p 8083:8083 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-#            docker rm $(docker ps --filter 'status=exited' -a -q)
-#            docker image prune -a -f
+            docker rm $(docker ps --filter 'status=exited' -a -q)
+            docker image prune -a -f
+
+      - name: Remove Github Actions IP From Security Group
+        run: |
+          aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
