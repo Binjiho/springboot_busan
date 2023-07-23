@@ -68,7 +68,7 @@ jobs:
           host: ${{ secrets.EC2PUBLICDNS }}
           key: ${{ secrets.EC2PRIVATE_KEY }}
           source: "deploy.sh"
-          target: "/home/ubuntu/deploy"
+          target: "/project/deploy"
 
       - name: DockerImagePull
         uses: appleboy/ssh-action@master
