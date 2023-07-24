@@ -72,9 +72,10 @@ jobs:
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-      - name: Copying project to build folder
+      - name: build folder
         run: |
-          mkdir ../deploy
+          ls -al
+          mkdir ../../deploy
 
       - name: Transfer Deploy Script use SCP
         uses: appleboy/scp-action@v0.1.4
