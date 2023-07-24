@@ -1,9 +1,0 @@
-version: "3"
-services:
-  web:
-    container_name: web
-    image: jiyu1948/busan_moon
-    expose:
-      - 8083
-    ports:
-      - 8083:8083
