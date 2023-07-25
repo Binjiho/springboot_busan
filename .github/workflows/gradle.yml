@@ -128,20 +128,20 @@ jobs:
           target: deploy
 
 
-      - name: DockerImagePull
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
-          username: ec2-user
-          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
-          port: 22
-          timeout: 40s
-          script_stop: true
-          script: |
-            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-            docker run -d -i -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-            docker image prune -a -f
+#      - name: DockerImagePull
+#        uses: appleboy/ssh-action@v1.0.0
+#        with:
+#          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
+#          username: ec2-user
+#          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+#          port: 22
+#          timeout: 40s
+#          script_stop: true
+#          script: |
+#            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+#            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+#            docker run -d -i -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+#            docker image prune -a -f
 
       - name: Remove Github Actions IP From Security Group
         run: |
