@@ -114,8 +114,9 @@ jobs:
 #          path: world.txt
 
       - run: |
+          pwd
           mkdir ../deploy
-          cd deploy
+          cd /deploy
           ls
           echo ${{ secrets.DOCKER_COMPOSE }} > docker_compose.yml
           ls
