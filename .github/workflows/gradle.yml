@@ -113,7 +113,7 @@ jobs:
           cd deploy
           touch ./docker_compose.yml
           echo "${{ secrets.DOCKER_COMPOSE }}" > ./docker_compose.yml
-          echo hello > world.txt
+          echo hello! > world.txt
           ls
 
       - name: Transfer Deploy Script use SCP
@@ -122,7 +122,7 @@ jobs:
           host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
           username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
-          source: deploy
+          source: deploy/*
           target: deploy #/home/ec2-user/deploy
           rm: true
 
