@@ -114,7 +114,7 @@ jobs:
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           port: 22
           source: "deploy/docker-compose.yml"
-          target: "deploy"
+          target: "/home/deploy"
 
 
       - name: DockerImagePull
