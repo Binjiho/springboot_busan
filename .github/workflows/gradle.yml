@@ -27,6 +27,26 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: build folder
+      run: |
+        pwd
+        mkdir ../deploy
+        cd ..
+        pwd
+        ls-al
+        cp docker-compose.yml /deploy
+
+    - name: Transfer Deploy Script use SCP
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
+        username: ec2-user
+        key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+        port: 22
+        source: "docker-compose.yml"
+        target: "/deploy"
+        rm: true
+
     - name: make application-db.properties
       run: |
         # create application-db.properties
@@ -85,22 +105,7 @@ jobs:
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-      - name: build folder
-        run: |
-          pwd
-          mkdir ../deploy
-          cp docker-compose.yml /deploy
 
-      - name: Transfer Deploy Script use SCP
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
-          username: ec2-user
-          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
-          port: 22
-          source: "docker-compose.yml"
-          target: "/deploy"
-          rm: true
 
       - name: DockerImagePull
         uses: appleboy/ssh-action@v1.0.0
