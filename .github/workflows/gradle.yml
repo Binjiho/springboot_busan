@@ -113,7 +113,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           source: "deploy/docker-compose.yml"
-          target: "deploy"
+          target: "/deploy"
 
 
       - name: DockerImagePull
