@@ -33,7 +33,7 @@ jobs:
         mkdir ../deploy
         cd ..
         pwd
-        ls-al
+        ls
         cp docker-compose.yml /deploy
 
     - name: Transfer Deploy Script use SCP
