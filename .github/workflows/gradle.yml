@@ -113,9 +113,8 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           port: 22
-          source: "/docker-compose.yml"
-          target: "/deploy"
-          rm: true
+          source: "springboot_busan/docker-compose.yml"
+          target: "/deploy/"
 
 
       - name: DockerImagePull
