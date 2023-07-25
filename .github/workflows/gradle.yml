@@ -114,23 +114,18 @@ jobs:
 #          path: world.txt
 
       - run: |
-          pwd
-          mkdir deploy
-          cd deploy
-          ls
           echo ${{ secrets.DOCKER_COMPOSE }} > docker_compose.yml
-          ls
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: deploy-artifact
-          path: docker_compose.yml
-          if-no-files-found: error
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: deploy-artifact
-          path: distfiles
+#      - uses: actions/upload-artifact@v3
+#        with:
+#          name: deploy-artifact
+#          path: docker_compose.yml
+#          if-no-files-found: error
+#
+#      - uses: actions/download-artifact@v3
+#        with:
+#          name: deploy-artifact
+#          path: distfiles
 
       - name: Transfer Deploy Script use SCP
         uses: appleboy/scp-action@v0.1.4
@@ -138,7 +133,7 @@ jobs:
           host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
           username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
-          source: distfiles/*
+          source: docker_compose.yml
           target: deploy #/home/ec2-user/deploy/distfiles
           rm: true
 
