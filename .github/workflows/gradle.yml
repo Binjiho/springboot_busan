@@ -106,12 +106,17 @@ jobs:
 #          cp /docker-compose.yml /deploy
 #          ls
 
-      - run: echo hello > world.txt
+#      - run: echo hello > world.txt
+
+#      - uses: actions/upload-artifact@v3
+#        with:
+#          name: my-artifact
+#          path: world.txt
 
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: world.txt
+          path: deploy/docker-compose.yml
 
       - uses: actions/download-artifact@v3
         with:
@@ -125,7 +130,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           source: distfiles/*
-          target: /deploy
+          target: deploy #/home/ec2-user/deploy/distfiles
           rm: true
 
 
