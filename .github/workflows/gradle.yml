@@ -125,7 +125,8 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           source: distfiles/*
-          target: deploy
+          target: /deploy
+          rm: true
 
 
 #      - name: DockerImagePull
