@@ -116,7 +116,8 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: deploy/docker-compose.yml
+          path: c/dev/sources/springboot_moon/deploy
+          if-no-files-found: error
 
       - uses: actions/download-artifact@v3
         with:
