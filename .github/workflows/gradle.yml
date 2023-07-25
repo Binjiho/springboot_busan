@@ -113,15 +113,22 @@ jobs:
 #          name: my-artifact
 #          path: world.txt
 
+      - run: |
+          mkdir ../deploy
+          cd deploy
+          ls
+          echo ${{ secrets.DOCKER_COMPOSE }} > docker_compose.yml
+          ls
+
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
-          path: c/dev/sources/springboot_moon/deploy
+          name: deploy-artifact
+          path: docker_compose.yml
           if-no-files-found: error
 
       - uses: actions/download-artifact@v3
         with:
-          name: my-artifact
+          name: deploy-artifact
           path: distfiles
 
       - name: Transfer Deploy Script use SCP
