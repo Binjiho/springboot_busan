@@ -34,7 +34,9 @@ jobs:
         cd ..
         pwd
         ls
-        cp docker-compose.yml /deploy
+        cp /docker-compose.yml /deploy
+        cd /deploy
+        ls
 
     - name: Transfer Deploy Script use SCP
       uses: appleboy/scp-action@v0.1.4
