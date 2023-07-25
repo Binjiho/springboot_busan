@@ -114,7 +114,8 @@ jobs:
 #          path: world.txt
 
       - run: |
-          echo ${{ secrets.DOCKER_COMPOSE }} > docker_compose.yml
+          touch ./docker_compose.yml
+          echo "${{ secrets.DOCKER_COMPOSE }}" > ./docker_compose.yml
 
 #      - uses: actions/upload-artifact@v3
 #        with:
