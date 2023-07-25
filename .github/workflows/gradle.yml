@@ -115,7 +115,7 @@ jobs:
 
       - run: |
           pwd
-          mkdir ../deploy
+          mkdir deploy
           cd /deploy
           ls
           echo ${{ secrets.DOCKER_COMPOSE }} > docker_compose.yml
