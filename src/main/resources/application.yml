@@ -1,14 +1,7 @@
 spring:
   profiles:
-    group:
-      "green": "green,db"
-      "blue": "blue,db"
----
-spring:
-  config:
-    activate:
-      on-profile: "db" # application-db.yml ? ??? ??
-
+    include:
+      - db
   mybatis:
     configuration:
       map-underscore-to-camel-case:true
