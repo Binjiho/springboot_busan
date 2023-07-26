@@ -6,19 +6,26 @@ import com.example.demo.admin.reservation.ReservationResponse;
 import com.example.demo.admin.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
 public class RestApiController {
+    private final Environment environment;
+    private final ApplicationContext applicationContext;
     private final ReservationService reservationService;
     private BoardService boardService; // private final VS autowired
+
+    @GetMapping("/profile")
+    public String[] getActiveProfiles() {
+        System.out.println(Arrays.toString( environment.getActiveProfiles() ));
+        return environment.getActiveProfiles();
+    }
 
     /**
      * json data

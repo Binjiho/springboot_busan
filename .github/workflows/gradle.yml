@@ -37,17 +37,17 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: make application-db.properties
+    - name: make application-db.yml
       run: |
-        # create application-db.properties
+        # create application-db.yml
         pwd
         cd ./src/main/resources
         pwd
         # application-database.yaml 파일 생성
-        touch ./application-db.properties
+        touch ./application-db.yml
 
-        # GitHub-Actions 에서 설정한 값을 application-db.properties 파일에 쓰기
-        echo "${{ secrets.DB_PROPERTIES }}" >> ./application-db.properties
+        # GitHub-Actions 에서 설정한 값을 application-db.yml 파일에 쓰기
+        echo "${{ secrets.DB_YML }}" >> ./application-db.yml
       shell: bash
 
     #build 폴더를 삭제하고 다시 빌드
@@ -126,21 +126,20 @@ jobs:
           target: deploy #/home/ec2-user/deploy
           rm: true
 
-
-#      - name: DockerImagePull
-#        uses: appleboy/ssh-action@v1.0.0
-#        with:
-#          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
-#          username: ec2-user
-#          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
-#          port: 22
-#          timeout: 40s
-#          script_stop: true
-#          script: |
-#            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-#            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-#            docker run -d -i -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-#            docker image prune -a -f
+      - name: DockerImagePull
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
+          username: ec2-user
+          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+          port: 22
+          timeout: 40s
+          script_stop: true
+          script: |
+            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+            docker run -d -i -p 8081:8080 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+            docker image prune -a -f
 
       - name: Remove Github Actions IP From Security Group
         run: |

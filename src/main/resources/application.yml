@@ -1,0 +1,53 @@
+spring:
+  profiles:
+    group:
+      "green": "green,db"
+      "blue": "blue,db"
+---
+spring:
+  config:
+    activate:
+      on-profile: "db" # application-db.yml ? ??? ??
+
+  mybatis:
+    configuration:
+      map-underscore-to-camel-case:true
+
+  #log4j2
+  logging:
+    config: classpath:log4j2.xml
+    level:
+      org:
+        springframework:
+          security: INFO
+#          web: trace
+
+    # change upload file size
+    servlet:
+      multipart:
+        maxFileSize: 10MB
+        maxRequestSize: 50MB
+
+    #devtools reload
+    devtools:
+      livereload:
+        enabled: true
+    thymeleaf:
+      cache: false
+      prefix:
+        classpath: /templates/
+---
+spring:
+  config:
+    activate:
+      on-profile: blue # application-blue.yml ? ??? ??
+server:
+  port : 8081
+---
+spring:
+  config:
+    activate:
+      on-profile: green
+server:
+  port : 8082
+
