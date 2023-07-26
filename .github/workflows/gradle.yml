@@ -138,7 +138,7 @@ jobs:
           script: |
             echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
-            docker run -d -i -p 8081:8080 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
+            docker run -d -i -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest
             docker image prune -a -f
 
       - name: Remove Github Actions IP From Security Group
