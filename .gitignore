@@ -35,5 +35,5 @@ out/
 
 # ignore properties file
 application-db.properties
-#docker-compose.yml
+deploy/
 logs/
