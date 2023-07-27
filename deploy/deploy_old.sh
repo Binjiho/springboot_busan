@@ -3,20 +3,20 @@ echo ">> deploy Dir 이동"
 cd /home/ec2-user/deploy/deploy
 
 echo ">> 변수 설정"
-DOCKERHUB_USERNAME = jiyu1948
-DOCKERHUB_IMAGE = busan_moon
-IS_RUN_BLUE = $(docker ps --format "{{.Names}}" --filter expose=8081/tcp)
+DOCKERHUB_USERNAME=jiyu1948
+DOCKERHUB_IMAGE=busan_moon
+IS_RUN_BLUE=$(docker ps --format "{{.Names}}" --filter expose=8081/tcp)
 echo ">> IS_RUN_BLUE : ${IS_RUN_BLUE}"
 
 if [ -n "$IS_RUN_BLUE" ]
 then
-        PRE_CONTAINER_NAME= "blue"
-        CONTAINER_NAME= "green"
-        CONTAINER_PORT= 8082
+        PRE_CONTAINER_NAME="blue"
+        CONTAINER_NAME="green"
+        CONTAINER_PORT=8082
 else
-        PRE_CONTAINER_NAME= "green"
-        CONTAINER_NAME= "blue"
-        CONTAINER_PORT= 8081
+        PRE_CONTAINER_NAME="green"
+        CONTAINER_NAME="blue"
+        CONTAINER_PORT=8081
 fi
 
 echo ">> Run container"
