@@ -100,7 +100,8 @@ jobs:
       - run: |
           mkdir deploy
           cd deploy
-          echo "${{ secrets.DEPLOY_SH }}" >> ./deploy.sh
+          touch ./deploy.sh
+          cp ${{ secrets.DEPLOY_SH }}" ./deploy.sh
         shell: bash
 
       - name: Transfer Deploy Script use SCP
