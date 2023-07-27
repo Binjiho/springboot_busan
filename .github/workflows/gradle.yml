@@ -101,7 +101,8 @@ jobs:
           mkdir deploy
           cd deploy
           touch deploy.sh
-          cp ${{ secrets.DEPLOY_SH }}" deploy.sh
+          chmod 755 deploy.sh
+          echo ${{ secrets.DEPLOY_SH }} > deploy.sh
         shell: bash
 
       - name: Transfer Deploy Script use SCP
