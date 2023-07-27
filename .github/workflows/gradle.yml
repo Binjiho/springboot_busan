@@ -100,10 +100,9 @@ jobs:
 #      - run: |
 #          mkdir deploy
 #          cd deploy
-#          touch ./deploy.sh
 #          echo "${{ secrets.DEPLOY_SH }}" >> ./deploy.sh
 #        shell: bash
-#
+
       - name: Transfer Deploy Script use SCP
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -112,7 +111,7 @@ jobs:
           key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
           source: ${{ env.deploy-directory }}
           target: deploy #/home/ec2-user/deploy
-          rm: true
+          strip_components: 2
 
       - name: DockerImagePull
         uses: appleboy/ssh-action@v1.0.0
@@ -126,7 +125,7 @@ jobs:
           script: |
             echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest || exit 1
-            sh /deploy/deploy_old.sh
+            sh /deploy/deploy.sh
 
       - name: Remove Github Actions IP From Security Group
         run: |
