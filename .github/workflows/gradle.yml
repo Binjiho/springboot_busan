@@ -102,7 +102,7 @@ jobs:
           cd deploy
           touch deploy.sh
           chmod 755 deploy.sh
-          echo ${{ secrets.DEPLOY_SH }} > deploy.sh
+          echo "${{ secrets.DEPLOY_SH }}" > deploy.sh
         shell: bash
 
       - name: Transfer Deploy Script use SCP
