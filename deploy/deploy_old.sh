@@ -30,7 +30,7 @@ echo "set \$service_url http://127.0.0.1:${CONTAINER_PORT};" | sudo tee /etc/ngi
 sudo service nginx reload
 
 echo ">> Remove previous container"
-#docker stop ${PRE_CONTAINER_NAME}
+docker stop ${PRE_CONTAINER_NAME}
 docker container prune -f
 
 echo ">> Remove previous image"
