@@ -141,7 +141,7 @@ jobs:
             pwd
             ls
             cd /home/ec2-user/deploy/deploy
-            echo "sh deploy.sh"
+            sh deploy.sh
 
       - name: Remove Github Actions IP From Security Group
         run: |
