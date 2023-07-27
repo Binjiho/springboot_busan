@@ -1,86 +1,37 @@
-#!/bin/bash
+# !/bin/sh
+echo ">> deploy Dir 이동"
+cd /home/ec2-user/deploy/deploy
 
-DOCKERHUB_REPOSITORY=jiyu1948/busan_moon
+echo ">> 변수 설정"
+DOCKERHUB_USERNAME=jiyu1948
+DOCKERHUB_IMAGE=busan_moon
+SPRINGBOOT_DEFAULT_PORT=8080
+IS_RUN_BLUE=$(docker ps --format "{{.Names}}" --filter publish=8081/tcp)
+echo ">> IS_RUN_BLUE : ${IS_RUN_BLUE}"
 
-echo ">>> 현재 구동중인 profile 확인"
-CURRENT_PROFILE=$(curl -s http://localhost/profile)
-
-echo ">>> $CURRENT_PROFILE"
-
-if [ $CURRENT_PROFILE == set1 ]
+if [ -n "$IS_RUN_BLUE" ]
 then
-        IDLE_PROFILE=set2
-        IDLE_PORT=9093
-elif [ $CURRENT_PROFILE == set2 ]
-then
-        IDLE_PROFILE=set1
-        IDLE_PORT=9092
+        PRE_CONTAINER_NAME="blue"
+        CONTAINER_NAME="green"
+        CONTAINER_PORT=8082
 else
-        echo ">>> 일치하는 Profile이 없습니다. Profile: $CURRENT_PROFILE"
-        echo ">>> set1을 할당합니다. IDLE_PROFILE: set1"
-        IDLE_PROFILE=set1
-        IDLE_PORT=9092
+        PRE_CONTAINER_NAME="green"
+        CONTAINER_NAME="blue"
+        CONTAINER_PORT=8081
 fi
 
-CONTAINER_ID=$(docker container ls -f "name=${IDLE_PROFILE}" -q)
+echo ">> PRE_CONTAINER_NAME : ${PRE_CONTAINER_NAME}, CONTAINER_NAME : ${CONTAINER_NAME}, CONTAINER_PORT : ${CONTAINER_PORT}"
 
-sudo docker stop ${IDLE_PROFILE}
-sudo docker rm ${IDLE_PROFILE}
-TAG_ID = $(docker images | sort -r -k2  -h | | awk 'NR > 1 {if ($1 == "아이디/레포") {print $2 += .01; exit} else {print 0.01; exit}}')
+echo ">> Run container"
+docker run -d -i -p ${CONTAINER_PORT}:${SPRINGBOOT_DEFAULT_PORT} --name ${CONTAINER_NAME} ${DOCKERHUB_USERNAME}/${DOCKERHUB_IMAGE}:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
+echo ">> nginx conf fix AND nginx reload"
+echo "set \$service_url http://127.0.0.1:${CONTAINER_PORT};" | sudo tee /etc/nginx/conf.d/service-url.inc
+sudo service nginx reload
 
-echo ">>> 도커 build 실행 : docker build --build-arg DEPENDENCY=build/dependency --build-arg IDLE_PROFILE=${IDLE_PROFILE} -t 아이디/레포:${TAG_ID} ."
-sudo docker build --build-arg DEPENDENCY=build/dependency --build-arg IDLE_PROFILE=${IDLE_PROFILE} -t 아이디/레포:${TAG_ID} .
+echo ">> Remove previous container"
+docker stop ${PRE_CONTAINER_NAME}
+docker container prune -f
 
-
-echo ">>> $IDLE_PROFILE 배포"
-
-sudo docker login -u 아이디 -p 패스워드
-
-sudo docker push 아이디/레포:${TAG_ID}
-
-#tag가 latest인 image를 최신 버전을 통해 생성
-sudo docker tag 아이디/레포:${TAG_ID} 아이디/레포:latest
-
-#latest를 docker hub에 push
-sudo docker push 아이디/레포:latest
-
-echo ">>> 도커 run 실행 :  sudo docker run --name $IDLE_PROFILE -d --rm -p $IDLE_PORT:${IDLE_PORT} 아이디/레포  "
-sudo docker run --name $IDLE_PROFILE -d --rm -p $IDLE_PORT:${IDLE_PORT} 아이디/레포
-
-#버전 관리에 문제가 있어 latest를 삭제
-sudo docker rmi 아이디/레포:latest
-
-echo ">>> $IDLE_PROFILE 10초 후 Health check 시작"
-echo ">>> curl -s http://localhost:$IDLE_PORT/actuator/health "
-sleep 10
-
-for retry_count in {1..10}
-do
-        response=$(curl -s http://localhost:$IDLE_PORT/actuator/health)
-        up_count=$(echo $response | grep 'UP' | wc -l)
-
-        if [ $up_count -ge 1 ]
-        then
-                echo ">>> Health check 성공"
-                break
-        else
-                echo ">>> Health check의 응답을 알 수 없거나 혹은 status가 UP이 아닙니다."
-                echo ">>> Health check: ${response}"
-        fi
-
-        if [ $retry_count -eq 10 ]
-        then
-                echo ">>> Health check 실패. "
-                echo ">>> Nginx에 연결하지 않고 배포를 종료합니다."
-                exit 1
-        fi
-
-        echo ">>> Health check 연결 실패. 재시도..."
-        sleep 10
-done
-
-echo ">>> 스위칭을 시도합니다..."
-sleep 10
-
-sudo sh  /home/etc/docker/nginx/switch.sh
+echo ">> Remove previous image"
+docker image prune -a -f
