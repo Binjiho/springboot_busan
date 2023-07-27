@@ -1,0 +1,14 @@
+version: "3"
+services:
+  web:
+    container_name: web
+    image: jiyu1948/busan_moon
+    environment:
+      - LANG=ko_KR.UTF-8
+      - UWSGI_PORT=80
+#    expose:
+#      - 8083
+    ports: #ports: EC2 포트:컨테이너 포트 매핑
+      - 8083:8083
+    volumes: #volumes: EC2 디렉토리와 컨테이너 디렉토리 매핑
+      - ./:/root/

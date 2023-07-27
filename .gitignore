@@ -35,5 +35,4 @@ out/
 
 # ignore properties file
 application-db.properties
-deploy/
 logs/
