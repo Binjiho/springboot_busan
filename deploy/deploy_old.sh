@@ -20,8 +20,7 @@ else
 fi
 
 echo ">> Run container"
-docker run -d -i -p ${CONTAINER_PORT}:${CONTAINER_PORT} -e --name ${CONTAINER_NAME} ${DOCKERHUB_USERNAME}/${DOCKERHUB_IMAGE}:latest
---character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+docker run -d -i -p ${CONTAINER_PORT}:${CONTAINER_PORT} --name ${CONTAINER_NAME} ${DOCKERHUB_USERNAME}/${DOCKERHUB_IMAGE}:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
 echo ">> nginx conf fix AND nginx reload"
 echo "set \$service_url http://127.0.0.1:${CONTAINER_PORT};" | sudo tee /etc/nginx/conf.d/service-url.inc
