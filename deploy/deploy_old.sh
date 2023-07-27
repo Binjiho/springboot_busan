@@ -24,7 +24,7 @@ docker run -d -i -p ${CONTAINER_PORT}:${CONTAINER_PORT} -e --name ${CONTAINER_NA
 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci || exit 1
 
 echo ">> nginx conf fix AND nginx reload"
-echo "set \$service_url http://127.0.0.1:${CONTAINER_PORT};" > /etc/nginx/conf.d/service-url.inc || exit 1
+echo "set \$service_url http://127.0.0.1:${CONTAINER_PORT};" | sudo tee /etc/nginx/conf.d/service-url.inc || exit 1
 sudo service nginx reload || exit 1
 
 echo ">> Remove previous container"
