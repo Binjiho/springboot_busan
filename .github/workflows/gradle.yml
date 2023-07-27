@@ -95,33 +95,22 @@ jobs:
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-#      - name: build folder
-#        run: |
-#          pwd
-#          mkdir ../deploy
-#          cd ..
-#          pwd
-#          ls
-#          cd /deploy
-#          echo hello!3 > world.txt
-#          ls
-
-      - run: |
-          mkdir deploy
-          cd deploy
-          touch ./deploy.sh
-          echo "${{ secrets.DEPLOY_SH }}" >> ./deploy.sh
-        shell: bash
-
-      - name: Transfer Deploy Script use SCP
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
-          username: ec2-user
-          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
-          source: deploy
-          target: deploy #/home/ec2-user/deploy
-          rm: true
+#      - run: |
+#          mkdir deploy
+#          cd deploy
+#          touch ./deploy.sh
+#          echo "${{ secrets.DEPLOY_SH }}" >> ./deploy.sh
+#        shell: bash
+#
+#      - name: Transfer Deploy Script use SCP
+#        uses: appleboy/scp-action@v0.1.4
+#        with:
+#          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
+#          username: ec2-user
+#          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+#          source: deploy
+#          target: deploy #/home/ec2-user/deploy
+#          rm: true
 
       - name: DockerImagePull
         uses: appleboy/ssh-action@v1.0.0
