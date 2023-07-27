@@ -138,6 +138,7 @@ jobs:
           timeout: 40s
           script_stop: true
           script: |
+            echo "hi"
             echo "${{ secrets.DEPLOY_SH }}"
 
       - name: Remove Github Actions IP From Security Group
