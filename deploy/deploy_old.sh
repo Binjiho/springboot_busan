@@ -6,7 +6,7 @@ echo ">> 변수 설정"
 DOCKERHUB_USERNAME=jiyu1948
 DOCKERHUB_IMAGE=busan_moon
 SPRINGBOOT_DEFAULT_PORT=8080
-IS_RUN_BLUE=$(docker ps --format "{{.Names}}" --filter expose=8081/tcp)
+IS_RUN_BLUE=$(docker ps --format "{{.Names}}" --filter publish=8081/tcp)
 echo ">> IS_RUN_BLUE : ${IS_RUN_BLUE}"
 
 if [ -n "$IS_RUN_BLUE" ]
