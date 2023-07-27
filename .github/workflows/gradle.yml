@@ -97,23 +97,23 @@ jobs:
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-      - run: |
-          mkdir deploy
-          cd deploy
-          touch deploy.sh
-          chmod 755 deploy.sh
-          echo "${{ secrets.DEPLOY_SH }}" > deploy.sh
-        shell: bash
-
-      - name: Transfer Deploy Script use SCP
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
-          username: ec2-user
-          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
-          source: deploy
-          target: deploy #/home/ec2-user/deploy
-          strip_components: 1
+#      - run: |
+#          mkdir deploy
+#          cd deploy
+#          touch deploy.sh
+#          chmod 755 deploy.sh
+#          echo "${{ secrets.DEPLOY_SH }}" > deploy.sh
+#        shell: bash
+#
+#      - name: Transfer Deploy Script use SCP
+#        uses: appleboy/scp-action@v0.1.4
+#        with:
+#          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
+#          username: ec2-user
+#          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+#          source: deploy
+#          target: deploy #/home/ec2-user/deploy
+#          strip_components: 1
 
       - name: DockerImagePull
         uses: appleboy/ssh-action@v1.0.0
@@ -138,7 +138,7 @@ jobs:
           timeout: 40s
           script_stop: true
           script: |
-            echo "sh /deploy/deploy.sh"
+            echo "${{ secrets.DEPLOY_SH }}"
 
       - name: Remove Github Actions IP From Security Group
         run: |
