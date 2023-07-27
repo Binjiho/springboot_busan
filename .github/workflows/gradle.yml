@@ -79,6 +79,8 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    env:
+      deploy-directory: ./deploy
     steps:
       - name: Get Github Actions IP
         id: ip
@@ -102,15 +104,15 @@ jobs:
 #          echo "${{ secrets.DEPLOY_SH }}" >> ./deploy.sh
 #        shell: bash
 #
-#      - name: Transfer Deploy Script use SCP
-#        uses: appleboy/scp-action@v0.1.4
-#        with:
-#          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
-#          username: ec2-user
-#          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
-#          source: deploy
-#          target: deploy #/home/ec2-user/deploy
-#          rm: true
+      - name: Transfer Deploy Script use SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2PUBLICDNS }} # EC2 인스턴스 퍼블릭 DNS
+          username: ec2-user
+          key: ${{ secrets.EC2PRIVATE_KEY }} # pem 키
+          source: ${{ env.deploy-directory }}
+          target: deploy #/home/ec2-user/deploy
+          rm: true
 
       - name: DockerImagePull
         uses: appleboy/ssh-action@v1.0.0
@@ -124,7 +126,7 @@ jobs:
           script: |
             echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/busan_moon:latest || exit 1
-            sh /deploy/deploy.sh
+            sh /deploy/deploy_old.sh
 
       - name: Remove Github Actions IP From Security Group
         run: |
