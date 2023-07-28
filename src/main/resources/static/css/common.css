@@ -13,7 +13,7 @@
 nav > ul > li.has_sub > a::after, .menu_toggle > span,
 .chkbox input:checked+i::before,
 .file_list > div > button > span::before, .file_upload label i::after,
-.paging .page_bt::after, .es, .wr_cm_txt span::before, .cm_list > div .cm_answer::before, .rating_star, .rating_star_per {content:''; background-image:url(../images/module/check.png.png); background-repeat:no-repeat;}
+.paging .page_bt::after, .es, .wr_cm_txt span::before, .cm_list > div .cm_answer::before, .rating_star, .rating_star_per {content:''; background-image:url(../images/module/check.png); background-repeat:no-repeat;}
 
 header * {box-sizing:border-box;}
 header {position:relative; z-index:1;}
@@ -264,3 +264,49 @@ body[class*="ie"] [data-pop-layer="layer"] .popBox h2{height:68px; box-sizing:bo
 	[data-pop-layer="layer"] .popBox h2{font-size:17px !important;}
 	[data-pop-layer="layer"] .popBox h2 span{line-height:1.3em;}
 }
+
+/* paging ------------------------------- */
+.paging * {box-sizing:border-box;}
+.paging {text-align:center; margin:2% 0 0;}
+.paging > p {display:inline-block; margin:0 7px;}
+.paging > p > a, .paging > p > span {margin-left:-1px;}
+.paging > p > a:first-child, .paging > p > span:first-child {margin-left:0;}
+.paging a, .paging span {
+    display:inline-block;
+    width:50rem;
+    height:50rem;
+    line-height:240%;
+    color:#999;
+    font-size:19rem;
+    font-weight: bold;
+}
+.paging a.on, .paging span.on {background:#666; border-color:transparent; border-radius:4px; color:#fff;}
+.paging .page_bt {
+    text-indent:-9999px;
+    position:relative;
+    align-items: center;
+    text-align: center;
+}
+.paging .page_bt.prev::after {
+    content: "";
+    text-align: center;
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    left: 30%;
+    top: 0;
+    background: url(../../images/module/arrow.svg) no-repeat center/80%;
+}
+.paging .page_bt.next::after {
+    content: "";
+    text-align: center;
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    left: 30%;
+    top: 0;
+    background: url(../../images/module/arrow.svg) no-repeat center/80%;
+    background-position:center center;
+    transform: rotate(180deg);
+}
+.paging .prev, .paging .next {margin-left:-1px;}

@@ -4,6 +4,8 @@ import com.example.demo.admin.board.BoardDetailResponse;
 
 import com.example.demo.admin.board.service.BoardDetailService;
 import com.example.demo.admin.notice.NoticeResponse;
+import com.example.demo.admin.notice.dto.NoticeDto;
+import com.example.demo.admin.notice.entity.NoticeEntity;
 import com.example.demo.admin.notice.service.NoticeService;
 import com.example.demo.base.controller.BaseController;
 import com.example.demo.base.dto.MessageDto;
@@ -11,6 +13,10 @@ import com.example.demo.base.paging.PagingResponse;
 import com.example.demo.base.paging.SearchDto;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -93,21 +99,43 @@ public class MainController extends BaseController {
     /* notice */
     /**
      * 공지사항 페이지
+     * Use pasing
      * @return
      */
     @GetMapping("/notice/list")
-    public String openNoticeListPage(@ModelAttribute("params") final SearchDto params, Model model){
-        PagingResponse<NoticeResponse> list = noticeService.findAllPostFront(params);
+    public String openNoticeListPage(@ModelAttribute("params")final SearchDto params, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model){
+        Page<NoticeDto> list = noticeService.getPageList(pageable);
+        //paging options
+        int previousNum = pageable.previousOrFirst().getPageNumber();
+        int nextNum = pageable.next().getPageNumber();
+        boolean hasNext = list.hasNext();
+        boolean hasPrev = list.hasPrevious();
+
+        int nowPage = list.getNumber(); //현재 페이지
+        int size = list.getSize(); // 현재페이지당 게시글 수
+        long totalCount = list.getTotalElements(); //전체 게시글 수
+        int totalPage = list.getTotalPages(); //전체 페이지 수
+
         model.addAttribute("list", list);
+        model.addAttribute("previousNum", previousNum);
+        model.addAttribute("nextNum", nextNum);
+        model.addAttribute("hasNext", hasNext);
+        model.addAttribute("hasPrev", hasPrev);
         return "project/notice/list";
     }
-
-    @GetMapping("/notice/view")
-    public String openNoticeDetail(@RequestParam final Long id, Model model){
-        NoticeResponse items = noticeService.findPostById(id);
-        model.addAttribute("items", items);
-        return "project/notice/view";
-    }
+//    @GetMapping("/notice/list")
+//    public String openNoticeListPage(@ModelAttribute("params") final SearchDto params, Model model){
+//        PagingResponse<NoticeResponse> list = noticeService.findAllPostFront(params);
+//        model.addAttribute("list", list);
+//        return "project/notice/list";
+//    }
+//
+//    @GetMapping("/notice/view")
+//    public String openNoticeDetail(@RequestParam final Long id, Model model){
+//        NoticeResponse items = noticeService.findPostById(id);
+//        model.addAttribute("items", items);
+//        return "project/notice/view";
+//    }
 
     /* reservation */
     /**

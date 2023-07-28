@@ -50,7 +50,7 @@
 
         <ul class="bbsList">
           <th:block th:if="${not #strings.isEmpty(list)}">
-            <th:block th:each="items: ${list.list}">
+            <th:block th:each="items: ${list}">
               <li id="">
                 <a th:href="@{/notice/view(id=${items.id})}">
                 <div class="top_box">
@@ -70,6 +70,29 @@
       </div>
 
       <!--/* 페이지네이션 */-->
+      <div class="paging">
+        <a href="javascript:void(0);" class="page_bt prev">이전페이지</a>
+        <th:block th:if="${hasPrev}">
+          <a href="javascript:void(0);" class="page_bt prev">이전페이지</a>
+        </th:block>
+
+        <p>
+          <a href="javascript:void(0);" th:text="1" th:classappend=" 'on' ">
+          </a>
+          <a href="javascript:void(0);" th:text="2">
+          </a>
+          <a href="javascript:void(0);" th:text="3">
+          </a>
+          <a href="javascript:void(0);" th:text="4">
+          </a>
+        </p>
+
+        <th:block th:if="${hasNext}">
+          <a href="javascript:void(0);" class="page_bt next">다음페이지</a>
+        </th:block>
+      </div>
+
+      <!--/*
       <th:block th:if="${params.pagination}">
         <div class="paging">
           <th:block th:if="${params.pagination.existPrevPage}">
@@ -87,7 +110,7 @@
           </th:block>
         </div>
       </th:block>
-
+      */-->
     </div>
   </section>
 </th:block>
