@@ -14,7 +14,7 @@
 
     <div class="content">
 
-            <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
+            <form id="saveForm" th:object="${noticeDto}" method="post" autocomplete="off" enctype="multipart/form-data">
                 <input type="hidden" name="id" th:value="${items?.id} " />
                 <table class="tb tb_row">
                     <colgroup>
@@ -44,7 +44,7 @@
                         </tr>
                         <tr>
                             <th>제목 <span class="es">필수 입력</span></th>
-                            <td colspan="3"><input type="text" id="title" name="title" maxlength="50" placeholder="제목을 입력해 주세요." th:value="${items?.title} "/></td>
+                            <td colspan="3"><input type="text" name="title" maxlength="50" placeholder="제목을 입력해 주세요." th:value="${items?.title} "/></td>
                         </tr>
                         <tr>
                             <th>이름 <span class="es">필수 입력</span></th>
@@ -82,7 +82,7 @@
         $.datepicker.setDefaults({
             showOn: 'button',
             buttonImage: "/images/module/img_calendar.svg",
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'yy-mm-dd 00:00:00',
             prevText: '이전 달',
             nextText: '다음 달',
             monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
@@ -112,6 +112,8 @@
             }
 
             document.getElementById('saveBtn').disabled = true;
+
+            console.log(form.startDate);
 
             form.action = [[ ${items == null} ]] ? '/admin/notice/save' : '/admin/notice/update';
             form.submit();

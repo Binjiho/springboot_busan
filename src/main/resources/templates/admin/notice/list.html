@@ -25,7 +25,7 @@
                             <option value="content" th:selected="${params.searchType} == 'content' ">내용</option>
                             <option value="writer" th:selected="${params.searchType} == 'writer' ">작성자</option>
                         </select>
-                        <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." th:value="${params.keyword}" />
+                        <input type="text" id="searchKeyword" name="searchKeyword" placeholder="키워드를 입력해 주세요." th:value="${params.searchKeyword}" />
                         <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i>검색</button>
                     </div>
                 </form>
@@ -55,7 +55,7 @@
                 </tr>
                 </thead>
                 <tbody id="list">
-                    <th:block th:each="items: ${list.list}">
+                    <th:block th:each="items: ${list.dtoList}">
                         <tr th:classappend="${items.deleteYn == 1 ? 'active' : ''}">
                             <td th:text="${items.id} "></td>
                             <td th:text="${items.ord} "></td>
@@ -71,22 +71,22 @@
 
             <!--/* 페이지네이션 */-->
             <!--/* */-->
-            <th:block th:if="${params.pagination}">
-            <div class="paging">
-                <th:block th:if="${params.pagination.existPrevPage}">
-                    <a href="javascript:void(0);" th:onclick=movePage([[${params.pagination.startPage-10}]]); class="page_bt prev">이전페이지</a>
-                </th:block>
+            <th:block th:if="${list.totalCount}>0">
+                <div class="paging">
+                    <th:block th:if="${list.prev}">
+                        <a th:href="@{/notice/list(page = ${list.start-10})}" class="page_bt prev">이전페이지</a>
+                    </th:block>
 
-                <th:block th:each="num : ${#numbers.sequence( params.pagination.startPage ,params.pagination.endPage )}">
                     <p>
-                        <a href="javascript:void(0);" th:onclick="movePage([[${num}]])" th:text="${num}" th:classappend="${params.page== num } ? 'on' : '' "></a>
+                        <th:block th:each="num : ${#numbers.sequence(list.start,list.end)}">
+                            <a th:class="${list.page==num} ? 'on' : '' " th:href="@{/notice/list(page = ${num})}">[[${num}]]</a>
+                        </th:block>
                     </p>
-                </th:block>
 
-                <th:block th:if="${params.pagination.existNextPage}">
-                    <a href="javascript:void(0);" th:onclick="movePage([[${params.pagination.endPage+1}]]);" class="page_bt next">다음페이지</a>
-                </th:block>
-            </div>
+                    <th:block th:if="${list.next}">
+                        <a th:href="@{/notice/list(page = ${list.end+1})}" class="page_bt next">다음페이지</a>
+                    </th:block>
+                </div>
             </th:block>
             <!--/* */-->
 

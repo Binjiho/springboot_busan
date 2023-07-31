@@ -2,8 +2,7 @@ package com.example.demo.admin.notice.repository;
 
 import com.example.demo.admin.notice.entity.NoticeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-@Repository
-public interface NoticeRepository extends JpaRepository<NoticeEntity, Long> {
+public interface NoticeRepository extends JpaRepository<NoticeEntity, Long>, QuerydslPredicateExecutor<NoticeEntity> {
 }
