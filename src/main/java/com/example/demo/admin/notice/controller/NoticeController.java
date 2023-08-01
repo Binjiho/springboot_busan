@@ -23,7 +23,6 @@ import java.util.List;
 public class NoticeController extends BaseController {
 
     private final NoticeService noticeService;
-    private final FileUtils fileUtils;
 
     /**
      * 공지사항 페이지
@@ -37,7 +36,7 @@ public class NoticeController extends BaseController {
     }
 
     @GetMapping("/write")
-    public String openNoticeWritePage(@RequestParam(value = "id", required = false) final Long id, Model model, NoticeDto noticeDto) {
+    public String openNoticeWritePage(@RequestParam(value = "id", required = false) final Long id, Model model) {
         NoticeDto items = null;
         if (id != null) {
             items = noticeService.findPostById(id);
@@ -47,25 +46,22 @@ public class NoticeController extends BaseController {
     }
 
     @PostMapping("/save")
-    public String saveNotice(@ModelAttribute NoticeDto noticeDto, Model model) {
-        System.out.println(noticeDto);
+    public String saveNotice(final NoticeDto noticeDto) {
         noticeService.savePost(noticeDto);
         return "redirect:/admin/notice/list";
     }
-//
-//    //공지사항 뷰 페이지
-//    @GetMapping("/view")
-//    public String openNoticeDetail(@RequestParam final Long id, Model model){
-//        NoticeResponse items = noticeService.findPostById(id);
-//        model.addAttribute("items", items);
-//        return "admin/notice/view";
-//    }
-//
-//    //공지사항 수정
-//    @PostMapping("/update")
-//    public String updateNotice(final NoticeRequest params){
-//        noticeService.updatePost(params);
-//        return "redirect:/admin/notice/list";
-//    }
+
+    @GetMapping("/detail/{id}")
+    public String openNoticeDetail(@PathVariable("id") Long id, Model model){
+        NoticeDto items = noticeService.findPostById(id);
+        model.addAttribute("items", items);
+        return "admin/notice/detail";
+    }
+
+    @PostMapping("/update")
+    public String updateNotice(final NoticeDto noticeDto){
+        noticeService.updatePost(noticeDto);
+        return "redirect:/admin/notice/list";
+    }
 
 }

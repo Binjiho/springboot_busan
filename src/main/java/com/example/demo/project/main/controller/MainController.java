@@ -3,22 +3,13 @@ package com.example.demo.project.main.controller;
 import com.example.demo.admin.board.BoardDetailResponse;
 
 import com.example.demo.admin.board.service.BoardDetailService;
-import com.example.demo.admin.notice.NoticeResponse;
 import com.example.demo.admin.notice.dto.NoticeDto;
-import com.example.demo.admin.notice.entity.NoticeEntity;
 import com.example.demo.admin.notice.service.NoticeService;
 import com.example.demo.base.controller.BaseController;
-import com.example.demo.base.dto.MessageDto;
 import com.example.demo.base.paging.PageRequestDto;
 import com.example.demo.base.paging.PageResponseDto;
-import com.example.demo.base.paging.PagingResponse;
-import com.example.demo.base.paging.SearchDto;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

@@ -94,8 +94,8 @@ public class NoticeService {
                 .title(noticeDto.getTitle())
                 .content(noticeDto.getContent())
                 .writer(noticeDto.getWriter())
-                .ord(0)
-                .deleteYn(0)
+                .ord(noticeDto.getOrd())
+                .deleteYn(noticeDto.getDeleteYn())
                 .startDate(noticeDto.getStartDate())
                 .endDate(noticeDto.getEndDate())
                 .build();
@@ -106,12 +106,32 @@ public class NoticeService {
                 = Optional.ofNullable(noticeRepository.findById(noticeId).orElseThrow(() -> {
             return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
         }));
-
-//        if (!optionalNoticeEntity.isPresent()) {
-//            return 0;
-//        }
-//        return 1;
     }
 
+
+    @Transactional
+    public void updatePost(NoticeDto noticeDto) {
+
+        Long noticeId = noticeDto.getId();
+
+        Optional<NoticeEntity> optionalNoticeEntity
+                = Optional.ofNullable(noticeRepository.findById(noticeId).orElseThrow(() -> {
+            return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+        }));
+        if (optionalNoticeEntity.isPresent()){
+            NoticeEntity noticeEntity = NoticeEntity.builder()
+                    .id(noticeDto.getId())
+                    .title(noticeDto.getTitle())
+                    .content(noticeDto.getContent())
+                    .writer(noticeDto.getWriter())
+                    .ord(noticeDto.getOrd())
+                    .deleteYn(noticeDto.getDeleteYn())
+                    .startDate(noticeDto.getStartDate())
+                    .endDate(noticeDto.getEndDate())
+                    .build();
+
+            noticeRepository.save(noticeEntity);
+        }
+    }
 
 }
