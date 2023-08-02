@@ -2,6 +2,7 @@ package com.example.demo.admin.review.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -40,27 +41,21 @@ public class ReviewEntity {
     @ColumnDefault("0")
     private Integer ord;
 
-    @Column(name="original_name")
-    private String originalName;
-
-    @Column(name="save_name")
-    private String saveName;
-
-    @Column(name="upload_path")
-    private String uploadPath;
-
     @Column(name = "delete_yn" , columnDefinition = "tinyint(1)")
     @ColumnDefault("0")
     private Integer deleteYn;
 
-    @CreatedDate
+    @Column(nullable = false,length = 1)
+    private int isFile;
+
+    @Column(name="c_code", nullable = false)
+    private int cCode;
+
+    @CreationTimestamp
     @Column(name="created_date", updatable=false)
     private LocalDateTime createdDate;
 
     @UpdateTimestamp
     @Column(name="modified_date", insertable=false)
     private LocalDateTime modifiedDate;
-
-    @Column(name="deleted_date", insertable=false)
-    private LocalDateTime deletedDate;
 }

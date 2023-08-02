@@ -1,5 +1,6 @@
 package com.example.demo.project.file.entity;
 
+import com.example.demo.base.file.entity.FileEntity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -44,14 +45,14 @@ public class FileReviewEntity extends BaseEntity {
     @ColumnDefault("0")
     private Integer deleteYn;
 
-    //N:1 FileMemberEntity
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")  // 참조테이블(MemberEntity,기본키)
-    private FileMemberEntity fileMemberEntity;
-
     @Column(nullable = false,length = 1)
     private int isFile;
 
-    @OneToMany(mappedBy = "fileReviewEntity",fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    private List<FileEntity> fileEntityList=new ArrayList<>();
+//    //N:1 FileMemberEntity
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "member_id")  // 참조테이블(MemberEntity,기본키)
+//    private FileMemberEntity fileMemberEntity;
+//
+//    @OneToMany(mappedBy = "fileReviewEntity",fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+//    private List<FileEntity> fileEntityList=new ArrayList<>();
 }

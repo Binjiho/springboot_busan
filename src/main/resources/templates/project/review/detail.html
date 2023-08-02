@@ -37,11 +37,14 @@
             <div class="contents" th:text="${items.content}">
             </div>
 
-            <th:block th:if="${not #strings.isEmpty(items.saveName)}">
-            <div class="images">
-              <img style="width:100%; height:auto;" th:src="@{/files/} + ${items.saveName}" alt="reviewImg">
-            </div>
+            <th:block th:if="${not #strings.isEmpty(files)}">
+              <th:block th:each="file : ${files}">
+                <div class="images">
+                  <img style="width:100%; height:auto;" th:src="@{/files/} + ${file.saveName}" alt="reviewImg">
+                </div>
+              </th:block>
             </th:block>
+
           </div>
         </div>
 

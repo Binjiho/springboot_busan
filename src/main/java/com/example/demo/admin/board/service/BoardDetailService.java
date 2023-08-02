@@ -5,13 +5,12 @@ import com.example.demo.admin.board.BoardDetailRequest;
 import com.example.demo.admin.board.BoardDetailResponse;
 
 
-import com.example.demo.base.file.FileRequest;
+import com.example.demo.base.file.dto.FileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,9 +24,9 @@ public class BoardDetailService {
      * @return Generated PK
      */
     @Transactional
-    public Long savePost(final BoardDetailRequest params, final List<FileRequest> files) {
+    public Long savePost(final BoardDetailRequest params, final List<FileDto> files) {
         if (!CollectionUtils.isEmpty(files)) {
-            for (FileRequest file : files) {
+            for (FileDto file : files) {
                 file.setBoard_id(params.getBoard_id());
             }
         }

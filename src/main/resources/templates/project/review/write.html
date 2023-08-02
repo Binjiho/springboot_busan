@@ -21,7 +21,7 @@
       <h3 class="sub_tit">이용후기 글쓰기</h3>
       <form id="saveForm" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" th:value="${items?.id} " />
-        <input type="hidden" name="return_url" value="/review/list" />
+        <input type="hidden" name="cCode" value="1" />
 
         <table class="bbsView">
           <colgroup>
@@ -58,13 +58,13 @@
             <td>
               <div class="file_list">
                 <div class='designFile'>
-                  <input type='text' readonly='readonly' th:value="${items?.saveName}" />
+                  <input type='text' readonly='readonly' th:value="${files?.saveName}" />
                   <input type='file' name='files' id='file' onchange="selectFile(this);"/><label for='file' class='button white'> 파일선택</label>
                 </div>
-                <!--
-                <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+
+<!--                <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>-->
                 <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
-                -->
+
               </div>
               <span>첨부파일 가능 용량은 20MB 입니다</span>
             </td>
@@ -110,6 +110,21 @@
         for (let i = 0, len = fields.length; i < len; i++) {
             isValid(fields[i], fieldNames[i]);
         }
+
+        //파일 첨부 검사
+        const isFile = document.getElementsByName('files')[0].value;
+        console.log(isFile);
+
+        const isFileInput = document.createElement('input');
+        isFileInput.setAttribute("type","hidden");
+        isFileInput.setAttribute("name","isFile");
+
+        if (isFile.length > 0) {
+          isFileInput.setAttribute("value",1);
+        }else{
+          isFileInput.setAttribute("value",0);
+        }
+        form.appendChild(isFileInput);
 
         form.action = [[ ${items == null} ]] ? '/review/save' : '/review/update';
         form.submit();
@@ -166,14 +181,41 @@
 
     // 파일 추가
     function addFile() {
+      const idx = $("input[name='files']").length;
+      const fId = "file"+idx;
       const fileDiv = document.createElement('div');
-      fileDiv.innerHTML = `
-          <div class='designFile'>
-            <input type='text' readonly='readonly' value=''/>
-            <input type='file' name='file_1' id='file_1'/><label for='file_1' class='button white'> 파일선택</label>
-          </div>
-          <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-      `;
+      const designFile = document.createElement('div');
+      designFile.className = 'designFile';
+
+      const input1 = document.createElement('input');
+      input1.setAttribute("type","text");
+      input1.setAttribute("value","");
+
+      const input2 = document.createElement('input');
+      input2.setAttribute("type","file");
+      input2.setAttribute("name","files");
+      input2.setAttribute("id",fId);
+      input2.setAttribute("onchange","selectFile(this)");
+
+      const label = document.createElement('label');
+      label.htmlFor = fId;
+      label.className = "button white";
+      label.innerHTML= "파일선택";
+
+      designFile.appendChild(input1);
+      designFile.appendChild(input2);
+      designFile.appendChild(label);
+
+      fileDiv.appendChild(designFile);
+
+      const button = document.createElement('button');
+      button.setAttribute("type","button");
+      button.setAttribute("onclick","removeFile(this)");
+      button.className = "btns del_btn";
+      button.innerHTML = "<span>삭제</span>";
+
+      fileDiv.appendChild(button);
+
       document.querySelector('.file_list').appendChild(fileDiv);
     }
 

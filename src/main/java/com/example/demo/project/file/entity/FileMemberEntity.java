@@ -30,7 +30,7 @@ public class FileMemberEntity extends BaseEntity {
     private Role role;
 
     // 1: N BoardEntity
-    @OneToMany(mappedBy = "fileMemberEntity",fetch = FetchType.LAZY,
-            cascade = CascadeType.REFRESH)
-    private List<FileReviewEntity> fileReviewEntityList=new ArrayList<>();
+//    @OneToMany(mappedBy = "fileMemberEntity",fetch = FetchType.LAZY,
+//            cascade = CascadeType.REFRESH)
+//    private List<FileReviewEntity> fileReviewEntityList=new ArrayList<>();
 }

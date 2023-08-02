@@ -5,7 +5,7 @@ import com.example.demo.admin.board.BoardDetailResponse;
 import com.example.demo.admin.board.BoardRequest;
 import com.example.demo.admin.board.service.BoardDetailService;
 import com.example.demo.base.controller.BaseController;
-import com.example.demo.base.file.FileRequest;
+import com.example.demo.base.file.dto.FileDto;
 import com.example.demo.base.file.FileUtils;
 import com.example.demo.base.paging.PagingResponse;
 import com.example.demo.base.paging.SearchDto;
@@ -103,7 +103,7 @@ public class BoardController extends BaseController {
     @PostMapping("/detail/save")
     public String saveDetailBoard(final BoardDetailRequest params, RedirectAttributes redirectAttributes) {
 
-        List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
+        List<FileDto> files = fileUtils.uploadFiles(params.getFiles());
         boardDetailService.savePost(params,files);
 
         redirectAttributes.addAttribute("boardId", params.getBoard_id());

@@ -1,6 +1,6 @@
 package com.example.demo.project.review.service;
 
-import com.example.demo.base.file.FileRequest;
+import com.example.demo.base.file.dto.FileDto;
 import com.example.demo.base.paging.Pagination;
 import com.example.demo.base.paging.PagingResponse;
 import com.example.demo.base.paging.SearchDto;
@@ -26,10 +26,10 @@ public class ReviewService {
      * @return Generated PK
      */
     @Transactional
-    public Long savePost(final ReviewRequest params, final List<FileRequest> files) {
+    public Long savePost(final ReviewRequest params, final List<FileDto> files) {
 
         if (!CollectionUtils.isEmpty(files)) {
-            for (FileRequest file : files) {
+            for (FileDto file : files) {
                 params.setOriginalName(file.getOriginalName());
                 params.setSaveName(file.getSaveName());
                 params.setUploadPath(file.getUploadPath());
@@ -55,10 +55,10 @@ public class ReviewService {
      * @return PK
      */
     @Transactional
-    public Long updatePost(final ReviewRequest params, final List<FileRequest> files) {
+    public Long updatePost(final ReviewRequest params, final List<FileDto> files) {
 
         if (!CollectionUtils.isEmpty(files)) {
-            for (FileRequest file : files) {
+            for (FileDto file : files) {
                 params.setOriginalName(file.getOriginalName());
                 params.setSaveName(file.getSaveName());
                 params.setUploadPath(file.getUploadPath());

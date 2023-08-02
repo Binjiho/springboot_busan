@@ -1,19 +1,14 @@
 package com.example.demo.admin.reservation.service;
 
-import com.example.demo.admin.board.BoardRequest;
 import com.example.demo.admin.reservation.ReservationDto;
 import com.example.demo.admin.reservation.ReservationMapper;
 import com.example.demo.admin.reservation.ReservationRequest;
 import com.example.demo.admin.reservation.ReservationResponse;
-import com.example.demo.base.file.FileRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 
 @Service

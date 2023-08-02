@@ -1,5 +1,6 @@
 package com.example.demo.base.file;
 
+import com.example.demo.base.file.dto.FileDto;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,8 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,8 +23,8 @@ public class FileUtils {
      * @param multipartFiles - 파일 객체 List
      * @return DB에 저장할 파일 정보 List
      */
-    public List<FileRequest> uploadFiles(final List<MultipartFile> multipartFiles) {
-        List<FileRequest> files = new ArrayList<>();
+    public List<FileDto> uploadFiles(final List<MultipartFile> multipartFiles) {
+        List<FileDto> files = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             if (multipartFile.isEmpty()) {
                 continue;
@@ -40,7 +39,7 @@ public class FileUtils {
      * @param multipartFile - 파일 객체
      * @return DB에 저장할 파일 정보
      */
-    public FileRequest uploadFile(final MultipartFile multipartFile) {
+    public FileDto uploadFile(final MultipartFile multipartFile) {
 
         if (multipartFile.isEmpty()) {
             return null;
@@ -58,11 +57,10 @@ public class FileUtils {
             throw new RuntimeException(e);
         }
 
-        return FileRequest.builder()
+        return FileDto.builder()
                 .originalName(multipartFile.getOriginalFilename())
                 .saveName(saveName)
                 .uploadPath(uploadPath)
-                .size(multipartFile.getSize())
                 .build();
     }
 

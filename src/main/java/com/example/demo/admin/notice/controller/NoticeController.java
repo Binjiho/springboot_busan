@@ -3,19 +3,13 @@ package com.example.demo.admin.notice.controller;
 import com.example.demo.admin.notice.dto.NoticeDto;
 import com.example.demo.admin.notice.service.NoticeService;
 import com.example.demo.base.controller.BaseController;
-import com.example.demo.base.file.FileRequest;
-import com.example.demo.base.file.FileUtils;
 import com.example.demo.base.paging.PageRequestDto;
 import com.example.demo.base.paging.PageResponseDto;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin/notice")
