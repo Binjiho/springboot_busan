@@ -1,6 +1,7 @@
 package com.example.demo.admin.review.service;
 
 import com.example.demo.admin.review.dto.ReviewDto;
+import com.example.demo.admin.review.dto.ReviewWithFileDto;
 import com.example.demo.admin.review.entity.QReviewEntity;
 import com.example.demo.admin.review.entity.ReviewEntity;
 import com.example.demo.admin.review.repository.ReviewRepository;
@@ -37,8 +38,14 @@ public class AdminReviewService {
         // 검색 조건 처리
         BooleanBuilder booleanBuilder = getSearch(requestDto);
 
-        Page<ReviewEntity> reviewEntities = reviewRepository.findAll(booleanBuilder, pageable);
+//        List<ReviewWithFileDto> reviewWithFileDtos = reviewRepository.findReviewWithFiles(booleanBuilder, pageable);
+//        for(ReviewWithFileDto items : reviewWithFileDtos){
+//            System.out.println(items.getId());
+//            System.out.println(items.getcCode());
+//            System.out.println(items.getSaveName());
+//        }
 
+        Page<ReviewEntity> reviewEntities = reviewRepository.findAll(booleanBuilder, pageable);
         Page<ReviewDto> reviewDtos = reviewEntities.map(ReviewDto::toDto);
 
         return new PageResponseDto<>(reviewDtos);
