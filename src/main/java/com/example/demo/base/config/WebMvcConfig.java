@@ -18,16 +18,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations(resourcePath);
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoggerInterceptor())
-//                .excludePathPatterns("/css/**", "/images/**", "/js/**");
-
-        registry.addInterceptor(new LoginCheckInterceptor())
-                .addPathPatterns("/**/*.ext")
-                .excludePathPatterns("/log*");
-    }
-
-
-
 }

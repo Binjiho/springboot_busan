@@ -1,5 +1,6 @@
 package com.example.demo.admin.member.service;
 
+import com.example.demo.admin.member.config.MyUserDetails;
 import com.example.demo.admin.member.entity.MemberEntity;
 import com.example.demo.admin.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,22 +23,20 @@ public class MemberLoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("================================================");
-        log.info("UserDetailsService loadUserByUsername" + username);
-        Optional<MemberEntity> result = memberRepository.findByUserId(username);
-        if (memberRepository.findByUserId(username) == null){
-            throw new UsernameNotFoundException(username);
-        }
-        if(!result.isPresent()){
-            throw new UsernameNotFoundException("존재하지 않는 회원입니다!");
-        }
+        log.info("UserDetailsService loadUserByUsername: " + username);
 
-        MemberEntity memberEntity = result.get();
+        MemberEntity memberEntity = memberRepository.findByUserId(username).orElseThrow(() -> {
+            throw new UsernameNotFoundException("존재하지 않는 회원입니다!");
+        });
+
+        log.info("================================================");
         log.info(memberEntity);
 
-        return User.builder()
-                .username(memberEntity.getUserId())
-                .password(memberEntity.getUserPw())
-                .roles(memberEntity.getRoles())
-                .build();
+//        return User.builder()
+//                .username(memberEntity.getUserId())
+//                .password(memberEntity.getUserPw())
+//                .roles(memberEntity.getRole().toString())
+//                .build();
+        return new MyUserDetails(memberEntity);
     }
 }

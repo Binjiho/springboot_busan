@@ -29,15 +29,6 @@ public class MemberController {
         return "admin/member/login";
     }
 
-    //security에 의해 사용하지않음
-//    @PostMapping("/member/login")
-//    public String processLogin(@RequestBody final MemberDto memberDto){
-//        boolean isValidMember = memberLoginService.isValidMember(memberDto.getUserId(), memberDto.getUserPw());
-//        if (isValidMember)
-//            return "/admin/main";
-//        return "/admin/member/login";
-//    }
-
     // 회원 정보 저장 (회원가입)
     @PostMapping("/member/save")
     @ResponseBody

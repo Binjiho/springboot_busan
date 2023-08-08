@@ -1,5 +1,6 @@
 package com.example.demo.admin.member.entity;
 
+import com.example.demo.admin.member.config.Role;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -38,8 +39,11 @@ public class MemberEntity {
     @ColumnDefault("0")
     private Integer fromSocial;
 
-    @Column(length = 20)
-    private String roles;
+//    @Column(length = 20)
+//    private String roles;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "delete_yn")
     @ColumnDefault("0")

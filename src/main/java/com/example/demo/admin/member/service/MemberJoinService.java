@@ -3,6 +3,7 @@ package com.example.demo.admin.member.service;
 import com.example.demo.admin.member.dto.MemberDto;
 import com.example.demo.admin.member.entity.MemberEntity;
 import com.example.demo.admin.member.repository.MemberRepository;
+import com.example.demo.admin.member.config.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,8 @@ public class MemberJoinService {
                     .userPw(passwordEncoder.encode(memberDto.getUserPw()))
                     .htel(memberDto.getHtel())
                     .name(memberDto.getName())
-                    .roles("USER")
+                    .role(Role.valueOf("ADMIN"))
+//                    .roles("USER")
                     .build();
             memberRepository.save(memberEntity);
             return memberEntity.getId();
