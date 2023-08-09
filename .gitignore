@@ -35,5 +35,5 @@ out/
 
 # ignore properties file
 application-db.yml
-aaplication-oauth2.yml
+application-oauth2.yml
 logs/
