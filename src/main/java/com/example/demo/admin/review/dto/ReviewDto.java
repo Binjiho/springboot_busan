@@ -26,7 +26,7 @@ public class ReviewDto {
     private int ord;
     private int deleteYn;
     private int isFile;
-    private List<MultipartFile> files = new ArrayList<>();// 첨부파일 List
+    private List<MultipartFile> files = new ArrayList<>(); // 첨부파일 List
     private int cCode;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
