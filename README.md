@@ -1,2 +1,2 @@
 # springboot_busan
-almond villa blog
+almond villa busan blog in JAVA
