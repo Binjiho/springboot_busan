@@ -1,6 +1,6 @@
-#GreenAca
+#BlueGreen Dokcer proxy port
 server:
-  port : 9000
+  port : 8080
 #
 spring:
   profiles:
