@@ -203,11 +203,11 @@
               },
               events: data,
               eventDidMount: function(info) {
-                  if (info.event.extendedProps.status == '1') {
+                  if (info.event.extendedProps.status == '0') {
                       info.el.childNodes[0].innerHTML+="<span class='value01'>완료</span>";
-                  } else if(info.event.extendedProps.status == '2') {
+                  } else if(info.event.extendedProps.status == '1') {
                       info.el.childNodes[0].innerHTML+="<span class='value02'>가능</span>";
-                  } else if(info.event.extendedProps.status == '3') {
+                  } else if(info.event.extendedProps.status == '2') {
                       info.el.childNodes[0].innerHTML+="<span class='value03'>대기</span>";
                   }
               }

@@ -37,9 +37,11 @@ public class NoticeEntity {
     @ColumnDefault("0")
     private Integer deleteYn;
 
+    @CreatedDate
     @Column(name="start_date", nullable = false)
     private LocalDateTime startDate;
 
+    @UpdateTimestamp
     @Column(name="end_date", nullable = false)
     private LocalDateTime endDate;
 }

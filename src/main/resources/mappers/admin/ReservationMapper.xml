@@ -39,7 +39,7 @@
     </select>
 
     <!-- 저장 -->
-    <insert id="save" parameterType="com.example.demo.admin.reservation.ReservationDto" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.example.demo.admin.reservation.dto.ReservationDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO rs_schedule (
             <include refid="scheduleColumns" />
         ) VALUES (

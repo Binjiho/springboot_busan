@@ -1,10 +1,9 @@
 package com.example.demo.admin.reservation;
 
+import com.example.demo.admin.reservation.dto.ReservationDto;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface ReservationMapper {

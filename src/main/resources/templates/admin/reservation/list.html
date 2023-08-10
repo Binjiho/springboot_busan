@@ -31,17 +31,17 @@
                         <tbody>
                         <tr>
                             <th>등록일</th>
-                            <td colspan="2"><input type="text" id="startDate" name="startDate" readonly /></td>
+                            <td colspan="2"><input type="text" id="start" name="start" readonly /></td>
                         </tr>
 
                         <form name="updateForm" method="post" autocomplete="off">
                         <tr>
                             <th>키즈핑크<span class="es">필수 입력</span></th>
                             <td>
-                                <div class="chkbox_group">
-                                    <input type="checkbox" id="kp1" name="rooms[]" class="chk" value="1"/><label for="kp1">예약완료</label>
-                                    <input type="checkbox" id="kp2" name="rooms[]" class="chk" value="2"/><label for="kp2">예약가능</label>
-                                    <input type="checkbox" id="kp3" name="rooms[]" class="chk" value="3"/><label for="kp3">예약대기</label>
+                                <div class="chkbox_group" data-name="키즈핑크">
+                                    <input type="checkbox" id="kp1" name="rooms[]" class="chk" value="0"/><label for="kp1">예약완료</label>
+                                    <input type="checkbox" id="kp2" name="rooms[]" class="chk" value="1"/><label for="kp2">예약가능</label>
+                                    <input type="checkbox" id="kp3" name="rooms[]" class="chk" value="2"/><label for="kp3">예약대기</label>
                                 </div>
 
                                 <!--
@@ -70,10 +70,10 @@
                         <tr>
                             <th>키즈옐로우<span class="es">필수 입력</span></th>
                             <td>
-                                <div class="chkbox_group">
-                                    <input type="checkbox" id="ky1" name="rooms[]" class="chk" value="1"/><label for="ky1">예약완료</label>
-                                    <input type="checkbox" id="ky2" name="rooms[]" class="chk" value="2"/><label for="ky2">예약가능</label>
-                                    <input type="checkbox" id="ky3" name="rooms[]" class="chk" value="3"/><label for="ky3">예약대기</label>
+                                <div class="chkbox_group" data-name="키즈옐로우">
+                                    <input type="checkbox" id="ky1" name="rooms[]" class="chk" value="0"/><label for="ky1">예약완료</label>
+                                    <input type="checkbox" id="ky2" name="rooms[]" class="chk" value="1"/><label for="ky2">예약가능</label>
+                                    <input type="checkbox" id="ky3" name="rooms[]" class="chk" value="2"/><label for="ky3">예약대기</label>
                                 </div>
                             </td>
                             <td>
@@ -83,10 +83,10 @@
                         <tr>
                             <th>시티풀화이트<span class="es">필수 입력</span></th>
                             <td>
-                                <div class="chkbox_group">
-                                    <input type="checkbox" id="cw1" name="rooms[]" class="chk" value="1"/><label for="cw1">예약완료</label>
-                                    <input type="checkbox" id="cw2" name="rooms[]" class="chk" value="2"/><label for="cw2">예약가능</label>
-                                    <input type="checkbox" id="cw3" name="rooms[]" class="chk" value="3"/><label for="cw3">예약대기</label>
+                                <div class="chkbox_group" data-name="시티풀화이트">
+                                    <input type="checkbox" id="cw1" name="rooms[]" class="chk" value="0"/><label for="cw1">예약완료</label>
+                                    <input type="checkbox" id="cw2" name="rooms[]" class="chk" value="1"/><label for="cw2">예약가능</label>
+                                    <input type="checkbox" id="cw3" name="rooms[]" class="chk" value="2"/><label for="cw3">예약대기</label>
                                 </div>
                             </td>
                             <td>
@@ -96,10 +96,10 @@
                         <tr>
                             <th>뮤직핑크<span class="es">필수 입력</span></th>
                             <td>
-                                <div class="chkbox_group">
-                                    <input type="checkbox" id="mp1" name="rooms[]" class="chk" value="1"/><label for="mp1">예약완료</label>
-                                    <input type="checkbox" id="mp2" name="rooms[]" class="chk" value="2"/><label for="mp2">예약가능</label>
-                                    <input type="checkbox" id="mp3" name="rooms[]" class="chk" value="3"/><label for="mp3">예약대기</label>
+                                <div class="chkbox_group" data-name="뮤직핑크">
+                                    <input type="checkbox" id="mp1" name="rooms[]" class="chk" value="0"/><label for="mp1">예약완료</label>
+                                    <input type="checkbox" id="mp2" name="rooms[]" class="chk" value="1"/><label for="mp2">예약가능</label>
+                                    <input type="checkbox" id="mp3" name="rooms[]" class="chk" value="2"/><label for="mp3">예약대기</label>
                                 </div>
                             </td>
                             <td>
@@ -109,10 +109,10 @@
                         <tr>
                             <th>뮤직옐로우<span class="es">필수 입력</span></th>
                             <td>
-                                <div class="chkbox_group">
-                                    <input type="checkbox" id="my1" name="rooms[]" class="chk" value="1"/><label for="my1">예약완료</label>
-                                    <input type="checkbox" id="my2" name="rooms[]" class="chk" value="2"/><label for="my2">예약가능</label>
-                                    <input type="checkbox" id="my3" name="rooms[]" class="chk" value="3"/><label for="my3">예약대기</label>
+                                <div class="chkbox_group" data-name="뮤직옐로우">
+                                    <input type="checkbox" id="my1" name="rooms[]" class="chk" value="0"/><label for="my1">예약완료</label>
+                                    <input type="checkbox" id="my2" name="rooms[]" class="chk" value="1"/><label for="my2">예약가능</label>
+                                    <input type="checkbox" id="my3" name="rooms[]" class="chk" value="2"/><label for="my3">예약대기</label>
                                 </div>
                             </td>
                             <td>
@@ -124,11 +124,11 @@
                         </tbody>
                     </table>
                 </form>
-                <!--
+
                 <p class="btn_set">
-                    <button type="button" id="saveBtn" onclick="savePost();" class="btns btn_st3 btn_mid" style="background: #353535;">저장</button>
+                    <button type="button" id="saveBtn" onclick="savePost();" class="btns btn_st3 btn_mid" style="background: #353535;">Room상태값생성</button>
                 </p>
-                -->
+
             </div>
 
         </div>
@@ -173,11 +173,13 @@
                     },
                     events: data,
                     eventDidMount: function(info) {
-                        if (info.event.extendedProps.status == '1') {
+                        console.log(info);
+
+                        if (info.event.extendedProps.status == '0') {
                             info.el.childNodes[0].innerHTML+="<span class='value01'>완료</span>";
-                        } else if(info.event.extendedProps.status == '2') {
+                        } else if(info.event.extendedProps.status == '1') {
                             info.el.childNodes[0].innerHTML+="<span class='value02'>가능</span>";
-                        } else if(info.event.extendedProps.status == '3') {
+                        } else if(info.event.extendedProps.status == '2') {
                             info.el.childNodes[0].innerHTML+="<span class='value03'>대기</span>";
                         }
                     }
@@ -189,7 +191,7 @@
                         type : "POST",
                         url: "/api/reservation/list/detail",
                         data : JSON.stringify({
-                            "startDate" : info.dateStr
+                            "start" : info.dateStr
                         }),
                         contentType : "application/json",
                         dataType : "json"
@@ -197,14 +199,14 @@
                     requestDetail.done(function( result ) {
                         for(const idx in result){
                             $('.chkbox_group').eq(idx).attr('data-id',result[idx].id);
-                            $('.chkbox_group').eq(idx).find('input[type=checkbox]').eq(result[idx].status-1).prop('checked',true);
+                            $('.chkbox_group').eq(idx).find('input[type=checkbox]').eq(result[idx].status).prop('checked',true);
                         }
                     });
                     requestDetail.fail(function( jqXHR, textStatus ) {
                         alert( "Request failed: " + textStatus );
                     });
 
-                  $("#startDate").val(info.dateStr);
+                  $("#start").val(info.dateStr);
                   $(".popLayer").show();
                 });
                 calendar.render();
@@ -230,8 +232,9 @@
         $(document).on("click", ".btn_mid", function() {
             const formData = {
                 id: $(this).parent().parent().find('.chkbox_group').data('id'),
+                title: $(this).parent().parent().find('.chkbox_group').data('name'),
                 status: $(this).parent().parent().find('input[type=checkbox]:checked').val(),
-                startDate: $('#startDate').val()
+                start: $('#start').val()
             };
             const requestUpdate = $.ajax({
                 type : "POST",
@@ -249,12 +252,26 @@
             });
         });
 
-        // function savePost() {
-        //     const form = document.getElementById('saveForm');
-        //     document.getElementById('saveBtn').disabled = true;
-        //     form.action = '/admin/reservation/save';
-        //     form.submit();
-        // }
+        function savePost() {
+            const chkbox_group = $(".chkbox_group");
+            const roomNmArr=[];
+            $.each(chkbox_group, function(index, obj) {
+                const rmName = $(obj).data('name');
+                roomNmArr.push(rmName);
+            });
+
+            const input = document.createElement('input');
+            input.setAttribute("type","hidden");
+            input.setAttribute("name","rooms");
+            input.setAttribute("value",roomNmArr);
+
+            const form = document.getElementById('saveForm');
+            form.appendChild(input);
+
+            document.getElementById('saveBtn').disabled = true;
+            form.action = '/admin/reservation/save';
+            form.submit();
+        }
     </script>
 
 </th:block>
