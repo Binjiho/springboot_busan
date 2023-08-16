@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+</head>
+<body>
+<div class="chat">
+    <div class="chat-con">
+        <h1 class="title">WEBSOCKET</h1>
+        <div class="connect">
+            <input type="text" name="userId" id="userId" placeholder="접속자명">
+            <input type="button" value="Connect" id="connectBtn">
+        </div>
+        <div class="chatWindow">
+            <div class="chatWindow-con">
+
+            </div>
+        </div>
+        <div class="footChat">
+            <input type="text" name="msg" id="msg" placeholder="message 입력">
+            <input type="button" value="sendBtn">
+        </div>
+    </div>
+</div>
+</body>
+</html>

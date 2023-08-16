@@ -32,7 +32,7 @@ public class MainController extends BaseController {
         Long boardId = 1L; // HOME: 1L , OUT: 1001L
         List<BoardDetailResponse> bannerTop = boardDetailService.findAllPostById(boardId);
         model.addAttribute("bannerTop", bannerTop);
-        return "project/main/index";
+        return "project/main/index.html";
     }
     /* about */
     /**
