@@ -2,6 +2,7 @@ package com.example.demo.base.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.example.demo.base.chat.entity.BaseEntity;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

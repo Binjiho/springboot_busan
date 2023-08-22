@@ -1,7 +1,5 @@
 package com.example.demo.base.file.entity;
 
-import com.example.demo.project.file.entity.BaseEntity;
-import com.example.demo.project.file.entity.FileReviewEntity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

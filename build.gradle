@@ -27,6 +27,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io'}
 }
 
 dependencies {
@@ -53,6 +54,9 @@ dependencies {
 	implementation "com.querydsl:querydsl-jpa"
 	implementation "com.querydsl:querydsl-core"
 	implementation "com.querydsl:querydsl-collections"
+	/* komoran */
+	implementation 'com.github.shin285:KOMORAN:3.3.4'
+
 
 	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api" // java.lang.NoClassDefFoundError (javax.annotation.Generated) 대응 코드

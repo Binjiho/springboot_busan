@@ -1,0 +1,10 @@
+openApi:
+  key:
+    naver:
+      clientId: 4MpqiUdEpLoSom4pttuP
+      clientSecret: USGxiDbR6d
+
+env:
+  jwt:
+    mySecretKey: frankbravekikibravewebtoonlistfrankbravekikibravewebtoonlistfrankbravekikibravewebtoonlist
+    expireH: 6
